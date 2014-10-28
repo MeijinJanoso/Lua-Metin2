@@ -1,0 +1,48 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_guard begin
+	state start begin
+		when 20349.chat."Informacje o Koniach" begin
+			local s=number(1, 3)
+			if 1>=s then
+				say("Pamiêtaj, ¿e twój koñ nie jest boskim stworzeniem")
+				say("Aby zosta³ przy ¿yciu, musisz go dosyæ czêsto karmiæ ")
+				say(" ")
+				say("Konia zwyk³ego karmisz zwyk³ym i tanim sianem;")
+				say("Konia opancerzonego karmisz marchewkami;")
+				say("Konia militarnego karmisz czerwonymi zen-szen.")
+				say(" ")
+				say("Pamiêtaj, ¿e ka¿dy koñ mo¿e zjeœæ tylko odpowiedni ")
+				say("dla niego rodzaj ¿ywnoœci. ")
+			elseif 2>=s then
+				say("Je¿eli twój koñ nie ¿yje, mo¿esz go wskrzesiæ. ")
+				say("Aby to uczyniæ, zdob¹dŸ odpowiednie zio³a. ")
+				say(" ")
+				say("Dla konia zwyk³ego, s¹ to z ³atwego lochu ma³p; ")
+				say("Dla konia opancerzonego - z œredniego lochu ma³p; ")
+				say("Dla konia militarnego - z trudnego lochu ma³p. ")
+				say(" ")
+				say("Jeœli zdobêdziesz odpowiednie zio³a, udaj siê ")
+				say("do stajennego by wskrzesi³ twojego konia.")
+			elseif 3>=s then
+				say("O stanie twojego konia informuje ikona")
+				say("pojawiaj¹ca siê po przywo³aniu i znikaj¹ca ")
+				say("po odwo³aniu twojego konia.")
+				say(" ")
+				say("Zielona ikona oznacza ze z koniem jest w porz¹dku; ")
+				say("W pol szara oznacza ze koñ sie meczy;")
+				say("Ca³a szara ikona oznacza ze koñ nie nadaje siê ")
+				say("do jazdy;")
+				say("Zo³ta oznacza ze koñ nie dosta³ jedzenia;")
+				say("Czerwona oznacza ze koñ d³ugo nie dostawa³ jedzenia")
+				say("i zaraz zdechnie.")
+				say(" ")
+				say("Jak najczeœciej staraj siê sprawdzaæ i utrzymywaæ ")
+				say("zielon¹ ikone twojego konia.")
+			end
+		end
+	end
+end

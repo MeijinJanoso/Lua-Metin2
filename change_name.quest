@@ -1,0 +1,68 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest changename begin
+	state start begin
+		when 71055.use begin
+			say_title("Zmiana Nicku:")
+			say("")
+			say("Witaj,")
+			say("dziêki neizwyk³ej mocy mo¿esz zmieniæ swój nick na sta³e! ")
+			say("Wystarczy, ¿e siê zgodzisz !")
+			say("")
+			say_reward("Czy chcia³byœ zmieniæ swój nick?")
+			say("")
+			local change = select("Tak", "Nie")
+			if change == 1 then
+				say_title("Zmiana Nicku:")
+				say("")
+				say("wiêc chcesz zmieniæ swój nick?")
+				say("Dobrze, tylko pamiêtaj, ¿e przyjaciele ")
+				say("mog¹ Ciê nie rozpoznaæ pod tym nowym imieniem")
+				say("")
+				say_reward("Podaj swój nowy nick:")
+				say_reward("Nie mo¿esz u¿ywaæ kodów ASCI!")
+				say("")
+				local c_name = input()
+				local c_search = find_pc_by_name(c_name)
+				if c_search==0 then 
+					say_title("Zmiana Nicku:")
+					say("")
+					say("Poda³eœ ju¿ swój nowy nick wyglo¹da on tak:")
+					say(c_name)
+					say("Zmieniæ na ten nick?")
+					say("")
+					local secure = select("Tak", "Nie")
+					if secure == 1 then
+						say_title("Zmiana Nicku:")
+						say("")
+						say("Pomyœlnie Zmieniono Nick!")
+						say("")
+						say("Twoja nowa nazwa to: "..c_name.." ")
+						say("")
+						say_reward("Przeloguj siê aby zaktualizowaæ zmiany!")
+						say("")
+						pc.change_name(c_name)
+						pc.remove_item(71055, 1)
+					else
+						say_title("Zmiana Nicku:")
+						say("")
+						say("Dobrze, ¿e zmieni³eœ zdanie...")
+						say("Twoja nazwa nie zosta³a zmieniona!")
+						say("")
+					end
+				else
+					say_title("Zmiana Nicku:")
+					say("")
+					say("Podana przez Ciebie nazwa nicku ju¿ jest zajêta!")
+					say("Wybierz sobie nowy inny nick i go podaj...")
+					say("")
+				end
+			else
+				return
+			end
+		end
+	end
+end

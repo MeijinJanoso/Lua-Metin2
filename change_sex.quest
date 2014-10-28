@@ -1,0 +1,123 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest item_change_sex begin
+	state start begin
+		when 71048.use begin
+			if pc.get_level() < 50 then
+				say_title("Zmiana p³ci")
+				say("")
+				say("Chcia³byœ zmieniæ p³eæ?")
+				say("Przykro mi lecz nie posiadasz")
+				say("odpowiedniego poziomu by tego dokonaæ.")
+				say("")
+				say_reward("Aby zmieniæ p³eæ osi¹gnij 50 poziom!")
+				return;
+			end
+			if pc.is_engaged() then
+				say_title("Zmiana P³ci")
+				say("")
+				say("Chcia³byœ zmieniæ p³eæ?")
+				say("Przykro mi lecz nie mo¿esz zmieniæ ")
+				say("p³ci gdy¿ jesteœ zarêczony!")
+				say_reward("Nie mo¿esz zmieniæ p³ci bêd¹c zarêczonym!")
+				say("")
+				say("")
+				say("")
+				say("")
+				return;
+			end
+			if pc.is_married() then
+				say_title("Zmiena P³ci")
+				say("")
+				say("Chcia³byœ zmieniæ p³eæ?")
+				say("Przykro mi lecz nie mo¿esz zmieniæ ")
+				say("p³ci gdy¿ jesteœ w zwi¹zku!")
+				say("")
+				say_reward("Nie mo¿esz bêd¹c w zwi¹zku!")
+				say("")
+				say("")
+				say("")
+				say("")
+				return;
+			end
+			if pc.is_polymorphed() then
+				say_title("Zmiena P³ci")
+				say("")
+				say("Chcia³byœ zmieniæ p³eæ?")
+				say("Przykro mi lecz nie mo¿esz zmieniæ ")
+				say("p³ci gdy¿ jesteœ potworem!")
+				say("")
+				say_reward("Nie mo¿esz zmieniæ p³ci bêd¹c potworem!")
+				say("")
+				return
+			end
+			if get_time() < pc.getqf("next_time") then
+				say_title("Zmiena P³ci")
+				say("")
+				say("Chcia³byœ zmieniæ p³eæ?")
+				say("Przykro mi lecz nie mo¿esz zmieniæ ")
+				say("p³ci gdy¿ Twój czas od ostatniej")
+				say("zmiany jeszcze nie min¹³!")
+				say("")
+				say_reward("Musisz odczekaæ 3 dni!")
+				say("")
+				if pc.is_gm() then
+					say(string.format("    %s", time_to_str(pc.getqf("next_time"))))
+					say("")
+					say("Jesteœ GM!")
+					say("Mo¿esz zmieniaæ p³eæ kiedy tylko zechcesz!")
+					say("lecy Twjój czas od ostatniej zmiany")
+					say("jeszcze nie min¹³...")
+					say("Mo¿esz go jednak zrestartowaæ!")
+					say_reward("Czy chcesz zresetowaæ czas?")
+					local s = select("Tak!", "Nie..")
+					if s == 1 then
+						say("Twój czas zosta³ zrestartowany.")
+						say("Mo¿esz teraz zmieniæ p³eæ!")
+						pc.setqf("next_time", 0)
+					end
+				end
+				return
+			end
+			say_title("Zmiana P³ci")
+			say("Wiêc chcia³byœ zmieniæ swoj¹ p³eæ?")
+			say("")
+			say("czy zdajesz sobie sprawê jakie tego")
+			say("s¹ konsekwencje?")
+			wait()
+			say_title("Zmiana p³ci")
+			say("Mo¿esz zmieniaæ p³eæ tylko co trzy dni.")
+			say("Nie mo¿esz ju¿ zmieniæ p³ci jak bêdziesz w zwi¹zku.")
+			say("Czy jesteœ tego pewien?.")
+			say("")
+			say_reward("Czy chcesz zmieniæ swoj¹ p³eæ?")
+			local s=select(
+				"Tak, chcia³bym!",
+				"Jednak siê rozmyœli³em..")
+			if 1==s then
+				say_title("Zmiana P³ci")
+				say("Zmieni³eœ swoj¹ p³eæ!")
+				say("od teraz jesteœ inn¹ osob¹..")
+				say("")
+				say_reward("Proszê zmieñ postaæ w celu uaktualnienia p³ci.")
+				say("")
+				pc.remove_item("71048",1)
+				pc.setqf("next_time", get_time() + 86400 * 3)
+				pc.change_sex()
+				local m_sex = pc.get_sex()
+				if m_sex == 0 then
+				    char_log(0, "CHANGE_SEX", "F -> M")
+				else
+				    char_log(0, "CHANGE_SEX", "M -> F")
+				end
+			elseif 2==s then
+				say_title("Zmiana P³ci")
+				say("S³uszny wybór!")
+				say("Nie warto zmieniaæ p³ci..")
+			end
+		end
+	end
+end

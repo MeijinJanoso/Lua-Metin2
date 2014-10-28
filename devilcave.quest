@@ -1,0 +1,296 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+---------------------------------------------------------------------------------------------
+---Devils Catacomb by Exterminatus
+---Letzte bearbeitung am 03.03.2012 um 12:20Uhr durch Exterminatus
+---Spolszczona wersja oraz drobne poprawki by Swierko12
+---------------------------------------------------------------------------------------------
+quest devilcave begin
+	state start begin
+	--Reset stanu DC
+		when 20351.chat."Zresetuj stan Devil's Catacomb!" with pc.is_gm begin
+			say_title("Stra¿nik Katakumb")
+			say("")
+			say_reward("Status zresetowany!")
+			say("")
+			game.set_event_flag("dc_versuche",1)
+			game.set_event_flag("dcgamer",0)
+			game.set_event_flag("dc_geschaft",0)
+		end
+			--Konfiguracja
+		when 20351.chat."Konfiguracja Devil's Catacomb!" with game.get_event_flag("block_dc_config") == 0 and pc.is_gm begin
+			game.set_event_flag("dc_is_ok",1)
+			game.set_event_flag("block_dc_config",1)
+			game.set_event_flag("dc_versuche",1)
+		end
+	--Nieudane wejœcie
+		--when 20351.chat."Lv.80 - Devil's Catacomb" with game.get_event_flag("dc_is_ok") == 1 and pc.getqf("can_in_dc") == 0 and pc.level > 80 begin
+			--say_title("Stra¿nik Katakumb")
+			--say("")
+			--say_reward("Nie mo¿esz wejœæ do Devil's Catacomb!")
+			--say("")
+			--say_reward("Przynieœ mi Relikt ¯niwiarza!")
+			--say_reward("Wtedy pozwolê Ci iœæ dalej!")
+			--end
+		--when 20351.chat."Lv.80 - Devil's Catacomb" with game.get_event_flag("dc_is_ok") == 1 and pc.getqf("can_in_dc") == 1 and pc.level < 80 begin
+			--say_title("Stra¿nik Katakumb")
+			--say("")
+			--say_reward("Posiadasz zbyt niski poziom!")
+			--say("")
+			--end
+			--Oddanie przedmiotu
+		--when 20351.take with item.vnum == 30122 and pc.getqf("can_in_dc") == 0 begin
+			--if pc.level < 80 then
+				--say_title("Stra¿nik Katakumb")
+				--say("")
+				--say_reward("Musisz posiadaæ 80 poziom oraz Relikt ¯niwiarza!")
+				--say("")
+			--else
+				--item.remove()
+				--say_title("Stra¿nik Katakumb")
+				--say("")
+				--say_reward("Dobrze, mo¿esz wejœæ do Devil's Catacomb!")
+				--say("")
+				--pc.setqf("can_in_dc", 1)
+			--end
+		--end
+	--Wejœcie
+		when 20351.chat."Devil's Catacomb" with game.get_event_flag("dc_is_ok") == 1 and pc.getqf("can_in_dc") == 0 begin
+			if pc.level < 80 then
+				say_title("Stra¿nik Katakumb")
+				say("")
+				say_reward("Posiadasz zbyt niski poziom!")
+				say("")
+			else
+				say_title("Stra¿nik Katakumb")
+				say("")
+				say("Do tej pory "..game.get_event_flag("dcgamer").." wojowników wesz³o")
+				say("do Katakumb. Tylko "..game.get_event_flag("dc_geschaft").." wróci³o")
+				say("bezpiecznie do swoich domów!")
+				wait()
+				say_title("Stra¿nik Katakumb")
+				say("")
+				say_reward("Jesteœ pewien swojej decyzji?")
+				say_reward("Wojowników których próbowa³o przejœæ ")
+				say_reward("przez Katakumby, by³o a¿ "..game.get_event_flag("dc_versuche")..".")
+				say_reward("Niewielu z nich do¿y³o dnia dzisiejszego...")
+				say("")
+				local dc_login = select("Spróbuj", "Anuluj")
+				if dc_login == 1 then
+					pc.warp(314800, 1209800)
+				elseif dc_login == 2 then
+					return
+				end
+			end
+		end
+	--Poziom 1
+		when login with pc.get_map_index() == 209 begin
+			game.set_event_flag("trumetin", 0)
+			game.set_event_flag(("dcgamer"), game.get_event_flag("dcgamer")+1)
+			game.set_event_flag(("dc_versuche"), game.get_event_flag("dc_versuche")+1)
+			say_title("Devil's Catacomb")
+			say("Aby dostaæ siê na drugi poziom musisz...")
+			say_item("Kryszta³owy Klucz Duszy", 30311, "")
+			say("przeci¹gn¹æ klucz na pos¹g!")
+			say("")
+			say_reward("Powodzenia!")
+			say("")
+			pc.setqf("sksgedroppt", 0)
+		end
+		when kill with not npc.is_pc() and pc.get_map_index() == 209 begin
+			local sks = number(1,15)
+			if sks==1 and pc.getqf("sksgedroppt")==0 then
+				pc.setqf("sksgedroppt", 1)
+				chat("Uda³o Ci siê! Znalaz³eœ Kryszta³owy Klucz Duszy!")
+				game.drop_item(30311, 1)
+			else
+				chat("Ten potwór nie posiada³ Klucza...")
+			end
+		end
+		when 30101.take with item.vnum == 30311 begin
+			item.remove()
+			d.new_jump_all(209, 3636, 12086)
+			timer("dc1", 600)
+			d.notice("Musisz przedostaæ siê przez Piekielne Bramy!")
+			d.notice("Twój czas to tylko 10 minut!")
+			d.regen_file("data/dungeon/devilcave/dc_regen_ebene2.txt")
+			d.regen_file("data/dungeon/devilcave/dc_regen_tore.txt")
+			d.regen_file("data/dungeon/devilcave/dc_regen_tore_left.txt")
+			d.spawn_mob(30104, 741, 221)
+		end
+		when dc1.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end
+		when dc2.timer begin
+			d.notice("Pozosta³o 50 minut!")
+			timer("dc3", 209)
+		end
+		when dc3.timer begin
+			d.notice("Pozosta³o 45 minut!")
+			timer("dc4", 209)
+		end	
+		when dc4.timer begin
+			d.notice("Pozosta³o 40 minut!")
+			timer("dc5", 209)
+		end	
+		when dc5.timer begin
+			d.notice("Pozosta³o 40 minut!")
+			timer("dc6", 209)
+		end	
+		when dc6.timer begin
+			d.notice("Pozosta³o 35 minut!")
+			timer("dc7", 209)
+		end
+		when dc7.timer begin
+			d.notice("Pozosta³o 30 minut!")
+			timer("dc8", 209)
+		end	
+		when dc8.timer begin
+			d.notice("Pozosta³o 25 minut!")
+			timer("dc9", 209)
+		end	
+		when dc9.timer begin
+			d.notice("Pozosta³o 20 minut!")
+			timer("dc10", 209)
+		end	
+		when dc10.timer begin
+			d.notice("Pozosta³o 15 minut!")
+			timer("dc11", 209)
+		end	
+		when dc11.timer begin
+			d.notice("Pozosta³o 10 minut!")
+			timer("dc12", 600)
+		end	
+		when dc12.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end	
+	--Poziom 2
+		when 30104.chat."Poziom 3 - Stra¿nik" begin
+			npc.purge()
+			say("To dopiero pocz¹tek...")
+			wait()
+			d.new_jump_all(209, 4427, 12284)
+			timer("dc1", 6000)
+			timer("dc2", 600)
+			d.setf("goto_ebene3", 0)
+			d.notice("Przed tob¹ jeszcze d³uga droga...")
+			d.notice("ZnajdŸ i zniszcz Metiny Odwetu")
+			d.regen_file("data/dungeon/devilcave/dc_regen_ebene3.txt")
+			d.spawn_mob(8038, 1351, 348)
+			d.spawn_mob(8038, 1148, 350)
+			d.spawn_mob(8038, 1151, 155)
+			d.spawn_mob(8038, 1351, 149)
+		end
+		when kill with npc.race == 8038 and pc.in_dungeon() begin
+			local n = number(1,4)
+			if n == 1 or game.get_event_flag("trumetin") == 3 then
+				d.notice("Prawdziwy Kamieñ Metin zosta³ zniszczony")
+				timer("dc2", 6000)
+				timer("devils_catacomb_goto_ebene5", 5)
+			else
+				d.notice("Zniszczy³eœ fa³szywy Kamieñ Metin")
+				game.set_event_flag("trumetin", game.get_event_flag("trumetin")+1)
+			end
+		end
+		when dc2.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end
+	--Poziom 4 (Labirynt)
+		when devils_catacomb_goto_ebene4.timer begin
+			d.new_jump_all(209, 3143, 12657)
+			d.setf("labyrinth", 1)
+			timer("dc3", 600)
+			d.notice("ZnajdŸ wyjœcie z labiryntu")
+			d.notice("nastêpnie przeczytaj napis z pos¹gu")
+			if game.get_event_flag("dc_is_wartung") == 1 then
+				d.spawn_mob(30104, 72, 586)
+			end
+		end
+		when 30104.chat."Labirynt - Napis" with pc.in_dungeon() begin
+			timer("dc3", 6000)
+			d.notice("Odnala³eœ w³aœciw¹ drogê ")
+			timer("devils_catacomb_goto_ebene5", 5)
+		end
+		when dc3.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end
+	--Poziom 6 (Tartar)
+		when devils_catacomb_goto_ebene5.timer begin
+			d.new_jump_all(209, 3917, 12925)
+			d.notice("ZnajdŸ i zabij Tartara, aby otrzymaæ Totem!")
+			d.notice("Gdy go otrzymasz, przeci¹gnij i upuœæ na obelisku")
+			d.spawn_mob(30102, 848, 739)
+			timer("dc4", 600)
+			d.regen_file("data/dungeon/devilcave/dc_regen_ebene5.txt")
+			local tartaros = number(1,4)
+			if tartaros==1 then
+				d.spawn_mob(2593, 991, 848)
+			elseif tartaros==2 then
+				d.spawn_mob(2593, 999, 652)
+			elseif tartaros==3 then
+				d.spawn_mob(2593, 848, 577)
+			elseif tartaros==4 then
+				d.spawn_mob(2593, 703, 644)
+			elseif tartaros==5 then
+				d.spawn_mob(2593, 692, 817)
+			end
+		end
+		when kill with npc.race == 2593 and pc.in_dungeon() begin
+			d.notice("Tartar zosta³ pokonany!")
+			game.drop_item(30312, 1)
+		end
+		when 30102.take with item.vnum == 30312 begin
+			timer("dc4", 6000)
+			item.remove()
+			npc.purge()
+			say_reward("...")
+			d.notice("Uda³o siê!")
+			timer("devils_catacomb_goto_ebene6", 5)
+		end
+		when dc4.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end
+	--Poziom 7 (Charon)
+		when devils_catacomb_goto_ebene6.timer begin
+			d.new_jump_all(209, 4411, 12736)
+			timer("dc5", 600)
+			d.notice("Zabij Charona aby dostaæ siê na ostatni poziom!")
+			d.regen_file("data/dungeon/devilcave/dc_regen_ebene6.txt")
+		end
+		when kill with npc.race == 2597 and pc.in_dungeon() begin
+			timer("dc5", 6000)
+			d.notice("Pokona³eœ Charona!")
+			d.notice("Przygotuj siê do walki z Azraelem!")
+			timer("devils_catacomb_goto_ebene7", 10)
+		end
+		when dc5.timer begin
+			d.notice("Czas up³yn¹³, zostaniesz przeniesiony do M1!")
+			warp_all_to_village()
+		end
+	--Poziom 8 (Azrael)
+		when devils_catacomb_goto_ebene7.timer begin
+			d.new_jump_all(209, 3147, 13191)
+			d.notice("Pokonaj Azraela, wówczas otrzymasz nagrodê!")
+			d.regen_file("data/dungeon/devilcave/dc_regen_ebene7.txt")
+		end
+		when kill with npc.race == 2598 and pc.in_dungeon() begin
+			game.set_event_flag(("dc_geschaft"), game.get_event_flag("dc_geschaft")+1)
+			local level = pc.level
+			d.notice("Pokona³eœ Azraela, zas³u¿y³eœ na nagrodê!")
+			d.kill_all()
+			d.kill_all()
+			notice_all("Gracz ".. pc.get_name() .." z poziomem ".. (level) .." zabi³ Azraela!")
+			timer("goout_from_dc", 60)
+			d.spawn_mob(9012, 74, 1159)
+			pc.give_item2(50186)
+		end
+	end
+end

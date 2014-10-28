@@ -1,0 +1,69 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+-- quest GMOnlineMsg begin
+	-- state start begin
+		-- when login with pc.is_gm() begin
+			-- notice_all(pc.get_name().." jest Online.")
+		-- end
+	-- end
+-- end
+-- quest DropSztabek begin
+	-- state start begin
+		-- when kill begin
+			-- local s = number(1, 100)
+			-- if s == 1 then
+				-- pc.give_item2(80007)
+			-- end
+			-- if s == 2 then
+				-- pc.give_item2(80006)
+			-- end
+		-- end
+	-- end
+-- end
+-- quest AntyExp begin
+	-- state start begin
+		-- when kill with item.select_cell(98) and item.get_vnum() == 40002 and pc.get_exp() >= 1 begin
+			-- local x = pc.get_exp()
+			-- pc.give_exp2(-x)
+		-- end
+		-- when kill with item.select_cell(97) and item.get_vnum() == 40002 and pc.get_exp() >= 1 begin
+			-- local x = pc.get_exp()
+			-- pc.give_exp2(-x)
+		-- end
+	-- end
+-- end
+-- quest LvLUPMsg begin
+	-- state start begin
+		-- when levelup with pc.get_level()>=80 begin
+			-- local na = pc.get_level()
+			-- local nick = pc.get_name()
+			-- local m_sex = pc.get_sex()
+			-- if m_sex == 0 then
+				-- notice_all( "[Info] "..nick.." awansowa³ na "..na.." poziom!" )
+			-- else
+				-- notice_all( "[Info] "..nick.." awansowa³a na "..na.." poziom!" )
+			-- end
+		-- end
+	-- end
+-- end
+-- quest Spamer begin
+	-- state start begin
+		-- when login begin
+			-- if game.get_event_flag("spamer")==0 then
+				-- game.set_event_flag("spamer", 1)
+				-- server_timer("time", 30*10, get_server_timer_arg())
+			-- end
+		-- end
+		-- when time.server_timer begin
+			-- notice_all("Nie podawaj passow do konta, kurwa.")
+			-- server_timer("time2", 30*10, get_server_timer_arg())
+		-- end
+		-- when time2.server_timer begin
+			-- notice_all("Tutaj drugi jaki? tekst który bd napisany po 10 min od napisania pierwszego")
+			-- server_timer("time", 30*10, get_server_timer_arg())
+		-- end
+	-- end
+-- end

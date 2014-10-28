@@ -1,0 +1,32 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest guild_war_join begin
+	state start begin
+		when letter begin
+			local e = guild.get_any_war()
+			if e != 0 and pc.get_war_map() == 0 then
+				setskin(NOWINDOW)
+				makequestbutton(locale.guild.war_join_request)
+			end
+		end
+		when button begin
+			local e = guild.get_any_war()
+			if e == 0 then
+				say(locale.guild.war_over)
+			else
+				say(locale.guild.war_entry_ask_head..guild.name(e)..locale.guild.war_entry_ask_tail)
+				local s = select(locale.yes, locale.no)
+				if s == 1 then
+					guild.war_enter(e)
+				else
+					setskin(NOWINDOW)
+					makequestbutton(locale.guild.war_join_request)
+				end
+			end
+		end
+	end
+end
+

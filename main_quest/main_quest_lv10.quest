@@ -1,0 +1,188 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv10 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 10 begin
+			set_state( gotoboss )
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			send_letter("IdŸ do Kapitana.")
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "IdŸ do Kapitana.")
+			end
+		end
+		when button or info begin
+			say_title("IdŸ do Kapitana.")
+			say("")
+			say_reward("Jesteœ ju¿ wystarczaj¹co doœwiadczony,")
+			say_reward("aby Kapitan przydziela³ Ci zadania.")
+			say_reward("Znajdziesz go w pierwszej wiosce.")
+			say_reward("IdŸ do niego! Czeka na Ciebie!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("Wygl¹dasz znajomo... Och tak, myœlê, ¿e s³ysza³em")
+			say("ju¿ o Tobie. Jesteœ tym nowym poszukiwaczem")
+			say("przygód, który udowodni³ ju¿ swoje umiejêtnoœci.")
+			say("Nie wiem jak bardzo jesteœ uzdolniony,")
+			say("ale w przysz³oœci otrzymasz wiele zadañ.")
+			say("")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("Zostanie przygotowanych dla Ciebie kilka wyzwañ.")
+			say("Znasz mo¿e historiê o trzech Królestwach")
+			say("kontynentu czêsto nazywanego Niebem? Znasz j¹?")
+			say("Czego Ciê tam instruktorzy nauczyli?")
+			say("Czy muszê uczyæ Ciê podstawowych rzeczy?")
+			say("")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("To s¹ wa¿ne sprawy i podsumujê je dla Ciebie.")
+			say("Dawno temu by³o jedno Zjednoczone Królestwo.")
+			say("Kiedy pojawi³y siê Kamienie Metin, Królestwo.")
+			say("zosta³o podzielone na 3 mniejsze Królestwa:")
+			say("Shinsoo - Królestwo Handlu,")
+			say("Chunjo - Królestwo Religii,")
+			say("i Jinno, które by³o Królestwem Armii.")
+			say("")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("Ka¿de z Królestw do tej pory stara siê otrz¹sn¹æ ")
+			say("po zamieszaniu, jakie wytworzy³y Kamienie Metin.")
+			say("Wszyscy próbuj¹ zjednoczyæ Królestwa na nowo.")
+			say("Ty tak¿e musisz pracowaæ nad Zjednoczeniem Trzech")
+			say("Królestw! To jest bardzo wa¿ne, nie mo¿esz o tym")
+			say("zapomnieæ!")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("Przydzielê Ci pierwsze zadanie.")
+			say("Spokojnie, to jest raczej prosta robota.")
+			say("W nastêpnej wiosce znajdziesz Muzyka o imieniu")
+			say("Yu-Hwan. Ludzie myœl¹, ¿e opuœci³ armiê, aby")
+			say("zostaæ muzykiem. Tak naprawdê jest szpiegiem.")
+			say("Yu-Hwan ma dokument, którego potrzebujê.")
+			say("Dostarcz Mi go. Nie zapominaj, ¿e to tajna misja.")
+			say("")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("Kliknij klawisz M, aby siê dowiedzieæ jak dotrzeæ ")
+			say("do nastêpnej wioski. Skorzystaj z Portalu")
+			say("oznaczonego niebiesk¹ kropk¹. Pospiesz siê! Muzyk")
+			say("Yu-Hwan jest wysokim mê¿czyzn¹ z instrumentem.")
+			say("")
+			say_title("Informacja:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 5000")
+			say_reward("Yang: 2000")
+			say("")
+			set_state(gotomusition)
+		end
+	end	state gotomusition begin
+		when letter begin
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "ZnajdŸ muzyka Yu-Hwan.")
+			end
+		end
+		when letter begin
+			send_letter("ZnajdŸ muzyka Yu-Hwan.")
+		end
+		when button or info begin
+			say_title("Trening Kapitana")
+			say("")
+			say_reward("OdwiedŸ muzyka Yu-Hwan.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Muzyk Yu-Hwan:")
+			say("")
+			say(" ¯ycie to marzenie, lubie marzyæ o ¿yciu.")
+			say("Dok¹d zmierzamy i dok¹d idziemy?")
+			say("Ten œwiat jest pe³en wojen...")
+			say("Uczciwa praca nie pop³aca.")
+			say("Chcia³byœ pos³uchaæ piosenki?")
+			say("")
+			wait()
+			say_title("Muzyk Yu-Hwan:")
+			say("")
+			say("Och, przys³a³ Ciê Kapitan!")
+			say("Cii, nie mów tak g³oœno...")
+			say("Nikt z tej wioski nie mo¿e dowiedzieæ siê o mojej")
+			say("prawdziwej to¿samoœci. Musisz byæ godny zaufania,")
+			say("skoro Kapitan wys³al w³aœnie Ciebie!")
+			say("Masz, trzymaj. Dokument zawiera wszystkie")
+			say("informacje jakie mog³em zebraæ.")
+			say("Dostarcz go do Kapitana.")
+			say("")
+			wait()
+			say_title("Muzyk Yu-Hwan:")
+			say("")
+			say("Poœpiesz siê! Jeœli bêdziesz tu tak d³u¿ej sta³ ")
+			say("coœ z³ego mo¿e siê wydarzyæ. Czym jest ¿ycie?")
+			say("¯ycie jest bardzo krótkie... Ciesz siê nim tak")
+			say("d³ugo jak tylko mo¿esz.")
+			say("")
+			set_state(gotoboss2)
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Wróæ do Kapitana.")
+			end
+		end
+		when letter begin
+			send_letter("Wróæ do Kapitana.")
+		end
+		when button or info begin
+			say_title("Trening Kapitana")
+			say("")
+			say_reward("Porozmawiaj z Kapitanem.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("To jest dokument od muzyka? NieŸle jak na nowego")
+			say("poszukiwacza przygód. Wi¹¿ê z Tob¹ wielkie")
+			say("nadzieje. WeŸ to jako potwierdzenie Twojej")
+			say("ciê¿kiej pracy. Pracuj tak dalej dla swojego")
+			say("Królestwa!")
+			say("")
+			say_title("Informacja:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 5000")
+			say_reward("Yang: 2000")
+			say("")
+			pc.give_exp2( 5000 )
+			pc.change_money( 2000 )
+			say("")
+			clear_letter()
+			set_state( __COMPLETE__ )
+			set_quest_state("main_quest_lv12", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

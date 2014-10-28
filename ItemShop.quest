@@ -1,0 +1,645 @@
+--[[Quest by Gebel
+Zakaz publikowania/sprzedawania/etc.
+bez mojej zgody !
+
+GG: 46526993
+]]
+quest InGameItemShop begin
+	state start begin
+		when 20095.chat."Item Shop" begin
+			local kategorie = {
+				[1] = "PD",
+				[2] = "Drop",
+				[3] = "Yang",
+				[4] = "Zwierzaki",
+				[5] = "Wierzchowce",
+				[6] = "Kostiumy",
+				[7] = "Przepustki",
+				[8] = "Fryzury",
+				[9] = "Autopotiony",
+				[10] = "Pakiety ViP",
+				[11] = "Dopalacze",
+				[12] = "Anuluj"
+			}
+			local pd = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Pierscien Doswiadczenia na 3 dni", "20", "71015", "3"},
+				[2] = {"Pierscieñ Doswiadczenia na 7 dni", "40", "71015", "7"},
+				[3] = {"Pierscieñ Doswiadczenia na 14 dni", "80", "71015", "14"},
+				[4] = {"Pierscieñ Doswiadczenia na 31 dni", "155", "71015", "31"},
+			}
+			local drop = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Rekawica Zlodzieja na 3 dni", "20", "71016", "3"},
+				[2] = {"Rekawica Zlodzieja na 7 dni", "40", "71016", "7"},
+				[3] = {"Rekawica Zlodzieja na 14 dni", "80", "71016", "14"},
+				[4] = {"Rekawica Zlodzieja na 31 dni", "155", "71016", "31"},
+			}
+			local yang = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Medal Szczescia na 3 dni", "20", "71017", "3"},
+				[2] = {"Medal Szczescia na 7 dni", "40", "71017", "7"},
+				[3] = {"Medal Szczescia na 14 dni", "80", "71017", "14"},
+				[4] = {"Medal Szczescia na 31 dni", "155", "71017", "31"},
+			}
+			local zwierzaki = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Bao Bao(Pandzia)", "90", "53009", "1"},
+				[2] = {"Knuud (Misio)", "80", "53008", "1"},
+				[3] = {"Leonidas (Lewek)", "80", "53010", "1"},
+				[4] = {"Ethan (Tygrysek)", "80", "53011", "1"},
+				[5] = {"Boczus (Dziczek)", "80", "53012", "1"},
+				[6] = {"Rufus (Piesek)", "80", "53013", "1"},
+			}
+			local wierzchowce = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Medal Konny", "7", "50050", "1"},
+				[2] = {"Kon Bojowy", "58", "50039", "1"},
+				[3] = {"Renifer", "160", "52090", "1"},
+				[4] = {"Dzik Cienia", "85", "71125", "1"},
+				[5] = {"Bialt Lew", "75", "71124", "1"},
+			}
+			local kostiumy = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Koszulka Pi³karska POL (m)", "45", "41069", "1"},
+				[2] = {"Koszulka Pi³karska POL (k)", "45", "41070", "1"},
+				[3] = {"Kostium Muszkietera+", "110", "41129", "1"},
+				[4] = {"Kostium Pokojówki+", "110", "41130", "1"},
+				[5] = {"Strój Salsa+", "110", "41131", "1"},
+				[6] = {"Sukienka Salsa+", "110", "41132", "1"},
+				[7] = {"Strój D¿entelmena+", "110", "41133", "1"},
+				[8] = {"Sukienka Koktajlowa+", "110", "41134", "1"},
+				[9] = {"Œwi¹teczny Kostium+ (czerwony)", "110", "41145", "1"},
+				[10] = {"Œwi¹teczny Kostium+ (zielony)", "110", "41147", "1"},
+				[11] = {"Œwi¹teczny Kostium+ (czarna)", "110", "41149", "1"},
+				[12] = {"Œwi¹teczna Sukienia+ (czerwona)", "110", "41146", "1"},
+				[13] = {"Œwi¹teczna Sukienia+ (zielona)", "110", "41148", "1"},
+				[14] = {"Œwi¹teczna Sukienia+ (czarna)", "110", "41150", "1"},
+				[15] = {"Pustynny Bojownik+", "110", "41313", "1"},
+				[16] = {"Pustynna Bojowniczka+", "110", "41314", "1"},
+			}
+			local przepustki = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Przepustka", "5", "71095", "1"},
+				[2] = {"Krwisty Kamien", "5", "70364", "1"},
+				[3] = {"Przepustka ViP", "15", "19" , "1"},
+			}
+			local ulepszanie = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Fryzura Muszkietera +", "85", "45065", "1"},
+				[2] = {"Czepek Pokojówki +", "85", "45066", "1"},
+				[3] = {"Mini Irokez +", "85", "45067", "1"},
+				[4] = {"Kok Salsa +", "85", "45068", "1"},
+				[5] = {"Kapelusz Bogarta +", "85", "45069", "1"},
+				[6] = {"Kwiecista Fryzura +", "85", "45070", "1"},
+				[7] = {"Swiat. Czapa +", "85", "45081", "1"},
+				[8] = {"Swiat. Czapa +", "85", "45082", "1"},
+				[9] = {"Swiat. Czapa +", "85", "45083", "1"},
+				[10] = {"Elficki Kapelusz +", "85", "45084", "1"},
+				[11] = {"Maska Kifwebe + (50% expa wiecej)", "185", "45145", "1"},
+			}
+			local autopotiony = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Eliksir S³oñca (MEGA)", "130", "72726", "1"},
+				[2] = {"Eliksir Ksiê¿yca (MEGA)", "130", "72730", "1"},
+			}
+			local lizaki = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Paczka vip 3 dni", "86", "38052", "3"},
+				[2] = {"Paczka vip 7 dni", "166", "38053", "7"},
+				[3] = {"Paczka vip 14 dni", "326", "38054", "14"},
+				[4] = {"Paczka vip 31 dni", "626", "38055", "31"},
+			}
+			local inne = {
+				-- Nazwa Przedmiotu, Cena, Id Przedmiotu, Ilosc
+				[1] = {"Kamien Silnej Duszy", "230", "30525", "1"},
+				[2] = {"Zaczarownie Przedmiotu x10", "25", "71084", "10"},
+				[3] = {"Zaczarownie Przedmiotu x100", "240", "71084", "100"},
+				[4] = {"Wzmocnienie Przedmiotu x10", "75", "71085", "10"},
+				[5] = {"Rada Pustelnika x1", "20", "71094", "1"},
+				[6] = {"Rada Pustelnika x10", "180", "71094", "10"},
+				[7] = {"Zwój Egzorcyzmu x1", "8", "71001", "1"},
+				[8] = {"Zwój Egzorcyzmu x10", "75", "71001", "10"},
+				[9] = {"Atak Boga Smoków x2", "10", "72031", "2"},
+				[10] = {"Obrona Boga Smoków x2", "10", "72034", "2"},
+				[11] = {"Zycie Boga Smoków x2", "10", "72037", "2"},
+				[12] = {"Dlon Krytyka x10", "28", "72046", "10"},
+			}
+			local zapytanie = query("SELECT coins FROM account.account WHERE id = '"..pc.get_account_id().."';")
+			pc.setqf("iloscSM", zapytanie)
+			local iloscSM = pc.getqf("iloscSM")
+			say_title(mob_name(npc.get_race())..":")
+			say()
+			say("Witaj "..pc.get_name())
+			say("Jezeli chcesz Item Shopu")
+			say("to dobrze trafiles.")
+			say()
+			say_reward("Chcesz z niego skorzystac ?")
+			say()
+			if select("Tak", "Nie") == 1 then
+				say_size(350, 400)
+				say_title("Item Shop:[ENTER]")
+				say("Posiadasz "..iloscSM.." SM !")
+				say("Wybierz Kategorie:[ENTER]")
+				local kategoria = select_table(kategorie)
+				if kategoria == 12 then
+					return
+				end
+				say_size(350, 400)
+				if kategoria == 1 then
+					say("Kategoria PD:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local pdSel = select(pd[1][1].." ("..pd[1][2].." SM)", pd[2][1].." ("..pd[2][2].." SM)", pd[3][1].." ("..pd[3][2].." SM)", pd[4][1].." ("..pd[4][2].." SM)", "Wyjscie")
+					if pdSel == 5 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = pd[pdSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(pd[pdSel][1], pd[pdSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupiæ "..pd[pdSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..pd[pdSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								query("UPDATE account.account SET added = CURRENT_TIMESTAMP")
+								query("UPDATE account.account SET silver_expire = added + INTERVAL '"..pd[pdSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")   
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end
+				elseif kategoria == 2 then
+					say("Kategoria Drop:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local dropSel = select(drop[1][1].." ("..drop[1][2].." SM)", drop[2][1].." ("..drop[2][2].." SM)", drop[3][1].." ("..drop[3][2].." SM)", drop[4][1].." ("..drop[4][2].." SM)", "Wyjscie")
+					if dropSel == 5 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = drop[dropSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(drop[dropSel][1], drop[dropSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupiæ "..drop[dropSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..drop[dropSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								query("UPDATE account.account SET added = CURRENT_TIMESTAMP")
+								query("UPDATE account.account SET gold_expire = added + INTERVAL '"..drop[dropSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")   
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 3 then
+					say("Kategoria Yang:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local yangSel = select(yang[1][1].." ("..yang[1][2].." SM)", yang[2][1].." ("..yang[2][2].." SM)", yang[3][1].." ("..yang[3][2].." SM)", yang[4][1].." ("..yang[4][2].." SM)", "Wyjscie")
+					if yangSel == 5 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = yang[yangSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(yang[yangSel][1], yang[yangSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupiæ "..yang[yangSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..yang[yangSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								query("UPDATE account.account SET added = CURRENT_TIMESTAMP")
+								query("UPDATE account.account SET money_drop_rate_expire = added + INTERVAL '"..yang[yangSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")   
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 4 then
+					say("Kategoria Zwierzaki:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local zwierzakiSel = select(zwierzaki[1][1].." ("..zwierzaki[1][2].." SM)", zwierzaki[2][1].." ("..zwierzaki[2][2].." SM)", zwierzaki[3][1].." ("..zwierzaki[3][2].." SM)", zwierzaki[4][1].." ("..zwierzaki[4][2].." SM)", zwierzaki[5][1].." ("..zwierzaki[5][2].." SM)", zwierzaki[6][1].." ("..zwierzaki[6][2].." SM)", "Wyjœcie")
+					if zwierzakiSel == 7 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = zwierzaki[zwierzakiSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(zwierzaki[zwierzakiSel][1], zwierzaki[zwierzakiSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jesteœ pewny, ¿e chcesz kupiæ "..zwierzaki[zwierzakiSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wyst¹pi³ B³¹d !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyœlnie kupi³eœ "..zwierzaki[zwierzakiSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("¯yczê Mi³ego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(zwierzaki[zwierzakiSel][3], zwierzaki[zwierzakiSel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 5 then
+					say("Kategoria Wierzchowce:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local wierzchowceSel = select(wierzchowce[1][1].." ("..wierzchowce[1][2].." SM)", wierzchowce[2][1].." ("..wierzchowce[2][2].." SM)", wierzchowce[3][1].." ("..wierzchowce[3][2].." SM)", wierzchowce[4][1].." ("..wierzchowce[4][2].." SM)", wierzchowce[5][1].." ("..wierzchowce[5][2].." SM)", "Wyjœcie")
+					if wierzchowceSel == 6 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = wierzchowce[wierzchowceSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(wierzchowce[wierzchowceSel][1], wierzchowce[wierzchowceSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jesteœ pewny, ¿e chcesz kupiæ "..wierzchowce[wierzchowceSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wyst¹pi³ B³¹d !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyœlnie kupi³eœ "..wierzchowce[wierzchowceSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("¯yczê Mi³ego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(wierzchowce[wierzchowceSel][3], wierzchowce[wierzchowceSel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 6 then
+					say("Kategoria Kostiumy:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local kostiumySel = select(kostiumy[1][1].." ("..kostiumy[1][2].." SM)", kostiumy[2][1].." ("..kostiumy[2][2].." SM)", kostiumy[3][1].." ("..kostiumy[3][2].." SM)", kostiumy[4][1].." ("..kostiumy[4][2].." SM)", kostiumy[5][1].." ("..kostiumy[5][2].." SM)", kostiumy[6][1].." ("..kostiumy[6][2].." SM)", kostiumy[7][1].." ("..kostiumy[7][2].." SM)", kostiumy[8][1].." ("..kostiumy[8][2].." SM)", kostiumy[9][1].." ("..kostiumy[9][2].." SM)", kostiumy[11][1].." ("..kostiumy[11][2].." SM)", kostiumy[11][1].." ("..kostiumy[11][2].." SM)", kostiumy[12][1].." ("..kostiumy[12][2].." SM)", kostiumy[13][1].." ("..kostiumy[13][2].." SM)", kostiumy[14][1].." ("..kostiumy[14][2].." SM)", kostiumy[15][1].." ("..kostiumy[15][2].." SM)", kostiumy[16][1].." ("..kostiumy[16][2].." SM)", "Wyjœcie")
+					if kostiumySel == 17 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = kostiumy[kostiumySel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(kostiumy[kostiumySel][1], kostiumy[kostiumySel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jesteœ pewny, ¿e chcesz kupiæ "..kostiumy[kostiumySel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wyst¹pi³ B³¹d !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyœlnie kupi³eœ "..kostiumy[kostiumySel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("¯yczê Mi³ego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(kostiumy[kostiumySel][3], kostiumy[kostiumySel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 7 then
+					say("Kategoria Przepustki:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local przepustkiSel = select(przepustki[1][1].." ("..przepustki[1][2].." SM)", przepustki[2][1].." ("..przepustki[2][2].." SM)", przepustki[3][1].." ("..przepustki[3][2].." SM)", "Wyjœcie")
+					if przepustkiSel == 4 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = przepustki[przepustkiSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(przepustki[przepustkiSel][1], przepustki[przepustkiSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jesteœ pewny, ¿e chcesz kupiæ "..przepustki[przepustkiSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wyst¹pi³ B³¹d !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyœlnie kupi³eœ "..przepustki[przepustkiSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("¯yczê Mi³ego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(przepustki[przepustkiSel][3], przepustki[przepustkiSel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 8 then
+					say("Kategoria Fryzury:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local ulepszanieSel = select(ulepszanie[1][1].." ("..ulepszanie[1][2].." SM)", ulepszanie[2][1].." ("..ulepszanie[2][2].." SM)", ulepszanie[3][1].." ("..ulepszanie[3][2].." SM)", ulepszanie[4][1].." ("..ulepszanie[4][2].." SM)", ulepszanie[5][1].." ("..ulepszanie[5][2].." SM)", ulepszanie[6][1].." ("..ulepszanie[6][2].." SM)", ulepszanie[7][1].." ("..ulepszanie[7][2].." SM)", ulepszanie[8][1].." ("..ulepszanie[8][2].." SM)", ulepszanie[9][1].." ("..ulepszanie[9][2].." SM)", ulepszanie[10][1].." ("..ulepszanie[10][2].." SM)", ulepszanie[11][1].." ("..ulepszanie[11][2].." SM)", "Wyjœcie")
+					if ulepszanieSel == 12 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = ulepszanie[ulepszanieSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(ulepszanie[ulepszanieSel][1], ulepszanie[ulepszanieSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jesteœ pewny, ¿e chcesz kupiæ "..ulepszanie[ulepszanieSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wyst¹pi³ B³¹d !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyœlnie kupi³eœ "..ulepszanie[ulepszanieSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("¯yczê Mi³ego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(ulepszanie[ulepszanieSel][3], ulepszanie[ulepszanieSel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 9 then
+					say("Kategoria Autopotiony:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local autopotionySel = select(autopotiony[1][1].." ("..autopotiony[1][2].." SM)", autopotiony[2][1].." ("..autopotiony[2][2].." SM)", "Wyjscie")
+					if autopotionySel == 3 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = autopotiony[autopotionySel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(autopotiony[autopotionySel][1], autopotiony[autopotionySel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupic "..autopotiony[autopotionySel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..autopotiony[autopotionySel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(autopotiony[autopotionySel][3], autopotiony[autopotionySel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end	
+				elseif kategoria == 10 then
+					say("Pakiety ViP:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local lizakiSel = select(lizaki[1][1].." ("..lizaki[1][2].." SM)", lizaki[2][1].." ("..lizaki[2][2].." SM)", lizaki[3][1].." ("..lizaki[3][2].." SM)", lizaki[4][1].." ("..lizaki[4][2].." SM)", "Wyjscie")
+					if lizakiSel == 5 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = lizaki[lizakiSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(lizaki[lizakiSel][1], lizaki[lizakiSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupiæ "..lizaki[lizakiSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..lizaki[lizakiSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								query("UPDATE account.account SET added = CURRENT_TIMESTAMP")
+								query("UPDATE account.account SET silver_expire = added + INTERVAL '"..lizaki[lizakiSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")
+								query("UPDATE account.account SET gold_expire = added + INTERVAL '"..lizaki[lizakiSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")
+								query("UPDATE account.account SET safebox_expire = added + INTERVAL '"..lizaki[lizakiSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")
+								query("UPDATE account.account SET autoloot_expire = added + INTERVAL '"..lizaki[lizakiSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")
+								query("UPDATE account.account SET fish_mind_expire = added + INTERVAL '"..lizaki[lizakiSel][4].."' DAY WHERE id = '"..pc.get_account_id().."';")
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end
+				elseif kategoria == 11 then
+					say("Kategoria Dopalacze:")
+					say()
+					say("Posiadasz "..iloscSM.." SM !")
+					say()
+					local inneSel = select(inne[1][1].." ("..inne[1][2].." SM)", inne[2][1].." ("..inne[2][2].." SM)", inne[3][1].." ("..inne[3][2].." SM)", inne[4][1].." ("..inne[4][2].." SM)", inne[5][1].." ("..inne[5][2].." SM)", inne[6][1].." ("..inne[6][2].." SM)", inne[7][1].." ("..inne[7][2].." SM)", inne[8][1].." ("..inne[8][2].." SM)", inne[9][1].." ("..inne[9][2].." SM)", inne[10][1].." ("..inne[10][2].." SM)", inne[11][1].." ("..inne[11][2].." SM)", inne[12][1].." ("..inne[12][2].." SM)", "Wyjœcie")
+					if inneSel == 13 then
+						return
+					else
+						say_size(350, 400)
+						local wynosi = inne[inneSel][2]
+						pc.setqf("koszt", wynosi)
+						local koszt = pc.getqf("koszt")
+						say_title("Potwierdzenie:")
+						say_reward("Cena: "..koszt.." SM")
+						say()
+						say()
+						say_item(inne[inneSel][1], inne[inneSel][3], "Koszt: "..koszt.." SM")
+						say()
+						say()
+						say("Jestes pewny, ze chcesz kupiæ "..inne[inneSel][1].." ?")
+						say()
+						if select("Tak", "Nie") == 1 then
+							if koszt > iloscSM then
+								say_size(350, 400)
+								say_title("Wystapil Blad !")
+								say()
+								say("Nie masz tyle SM !")
+								say()
+							else
+								say_size(350, 400)
+								say_title("Powodzenie !")
+								say()
+								say("Pomyslnie kupiles "..inne[inneSel][1].." za "..koszt.." SM")
+								say()
+								say("Stan twojego konta to "..iloscSM-koszt.." SM")
+								say()
+								say("zycze Milego Dnia i Zapraszam ponownie !")
+								say()
+								pc.give_item2(inne[inneSel][3], inne[inneSel][4])
+								query("UPDATE account.account SET coins = coins-"..koszt.." WHERE id = '"..pc.get_account_id().."';")
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end

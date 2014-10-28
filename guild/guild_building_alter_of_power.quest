@@ -1,0 +1,106 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest alter_of_power begin
+	state start begin
+		when 20077.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			say("Jestem opiekunem o³tarza.")
+			say("O³tarz zwiêksza maksymalna liczbê ")
+			say("cz³onków gildii. ")
+			say("Mo¿na rozwin¹æ o³tarz")
+			say("dziêki czemu liczba jeszcze wzroœnie.")
+			say("")
+			if pc.getqf("build_level") == 0 then
+				pc.setqf("build_level", guild.level(pc.get_guild()))
+			end
+			wait()
+			say("Hmm...")
+			if pc.getqf("build_level") < guild.level(pc.get_guild()) or guild.level(pc.get_guild()) >= 20 then
+				say("Jesteœcie gotowi do nabycia ot³arzu")
+				say("Czy chcesz go zakupiæ?")
+				say("Bêdziê on kosztowa³:")
+				say("")
+				say_reward("25.000.000 Yang ")
+				say_reward("10 Kamieni Fundacyjnych")
+				say_reward("10 Pni")
+				say_reward("15 Dykt")
+				say("")
+				local s = select("Kupujê!", "Nie kupujê.")
+				if s == 1 then
+					if pc.count_item(90010) >= 10 and pc.count_item(90012) >= 15 and pc.count_item(90011) >= 10 and pc.get_gold() >= 25000000 then
+						say("")
+						say("O³tarz zosta³ rozbudowany.")
+						say("")
+						building.reconstruct(14062)
+						pc.setqf("build_level", guild.level(pc.get_guild()))
+						pc.change_gold(-25000000)
+						pc.remove_item("90010", 10)
+						pc.remove_item("90011", 10)
+						pc.remove_item("90012", 15)
+					else
+						say("")
+						say("Musisz posiadaæ wszystkie materia³y.")
+						say("")
+					end
+				elseif s == 2 then
+					say("Wiêc ¿egnam.")
+					say("")
+				end
+			else
+				say("Nie mo¿ecie teraz zbudowaæ o³tarza.")
+				say("")
+			end
+		end
+		when 20078.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			say("O³tarz mo¿e byæ ponownie rozszerzony.")
+			say("Im wy¿szy poziom, tym o³tarz ma wiêcej HP.")
+			say("")
+			wait()
+			say("Hmm...")
+			if pc.getqf("build_level") < guild.level(pc.get_guild()) or guild.level(pc.get_guild()) >= 20 then
+				say("Robicie siê naprawdê wielcy.")
+				say("Mo¿ecie wzmocnic o³tarz ponownie.")
+				say("Potrzebujecie:")
+				say("")
+				say_reward("30.000.000 Yang ")
+				say_reward("15 Kamieni Fundamentalnych")
+				say_reward("20 Pni")
+				say_reward("20 Dykt")
+				say("")
+				local s = select("Kupujê!", "Nie kupujê.")
+				if s == 1 then
+					if pc.count_item(90010) >= 15 and pc.count_item(90012) >= 20 and pc.count_item(90011) >= 20 and pc.get_gold() >= 30000000 then
+						say("")
+						say("O³tarz zosta³ rozbudowany.")
+						say("")
+						building.reconstruct(14063)
+						pc.setqf("build_level", guild.level(pc.get_guild()))
+						pc.change_gold(-30000000)
+						pc.remove_item("90010", 15)
+						pc.remove_item("90011", 20)
+						pc.remove_item("90012", 20)
+					else
+						say("")
+						say("Musisz posiadaæ wszystkie materia³y.")
+						say("")
+					end
+				elseif s == 2 then
+					say("Wiêc ¿egnam.")
+					say("")
+				end
+			end
+		end
+		when 20079.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			say("O³tarz jest rozwiniêty maksymalnie.")
+			say("Nie mo¿esz dalej go rozwijaæ.")
+			say("")
+		end
+		when 20077.click or 20078.click or 20079.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() != true begin
+			say("Jeœli poziom o³tarza bêdzie wy¿szy,")
+			say("bêdziesz mogl rekrutowaæ wiêcej cz³onków.")
+			say("")
+		end
+	end
+end

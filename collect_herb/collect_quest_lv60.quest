@@ -1,0 +1,264 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest collect_quest_lv60 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup with pc.level >= 60 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Analiza Biologa")
+			end
+			send_letter("Analiza Biologa")
+		end
+		when button or info begin
+			say_title("Analiza Biologa")
+			say("")
+			say("Biolog Chaegirab, uczeñ Baek-Goa,")
+			say("w³aœnie Cie szuka³. Proszê idŸ ")
+			say("do niego i zaoferuj mu swoj¹ pomoc.")
+			say("")
+		end
+		when __TARGET__.target.click or
+			20084.chat."Znajdz Biologa" begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("Niebiosa, proszê pomó¿ mi... ")
+			say("Badam wszystkie rodzaje roœlin w tym ")
+			say("imperium. Jest bardzo du¿o rzeczy, ")
+			say("które musz¹ zostaæ zbadane. Nie mam ")
+			say("czasu abym móg³ sam wybraæ siê na wyprawê. ")
+			say("Proszê,pomó¿ mi. ")
+			wait()
+			say("Aktualnie badam Matowe Lody.")
+			say("Muszê przeprowadziæ kilka eksperymentów,")
+			say("dlatego potrzebuje egzemplarzy...")
+			say("Czy móg³byœ przynieœæ mi dwadzieœcia Matowych Lodów?")
+			say("Proszê, pomó¿ mi! Zawsze przynoœ mi po jednym,")
+			say("abym mial czas na ich dokladne przebadanie!")
+			say("")
+			say_item_vnum(30050)
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Zadanie specjalne!")
+		end
+		when button or info begin
+			say_title("ZnajdŸ Matowe Lody")
+			say("")
+			say("Biolog Chaegirab, uczeñ Baek-Goa,")
+			say("szuka Matowych Lodów.")
+			say("Zawsze przynoœ mu po jednym, aby mia³ czas")
+			say("na ich dok³adne przebadanie.")
+			say("Matowych Lodów szukaj na Lodowej Ziemi..")
+			say("")
+			say_item_vnum(30050)
+			say_reward("Do tej pory dostarczy³eœ: "..pc.getqf("collect_count").." Matowych Lodów.")
+			say("")
+		end
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") and pc.getqf("drink_drug") < 1 then
+				say_reward("Eliskir Poszukiwacza:")
+				say("Ten magiczny przedmiot zmniejsza czas")
+				say("oddania nastêpnego przedmiotu u biologa,")
+				say("po jego u¿yciu mo¿esz natychmiast")
+				say("oddaæ przedmiot!")
+				say("Ponadto dajê wiêksz¹ szansê na przyjêcie przedmiotu!")
+				say_reward("Czy chcesz u¿yæ Eliksiru?")
+				say_reward("Zostanie on usuniêty po u¿yciu.")
+				local wy = select("U¿yj.", "Nie u¿ywaj.")
+				if wy == 2 then
+					return
+				elseif wy == 1 then
+					pc.setqf("duration", 0)
+					pc.setqf("drink_drug",1)
+					say("Mo¿esz ju¿ oddaæ przedmiot biologowi!")
+					say_reward("Eliksir Poszukiwacza zostajê usuniêty!")
+					pc.remove_item(71035, 1)
+				end
+			else
+				say_reward("Eliksir Poszukiwacza:")
+				say("Nie mo¿esz u¿yæ przedmiotu, poniewa¿ ")
+				say("biolog ju¿ mo¿e przyj¹æ przedmiot.")
+				return
+			end
+		end
+		when 20084.chat."Matowy Lód" with pc.count_item(30050) > 0 begin
+			local roznica = pc.getqf("duration") - get_time()
+			local minuty = roznica/60
+			local minuty2 = math.floor(minuty)
+			if get_time() > pc.getqf("duration") then
+				say("Biolog Chaegirab:")
+				say("Oh!! Znalazleœ!")
+				say("Pozwól,¿e rzucê okiem...")
+				say("Jeszcze chwilkê.")
+				say("")
+				pc.remove_item(30050, 1)
+				pc.setqf("duration",get_time()+60*60*1)
+				wait()
+				local pass_percent
+				if pc.getqf("drink_drug")==0 then
+					pass_percent=60
+				else
+					pass_percent=90
+				end
+				local s= number(1,100)
+				if s<= pass_percent then
+					if pc.getqf("collect_count") < 19 then
+						local index =pc.getqf("collect_count")+1
+						pc.setqf("collect_count",index)
+						say("Biolog Chaegirab:")
+						say_green("Oh!! Ten Matowy Lód jest doskona³ej jakoœci!")
+						say("Jesteœ wspania³y!")
+						say("Przynieœ mi jeszcze: "..20-pc.getqf("collect_count").. " Matowych Lodów.")
+						say("Proszê, spróbuj je znaleŸæ!")
+						say("")
+						pc.setqf("drink_drug",0)
+						return
+					end
+					say("Biolog Chaegirab:")
+					say("Znalaz³eœ ju¿ dwadzieœcia Matowych Lodów!!")
+					say("Dziêkuje Ci, ¿e jesteœ taki pomocny.")
+					say("Musisz teraz zdobyc Kamieñ Duszy Aurtumryu")
+					say("S³ysza³em, ¿e owy kamien czêsto wypada z")
+					say("Lodowych Ludzi, Lodowych Zwierz¹t i Yeti. ")
+					say("Zrobisz to dla mnie?")
+					say("")
+					say_item("Kamieñ Duszy Aurtumryu", 30223, "")
+					say_reward("Lodowy Wieloryb Zabójca")
+					say_reward("Lodowy Robak")
+					say_reward("Lodowy Lew")
+					say_reward("Lodowy Cz³owiek")
+					say_reward("Yeti")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)
+					pc.setqf("duration",0)
+					set_state(key_item)
+					return
+				else
+					say("Biolog Chaegirab:")
+					say("Jeszcze nie skoñczy³em badaæ ostatniego Matowego Lodu!")
+					say("PrzyjdŸ do mnie za : "..minuty2.." minut!")
+					say("")
+					return
+				end
+			else
+				say("Biolog Chaegirab:")
+				say("Wybacz niestety...")
+				say("Twój Matowy Lód jest zbyt roztopiony...")
+				say("Proszê, przynieœ mi inny!")
+				say("Nie zawiedŸ mnie!")
+				say("")
+				pc.setqf("drink_drug", 0)
+				return
+			end
+		end
+	end
+	state key_item begin
+		when letter begin
+			send_letter("Kamieñ Duszy Aurtumryu")
+			if pc.count_item(30223) >0 then
+				local v = find_npc_by_vnum(20084)
+				if v != 0 then
+					target.vid("__TARGET__", v, "Kamieñ Duszy Aurtumryu")
+				end
+			end
+		end
+		when button or info begin
+			if pc.count_item(30223) >0 then
+				say_title("Wróæ do Biologa!")
+				say("")
+				say("Zdoby³eœ Kamieñ Duszy Aurtumryu! ")
+				say("Idz szybko przynieœ go Biologowi.")
+				say("")
+				return
+			end
+			say_title("Kamieñ Duszy Aurtumryu")
+			say("")
+			say("Zebra³eœ ju¿ odpowiednia iloœæ")
+			say("Matowych Lodów.")
+			say("Musisz teraz znaleŸæ Kamieñ Duszy Aurtumryu ")
+			say_item_vnum(30223)
+			say("Kamieñ Duszy Aurtumryu")
+			say(" mo¿na zdobyæ zabiaj¹c Lodowe Potwory!")
+			say("Nie zawiedŸ Biologa!")
+		end
+		when 1102.kill or 1103.kill or 1104.kill or 1106.kill begin
+			local s = number(1, 50)
+			if s == 1 and pc.count_item(30223)==0 then
+				pc.give_item2(30223, 1)
+				send_letter("Kamieñ Duszy Aurtumryu")
+			end
+		end
+		when __TARGET__.target.click or
+			20084.chat."Kamieñ Duszy Aurtumryu" with pc.count_item(30223) > 0 begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("OH!! Zdoby³eœ Go! ")
+			say("Odnalaz³eœ Kamieñ Duszy Aurtumryu")
+			say("Ciesze siê bardzo")
+			say("Dziêkujê Ci za pomoc")
+			say("W zamian otrzymasz nagrodê!")
+			say("Idz do mojego mistrza Baek-Go")
+			say("On za pomoc mi podaruje Ci cenn¹ nagrodê.")
+			say("")
+			pc.remove_item(30223,1)
+			set_state(__reward)
+		end
+	end
+	state __reward begin
+		when letter begin
+			send_letter("Odbierz nagrodê!")
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Baek-Go")
+			end
+		end
+		when button or info begin
+			say_title("Odbierz nagrodê!")
+			say("Udaj siê do Baek-Goa")
+			say("by otrzymaæ nagrodê za")
+			say("Twój ciezki trud...")
+			say("Baek-Go znajdujê siê w pierwszej wiosce")
+			say("Masz go na mapie. Spiesz siê!")
+			say("")
+		end
+		when __TARGET__.target.click or
+			20018.chat." Nagroda " begin
+			target.delete("__TARGET__")
+			say("Baek-Go:")
+			say("Drogi przyjacielu")
+			say("Za Twój ciêzki trud otrzymujesz:")
+			say_reward("+50 do wartoœci ataku (bonus sta³y)")
+			say_reward("Jasnozielona Ebonitowa Szkatu³ka")
+			affect.add_collect(apply.ATT_GRADE_BONUS,50,60*60*24*365*60)
+			pc.give_item2(50113)
+			clear_letter()
+			set_quest_state("collect_quest_lv70", "run")
+			set_state(__complete)
+		end
+	end
+	state __giveup__ begin
+		when 20084.chat."Poddajesz siê?" begin
+			say("Biolog Chaegirab:")
+			say("Czy jestes pewien, ¿e chcesz sie poddaæ!?")
+			say("Nie bedziesz mial szansy, aby zacz¹æ ponownie!")
+			say("Ta misja Cie opusci...")
+		end
+	end
+	state __complete begin
+	end
+end

@@ -1,0 +1,37 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest skill_reset2 begin
+	state start begin
+		when oldwoman.chat."Resetuj punkty statusu" begin
+			local cost = 10000 + pc.level * 4000
+			local s = 0
+			say_title("Starsza Pani:")
+			say("Czy chcia³byœ zresetowaæ swoje punkty statusu?[ENTER][ENTER]")
+			s = select("Detale", "Resetuj punkty", "Anuluj")
+			if s==1 then
+				local STAT_RESET_DETAIL_SAY2=
+				"Dzieki mojej magii mo¿esz[ENTER]"..
+				"cofnac swoje punkty statusu![ENTER]"..
+				"Jedyne czego potrzebujesz to[ENTER]"..
+				"byæ poni¿ej 30 poziomu[ENTER]"..
+				"oraz posiadaæ pare yang![ENTER]"..
+				"Koszt cofania to: "..cost.." yang.[ENTER]"
+				say(STAT_RESET_DETAIL_SAY2)
+				s = select("Resetuj punkty", "Anuluj")+1
+			end
+			if s == 2 then
+				if pc.money < cost then
+					say(locale.oldwoman.not_enough_money)
+				elseif pc.get_level()>30 then
+					say("Twój poziom przekroczy³ ju¿ dawno 30![ENTER]Na tym poziomie nie mogê Tobie pomóc! ")
+				else
+					pc.changegold(-cost)
+					pc.reset_point()
+				end
+			end
+		end
+	end
+end

@@ -1,0 +1,48 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+ quest cube begin
+	state start begin
+		when 20018.chat."Badacz Zió³ " with pc.level >= 15 begin
+			say_title("Baek-Go:")
+			say("Czeœæ, jak siê masz? ")
+			say("Czy jesteœ zainteresowany tworzeniem")
+			say("mikstur, które mog¹ Ciê wzmocniæ lub ")
+			say("uleczyæ? Ostatnio, podczas rutynowych badañ ")
+			say("odkry³em kilka sposobów na pozyskanie")
+			say("pewnych mikstur. To jak, jesteœ zainteresowany?")
+			say("Chcia³byœ spróbowaæ? ")
+			say("")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+		when 20017.chat."Badacz Zió³ " with pc.level >= 30 begin
+			 say_title("Yu-Hwan:")
+			say("Aktualnie zielarstwo jest znane prawie wszedzie. ")
+			say("Próbowa³eœ ju¿? Myœlê, ¿e mogê pokazaæ Ci kilka ")
+			say("moich receptur. Znaj¹c je, bêdziesz w stanie")
+			say("tworzyæ lepsze mikstury. ")
+			say("")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+		when 20022.chat."Tajny przepis" with pc.level >=45 begin
+			 say_title("Huahn-So:")
+			say("Hah! Znalaz³em rodzinn¹ tajemnicê! ")
+			say("Korzystaj¹c z niej, bêdziesz prawie")
+			say("niezniszczalny! Hahaha.")
+			say("Prawdopodobnie jestem jedyn¹ osob¹, która zna ")
+			say("ten sposób. Z takimi miksturami prawie nic nie")
+			say("mo¿e Ci siê staæ. ")
+			say("Czy chcesz spróbowaæ?! ")
+			say("")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+	end
+end

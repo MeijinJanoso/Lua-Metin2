@@ -1,0 +1,236 @@
+--[[Quest by Gebel
+Zakaz publikowania/sprzedawania/etc.
+bez mojej zgody !
+
+GG: 46526993
+]]
+quest PiekielneKatakumby begin
+	state start begin
+		when 20367.chat."Piekielne Katakumby" begin
+			if pc.get_level() < 75 then
+				say_title("Straznik Katakumb:")
+				say("Musisz miec 75 level, zeby wejsc do srodka")
+			else
+				say_title("Straznik Katakumb:")
+				say("Masz wymagany poziom. Wchodzisz ?")
+				if select("Tak", "Nie") == 1 then pc.warp(314800, 1209800) end
+			end
+		end
+		when login with pc.get_map_index() == 206 begin
+			say_title("Poziom 1")
+			say("Dropnij Klucz Krysztalu Duszy i ")
+			say("przeciagnij go na posag na samym")
+			say("koncu mapy.")
+			say()
+			say("Powodzenia")
+			pc.setqf("klucz", 1)
+		end
+		when kill with pc.get_map_index() == 206 and not npc.is_pc() and pc.getqf("klucz") == 1 begin
+			if number(1, 10) == 1 then
+				game.drop_item(30311, 1)
+				pc.setqf("klucz", 3)
+			else
+				chat("Ten potwór nie posiadal klucza.")
+			end
+		end
+		function spawn_doors()
+			dc2_door_set_size = {4,2,3,2}
+			dc2_door_set1 = {
+				{{30111,    566,    117,    5},{30112,  562,    311,    5,},{30118, 663,    434,    7},{30119,  881,    434,    7}},
+				{{30116,    743,    390,    3},{30119,  612,    251,    1,}},
+				{{30113,    654,    211,    5},{30111,  707,    338,    7,},{30112, 775,    336,    7}},
+				{{30117,    733,    294,    3},{30113,  694,    271,    1,}}
+			}
+			dc2_door_set2 = {
+				{{30115,    942,    141,    5},{30116,  942,    245,    5},{30117,  942,    321,    5},{30115,  763,    64, 7}},
+				{{30118,    643,    116,    3},{30114,  900,    167,    1}},
+				{{30114,    850,    293,    5},{30113,  715,    164,    7},{30114,  817,    162,    7}},
+				{{30111,    802,    277,    1},{30112,  800,    241,    1}}
+			}
+			for i = 1, 4 do
+				local mob_set = dc2_door_set1[i]
+				local set_size = dc2_door_set_size[i]
+				for j = 1, set_size do
+					d.set_unique(i.."_1_"..j, d.spawn_mob_dir(mob_set[j][1], mob_set[j][2], mob_set[j][3], mob_set[j][4]))
+				end
+				mob_set = dc2_door_set2[i]
+				for j = 1, set_size do
+					d.set_unique (i.."_2_"..j, d.spawn_mob_dir (mob_set[j][1], mob_set[j][2], mob_set[j][3], mob_set[j][4]))
+				end
+			end
+		end
+		function spawn_tele()
+			telep = {
+				{70,	574,	10804},
+				{69,	673,	10831},
+				{131,	668,	10813},
+				{180,	566,	10801},
+				{295,	567,	10808},
+				{282,	635,	10832},
+				{181,	667,	10812},
+				{345,	555,	10805},
+				{400,	558,	10810},
+				{67,	815,	10809},
+				{140,	821,	10814},
+				{189,	711,	10823},
+				{274,	712,	10802},
+				{225,	780,	10811},
+				{328,	780,	10829},
+				{274,	842,	10834},
+				{350,	717,	10803},
+				{419,	711,	10806},
+				{363,	776,	10812},
+				{347,	839,	10815},
+				{366,	809,	10833},
+				{429,	841,	10835},
+				{94,	839,	10802},
+				{55,	864,	10807},
+				{142,	866,	10811},
+				{51,	920,	10816},
+				{90,	946,	10833},
+				{144,	919,	10822},
+				{194,	861,	10815},
+				{243,	853,	10834},
+				{312,	852,	10801},
+				{364,	893,	10804},
+				{406,	871,	10830},
+				{431,	935,	10813}
+			}
+			for i = 1, table.getn(telep) do
+				d.spawn_mob(telep[i][3], telep[i][1], telep[i][2])
+				--[[if pc.is_gm() then
+					chat(telep[i][3], telep[i][1], telep[i][2])
+				end]]
+			end
+		end
+		when 30101.take with item.get_vnum() == 30311 begin
+			if pc.is_gm() then
+				say("Jestes GM !")
+				say_title("Statua:")
+				say("Chcecie wraz z grupa przejsc dalej ?")
+				if select("Tak", "Nie") == 1 then
+					pc.remove_item(30311, 1)
+					d.new_jump_party(206, 550 + 3072, 45 + 12032)
+					d.regen_file("data/dungeon/dc/dc_2f_regen.txt")
+					d.spawn_mob(30103, 741, 217)
+					d.notice("Przedostancie sie do Zólwiej Skaly !")
+					PiekielneKatakumby.spawn_doors()
+				end
+			else
+				if not party.is_leader()  then
+					say("Musisz byc liderem grupy !")
+				else
+					say_title("Statua:")
+					say("Chcecie wraz z grupa przejsc dalej ?")
+					if select("Tak", "Nie") == 1 then
+						pc.remove_item(30311, 1)
+						d.new_jump_party(206, 550 + 3072, 45 + 12032)
+						d.regen_file("data/dungeon/dc/dc_2f_regen.txt")
+						d.spawn_mob(30103, 741, 217)
+						d.notice("Przedostancie sie do Zólwiej Skaly !")
+						PiekielneKatakumby.spawn_doors()
+					end
+				end
+			end
+		end
+		when 30198.use begin
+			PiekielneKatakumby.spawn_tele()
+		end
+		when 30103.chat."Przejscie na Poziom 3" begin
+			if not party.is_leader() then
+				say_title("Zólwia Skala:")
+				say("Musisz byc liderem grupy !")
+				return
+			end
+			say_title("Zólwia Skala:")
+			say("Chcecie przejsc dalej ?")
+			say("Tam juz nie bedzie tak prosto.")
+			if select("Tak", "Nie") == 1 then
+				d.jump_all(1378+3072, 249+12032)
+				d.regen_file("data/dungeon/dc/dc_3f_regen.txt")
+				d.spawn_mob(8038, 1351, 348)
+				d.spawn_mob(8038, 1148, 350)
+				d.spawn_mob(8038, 1151, 155)
+				d.spawn_mob(8038, 1351, 149)
+				metek = number(1, 4)
+				party.setf("ktory", 0)
+				party.setf("metek", metek)
+			end
+		end
+		when kill with npc.get_race() == 8038 and pc.in_dungeon() begin
+			party.setf("ktory", party.getf("ktory")+1)
+			if party.getf("ktory") == party.getf("metek") then
+				d.notice("Zniszczyliscie prawidlowy Kamien Metin.")
+				timer("labirynt", 4)
+			else
+				d.notice("Ten Kamien Metin byl falszywy.")
+				--party.getf("metek")
+			end
+		end
+		when labirynt.timer begin
+			local i = number(1, 5)
+			d.jump_all(70+3072, 592+12032)
+			d.notice("Przejdzcie labirynt i porozmawiajcie z Runicznym Palem.")
+			d.spawn_mob(30104, 500, 717)
+			PiekielneKatakumby.spawn_tele()
+			d.regen_file("data/dungeon/dc/devilcatacomb_floor4_regen"..i)
+			--d.regen_file("data/dungeon/dc/dc_4f_regen.txt")
+		end
+		when 30104.chat."Przejscie na 5 poziom" begin
+			if not party.is_leader() then
+				say_title("Runiczny Pal:")
+				say("Musisz byc liderem grupy !")
+				return
+			end
+			say_title("Runiczny Pal:")
+			say("Znalazles prawidlowa droge.")
+			say("Chcecie przejsc dalej ?")
+			if select("Tak", "Nie") == 1 then
+				d.jump_all(846+3072, 898+12032)
+				d.notice("Znajdzcie i zabijcie Tartara.")
+				d.notice("Zdobedziecie z niego Totem. Przeciagnijcie go na Obelisk")
+				d.spawn_mob(30102, 848, 739)
+				d.regen_file("data/dungeon/dc/dc_5f_regen.txt")
+				local number = number(1,5)
+				tartar_pos = {
+					{673,829},
+					{691,638},
+					{848,568},
+					{1026,642},
+					{1008,862}
+				}
+				d.spawn_mob(2591, tartar_pos[number][1], tartar_pos[number][2])
+			end
+		end
+		when kill with npc.get_race() == 2591 and party.is_party() and pc.in_dungeon() begin
+			game.drop_item(30312, 1)
+			d.notice("Zabiliscie Tartara. Przeciagnijcie Totem na Obelisk po srodku mapy !")
+		end
+		when 30102.take begin
+			item.remove()
+			d.clear_regen()
+			d.purge()
+			timer("devilcatacomb_floor6_timer",2)
+		end
+		when devilcatacomb_floor6_timer.timer begin
+			d.jump_all(1362+3072, 666+12032)
+			d.regen_file("data/dungeon/dc/dc_6f_regen.txt")
+			d.spawn_mob(2597, 1303, 704)
+			d.notice("Zabijcie Charona")
+		end
+		when kill with npc.get_race() == 2597 and party.is_party() and pc.in_dungeon() begin
+			d.jump_all(73+3072, 1156+12032)
+			d.regen_file("data/dungeon/dc/dc_7f_regen.txt")
+			d.spawn_mob(2598, 74, 1103)
+			d.notice("Zabijcie Azraela")
+		end
+		when kill with npc.get_race() == 2598 and party.is_party() and pc.in_dungeon() begin
+			d.notice("Zabiliscie Azraela ! Macie 2 minuty na pozbieranie dropu.")
+			game.drop_item_with_ownership(50186, 1)
+			timer("koniec", 2*60)
+		end
+		when koniec.timer begin
+			d.exit_all()
+		end
+	end
+end

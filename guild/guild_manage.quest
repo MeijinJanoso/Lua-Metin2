@@ -1,0 +1,146 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest guild_manage begin
+	state start begin
+		when guild_man1.chat."GM: Ogranicz." or 
+			guild_man2.chat."GM: Ogranicz." or
+			guild_man3.chat."GM: Ogranicz." 
+			with pc.is_gm() begin
+			say("Wpisz nazwê osoby, któr¹ chcesz ograniczyæ!")
+			local u_name = input()
+			local u_vid=find_pc_by_name(u_name)
+			if u_vid==0 then 
+				say_title("Gracza takiego jak:")
+				say_reward(u_name)
+				say_title("nie ma!")
+				return
+			end
+			local old_vid = pc.select(u_vid)
+			u_withdrawTime=pc.getqf("new_withdraw_time")
+			u_disbandTime=pc.getqf("new_disband_time")
+			pc.select(old_vid)
+			withdrawDelay=game.get_event_flag("guild_withdraw_delay")
+			disbandDelay=game.get_event_flag("guild_disband_delay")
+			say_title("½T»{¥i¥H¦A¥[¤Jªº¤é´Á")
+			if u_withdrawTime>0 then
+				say("²æÂ÷  ®É¶¡: "..time_to_str(u_withdrawTime))
+				say("(µ¥«Ý  ®É¶¡: "..withdrawDelay.." ¤é)")
+				say("")
+			end
+			if u_disbandTime>0 then
+				say("¸Ñ´² ®É¶¡: "..time_to_str(u_disbandTime))
+				say("(µ¥«Ý ®É¶¡: "..disbandDelay.." ¤é)")
+				say("")
+			end
+			local retryTime1 = u_withdrawTime + withdrawDelay*86400
+			local retryTime2 = u_disbandTime + disbandDelay*86400
+			local retryTime = 0
+			if retryTime1 > retryTime2 then 
+				retryTime = retryTime1
+			else 
+				retryTime = retryTime2 
+			end
+			local curTime = get_time()
+			if curTime < retryTime then
+				say("­«·s³]©w ®É¶¡: "..time_to_str(retryTime))
+				say("(³Ñ¤U : "..((retryTime-curTime)/3600).."®É¶¡)")
+				say("")
+				if is_test_server() then
+					local s=select("­«·s³]©w", "Ãö³¬")
+					if s==1 then
+						local old_vid = pc.select(u_vid)
+						local curTime=get_time()
+						pc.setqf("new_withdraw_time", curTime-withdrawDelay*86400)
+						pc.setqf("new_disband_time", curTime-disbandDelay*86400)
+						pc.select(old_vid)
+					end
+				end
+			else
+				say("²{¦b¥i¥H¥[¤J");
+				say("")
+			end
+		end
+		when 	guild_man1.chat."GM: SprawdŸ." or 
+				guild_man2.chat."GM: SprawdŸ." or
+				guild_man3.chat."GM: SprawdŸ." 
+				with pc.is_gm() begin
+			setskin(NOWINDOW)
+			chat("Ma gildiê: "..bool_to_str(pc.has_guild()))
+			chat("Jest mistrzem: "..bool_to_str(pc.isguildmaster()))
+			chat("Królestwo: "..pc.empire)
+			chat("Królestwo NPC: "..npc.empire)
+		end
+		when 	guild_man1.chat.locale.guild.withdraw or 
+				guild_man2.chat.locale.guild.withdraw or 
+				guild_man3.chat.locale.guild.withdraw 
+				with pc.hasguild() and not pc.isguildmaster() and (pc.is_gm() or npc.empire == pc.empire) begin
+			say(locale.guild.withdraw_confirm)
+			local s = select(locale.guild.yes, locale.guild.no)
+			if s==1 then
+				say(locale.guild.withdraw_msg)
+				pc.remove_from_guild()
+				pc.setqf("new_withdraw_time",get_global_time())
+			end
+		end
+		when 	guild_man1.chat.locale.guild.disband or 
+				guild_man2.chat.locale.guild.disband or 
+				guild_man3.chat.locale.guild.disband 
+				with pc.hasguild() and pc.isguildmaster() and (pc.is_gm() or npc.empire == pc.empire) begin
+			say(locale.guild.disband_confirm)
+			local s = select(locale.guild.yes, locale.guild.no)
+			if s==1 then
+				say(locale.guild.disband_msg)
+				pc.destroy_guild()
+				pc.setqf("new_disband_time",get_global_time())
+				pc.setqf("new_withdraw_time",get_global_time())
+			end
+		end
+		when 	guild_man1.chat."Stwórz gildiê." or 
+				guild_man2.chat."Stwórz gildiê." or 
+				guild_man3.chat."Stwórz gildiê." 
+				with (pc.is_gm() or npc.empire == pc.empire) begin
+			local level_limit;
+			local guild_create_item
+			if get_locale() == "eng" then
+				level_limit = 40
+				guild_create_item = false
+			else
+				level_limit = 30
+				guild_create_item = false 
+			end
+			if pc.hasguild() then
+				say("Nie mo¿esz stworzyæ gildii, posiadasz ju¿ swoj¹!")
+				return
+			end
+			if game.get_event_flag("guild_withdraw_delay")*86400 > get_global_time() - pc.getqf("new_withdraw_time") then
+				say(string.format("Musisz odczekaæ %d dzieñ zanim za³o¿ysz gildiê!", game.get_event_flag("guild_withdraw_delay")))
+				return
+			end
+			if game.get_event_flag("guild_disband_delay")*86400 > get_global_time() - pc.getqf("new_disband_time") then
+				say(string.format("§A¤w¸g¸Ñ´²¤½·¤F! %d ¤Ñ¥H¤º, µLªk«Ø¥ß¨ä¥Lªº¤½·.", game.get_event_flag("guild_disband_delay")))
+				return
+			end
+				say(locale.guild.create_confirm)
+				local s = select(locale.guild.yes, locale.guild.no)
+			if s == 2 then
+				return
+			end
+			if pc.level >= level_limit then
+				if pc.gold >= 200000 then
+					if not guild_create_item or pc.countitem(guild_create_item)>0 then
+						game.request_make_guild()
+					else
+						say(locale.guild.no_guild_create_item)
+					end
+				else
+					say(locale.guild.create_not_enough_money)
+				end
+			else
+				say(locale.guild.not_enough_leadership)
+			end
+		end
+	end
+end

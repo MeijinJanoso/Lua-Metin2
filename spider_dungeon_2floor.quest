@@ -1,0 +1,36 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest spider_dungeon_2floor begin
+	state start begin
+		when login or levelup with pc.level >0 begin
+			set_state(to_spider_2floor)
+		end
+	end
+	state to_spider_2floor begin
+		when 20089.chat."Wróæ na 1. Poziom " begin
+			say_title("Pung-Ho:")
+			say("Czy na pewno chcesz wróciæ ")
+			say("na 1. Poziom Lochu Paj¹ków? ")
+			say("")
+			local a= select("Tak","Nie")
+			if 1==a then
+				say_title("Pung-Ho:")
+				say("M¹dra decyzja. Jest tu zbyt ")
+				say("niebezpiecznie, aby zostaæ na d³u¿ej. ")
+				say("IdŸ i opatrz swoje rany. ")
+				say("Do zobaczenia! ")
+				wait()
+				pc.warp(91700, 525300)
+				return
+			end
+			say_title("Pung-Ho:")
+			say("OK, bêdzie jak chcesz...")
+			say("Proszê, uwa¿aj na siebie! ")
+			say("Jest tu naprawdê niebezpiecznie. ")
+			say("")
+		end
+	end
+end

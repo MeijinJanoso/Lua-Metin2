@@ -1,0 +1,54 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest guild_ranking begin
+	state start begin
+		when guild_man1.chat.locale.show_guild_ranking_around with pc.hasguild() begin
+			say(locale.guild_around_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+		when guild_man1.chat.locale.show_guild_ranking_top with pc.hasguild() begin
+			say(locale.guild_top_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+		when guild_man1.chat.locale.show_guild_cur_score with pc.hasguild() begin
+			say(locale.guild_your_rank1..guild.get_rank()..".")
+			say(locale.guild_your_rank2..guild.get_ladder_point()..locale.guild_your_rank3)
+		end
+		---------------------------------------------------------------------------
+		when guild_man2.chat.locale.show_guild_ranking_around with pc.hasguild() begin
+			say(locale.guild_around_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+		when guild_man2.chat.locale.show_guild_ranking_top with pc.hasguild() begin
+			say(locale.guild_top_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+		when guild_man2.chat.locale.show_guild_cur_score with pc.hasguild() begin
+			say(locale.guild_your_rank1..guild.get_rank()..".")
+			say(locale.guild_your_rank2..guild.get_ladder_point()..locale.guild_your_rank3)
+		end
+		---------------------------------------------------------------------------
+		when guild_man3.chat.locale.show_guild_ranking_around with pc.hasguild() begin
+			say(locale.guild_around_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+		when guild_man3.chat.locale.show_guild_ranking_top with pc.hasguild() begin
+			say(locale.guild_top_rank_msg)
+			say(locale.guild_rank_head);
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+		when guild_man3.chat.locale.show_guild_cur_score with pc.hasguild() begin
+			say(locale.guild_your_rank1..guild.get_rank()..".")
+			say(locale.guild_your_rank2..guild.get_ladder_point()..locale.guild_your_rank3)
+		end
+	end
+end
+

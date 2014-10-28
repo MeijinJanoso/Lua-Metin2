@@ -1,0 +1,339 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest npc_talk begin
+	state start begin
+		when 9003.take with pc.is_gm() begin
+			item.remove()
+			setskin(NOWINDOW)
+		end
+		when 20354.click begin
+			say_title("Stra¿nik Miejski:")
+			say("B¹dŸ cicho i zachowajj dyscyplinê. Zachowuj siê i ")
+			say("nie sprawiaj ¿adnych k³opotów. Powinienieœ ")
+			say("szanowaæ innych ludzi. Zrozumia³eœ? ")
+			say("")
+		end
+		when 20008.chat."Co za cudowny zapach... " begin
+			say_title("W³aœciciel Restauracji, Octavio:")
+			say("Witaj! Nasza Restauracja jest czêœci¹ wielkiego")
+			say("miêdzynarodowego kompleksu. WejdŸ i sprawdŸ nas.")
+			say("")
+			if math.random(2) == 1 then 
+				wait()
+				say_pc_name()
+				say("Pomimo, ¿e jest to du¿a restauracja,")
+				say("dekoracja jest ca³kiem prosta.")
+			end
+		end
+		when 20005.chat."Opowiedz mi trochê o ceramice." begin
+			say_title("Garncarz Yonah:")
+			say("Garncarstwo to wdziêczne zajêcie. Lubiê wyrabiaæ ")
+			say("z glinki ró¿ne przedmioty, nadawaæ im kszta³t i")
+			say("obserwowaæ jak one powstaj¹... Wyrabiam proste")
+			say("rzeczy. Na wschodzie, poza tym kontynentem s¹ ")
+			say("metody produkcji du¿o dalej rozwiniête. Raz")
+			say("widzia³em przedmioty wykonane z gliny przez")
+			say("garncarza stamt¹d i by³em pod wra¿eniem. Nadal")
+			say("badam ich przedmioty. Chcê wiedzieæ jakich")
+			say("sztuczek oni u¿ywaj¹. ")
+			say("")
+		end
+		when 20005.chat."Wygl¹dasz na silnego i zdrowego jak na Twoje lata..." begin
+			say_title("Garncarz Yonah:")
+			say("Jestem ju¿ naprawdê starym cz³owiekiem jednak ")
+			say("nadal jestem zdrowy i sprawny, poniewa¿ znam ")
+			say("pewien sekret. Odkry³em, ¿e mikstura zrobiona z ")
+			say("korzeni Gango i Grzybów Tue wyd³u¿a ¿ycie. ")
+			say("metody produkcji du¿o dalej rozwiniête. Raz ")
+			say("Jeœli chcia³byœ j¹ wypróbowaæ, zanieœ ")
+			say("potrzebne materia³y do Yu-Hwan. Jestem pewny, ¿e ")
+			say("z chêci¹ przygotuje Ci tak¹ miksturê. ")
+			say("")
+		end
+		when 20017.chat."Sz³a dzieweczka do laseczka. Do zielonego..." begin
+			say_title("Muzyk Yu-Hwan:")
+			say("...do zielonego, do zielonego. Napotka³a")
+			say("myœliweczka...")
+			say("Lubisz œpiewaæ? Œpiewam sobie czasem w")
+			say("samotnoœci, dziêki temu nie myœlê o wojnie.")
+			say("Ale bez Królestwa, które mnie ochroni, nie")
+			say("bêdê móg³ robiæ tego co lubiê.")
+			say("")
+		end
+		when 20023.chat."Dlaczego czytasz tak du¿o?" begin
+			say_title("Mol Ksi¹¿kowy Soon:")
+			say("Oh, poszukiwacz przygód. Œwiat to jedno wielkie")
+			say("wyzwanie, tylko maj¹c wiedzê mo¿na przetrwaæ. ")
+			say("Zawsze szanuj swoje ksi¹¿ki. Pomog¹ Ci w z³ych")
+			say("czasach. Mo¿esz mi wierzyæ! ")
+			say("")
+		end
+		when 20023.chat."Masz dzieci?" begin
+			say_title("Mol Ksi¹¿kowy Soon:")
+			say("W³aœciwie nie chcia³em dzieci, ale... Od czasu do")
+			say("czasu zbieram kwiaty Kaki, poniewa¿ zwiêkszaj¹ one")
+			say("magiczn¹ energiê. Baek-Go odkry³ sposób na")
+			say("wytwarzanie z nich mikstur. Potrzebuje on tylko")
+			say("jeden kwiat Kaki, aby przyrz¹dziæ 100 mikstur.")
+			say("Niestety, kwiaty Kaki maj¹ tak¿e efekty uboczne,")
+			say("je¿eli kobieta ma na sobie naszyjnik z tych")
+			say("kwiatów, to urodzi syna. Mówi¹c miêdzy nami, moja")
+			say("¿ona wykorzysta³a to bezwstydnie.")
+			say("")
+		end
+		when 20020.chat."Dlaczego masz tyle blizn?" begin
+			say_title("Zdrajca Balso:")
+			say("Chyba nie jestem najlepszym wojownikiem, poniewa¿ ")
+			say("czêsto by³em ranny podczas walk. Poprosi³em")
+			say("kiedyœ Yu-Hwan, aby sporz¹dzi³ dla mnie miksturê ")
+			say("chroni¹c¹ moje cia³o przed atakami innych.")
+			say("Przygotowa³ miksturê z Pokrzywy i Bzu, ale nie")
+			say("dzia³a ona tak jak chcia³em. A mo¿e po prostu")
+			say("jestem kiepskim wojownikiem. S¹dzê jednak, ¿e")
+			say("Tobie taka mikstura na pewno pomo¿e w walkach.")
+			say("")
+		end
+		when 20020.chat."Dlaczego nazywaj¹ Ciê zdrajc¹? " begin
+			say_title("Zdrajca Balso:")
+			say("Kiedyœ uciek³em przed wojn¹ i do³¹czy³em do Gangu")
+			say("Czarnego Wiatru. Moi towarzysze nigdy mi tego nie")
+			say("wybaczyli. Z biegiem czasu przekona³em siê o")
+			say("bestialskich metodach wojowników Czarnego Wiatru.")
+			say("Zabijali niewinnych ludzi. Nie mog³em ju¿ d³u¿ej")
+			say("tego znieœæ i natychmiast odesz³em. Co za")
+			say("okropnoœæ!")
+			say("")
+			if math.random(2) == 1 then
+				wait()
+				say_pc_name()
+				say("Masz na sumieniu niewinnych ludzi? W takim razie")
+				say("w pe³ni zas³ugujesz na to, by Ciê nazwano")
+				say("zdrajc¹. To ty odebra³eœ im mo¿liwoœæ spokojnego")
+				say("¿ycia.")
+				say("")
+				wait()
+				say_title("Zdrajca Balso:")
+				say("To œwiat bezprawia. Postanowi³em jednak, ¿e nie")
+				say("uczyniê ju¿ niczego z³ego. Nie chcê, aby mnie")
+				say("ludzie nazywali zdrajc¹.")
+				say("")
+				say("Masz dla mnie trochê Yang?")
+				say("")
+			end
+		end
+		when 20011.chat." To Ciebie nazywaj¹ mêdrcem?" begin
+			say_title("Mêdrzec Uriel:")
+			say("Jest tak wiele rzeczy do nauczenia siê w tym")
+			say("szerokim œwiecie. Ignorancja wyposa¿ona w si³ê ")
+			say("militarn¹, to z³a kombinacja. Nie chcesz ¿yæ, jak")
+			say("Ci ignoranccy ¿o³nierze, prawda? Wiedza to si³a!")
+			say("")
+		end
+		when 20018.chat."Powiedziano mi, ¿e jesteœ uzdrawiaczem. Czy to prawda?" begin
+			say_title("Baek-Go:")
+			say("Robiê, co mogê. Niestety, w tym niebezpiecznym")
+			say("œwiecie coraz wiêcej jest rannych. Nie mamy")
+			say("wystarczaj¹cej iloœci leków ani pomocników.")
+			say("Nasta³y ciê¿kie czasy! Czy jest jakaœ szansa, ¿e")
+			say("mi póŸniej pomo¿esz?")
+			say("")
+		end
+		when 20019.chat."Jak tam ³owy?" begin
+			say_title("£owca Yang-Shin:")
+			say("Hmm, od czasu upadku Kamieni Metin, zwierzêta")
+			say("sta³y siê dzikie. W dzisiejszych czasach,")
+			say("zabójcze mo¿e byæ nawet polowanie na kury.")
+			say("Nasta³y niebezpieczne czasy dla wszystkich")
+			say("£owców. Na szczêœcie nale¿ê do grona najlepszych!")
+			say("")
+		end
+		when 20019.chat."Sk¹d bierze siê Twoja celnoœæ strza³ów?" begin
+			say_title("£owca Yang-Shin:")
+			say("W strzelaniu z ³uku jestem nie do pokonania. A")
+			say("to wszystko dlatego, ¿e znam specjaln¹ ")
+			say("recepturê, hehe! Jeœli zmieszasz Sok z Kwiatu")
+			say("Brzoskwini i Bez, otrzymasz wspania³¹ miksturê.")
+			say("Mo¿e ona zwiêkszyæ celnoœæ Twoich ciosów. Jeœli")
+			say("chcesz j¹ wypróbowaæ, zanieœ sk³adniki do")
+			say("Yu-Hwan i poproœ go o przyrz¹dzenie")
+			say("odpowiedniego naparu.")
+			say("")
+		end
+		when 20006.chat."Och, jaki piêkny wianek z kwiatów..." begin
+			say_title("Mirine:")
+			say("Dawniej zawsze zbiera³am Kwiaty Brzoskwiñ z moim")
+			say("bratem, dzisiaj muszê to robiæ sama. Kwiaty s¹ nie")
+			say("tylko piêkne i pachn¹ce, ale te¿ posiadaj¹ ")
+			say("szczególne dzia³anie. Jeœli zaniesiesz Kwiat")
+			say("Brzoskwini do Baek-Go, to sporz¹dzi on z niego")
+			say("miksturê, która uczyni Ciê bardzo zwinnym!")
+			say("")
+		end
+		when 20006.chat."Gdzie jest twój brat?" begin
+			say_title("Mirine:")
+			say("Ostatnio mój brat du¿o pordró¿uje. Bardzo siê o")
+			say("niego martwiê.")
+			say("")
+		end
+		when 20012.chat."Sprzedajesz Ciastka Ry¿owe?" begin
+			say_title("Yu-Rang, Sprzedawca Tortów:")
+			say("Podczas wojny ciê¿ko jest sprzedawaæ Ciastka")
+			say("Ry¿owe. Dziêki bandytom, straciliœmy wiêkszoœæ ")
+			say("klientów. Nie wiem jeszcze, ile poci¹gnê ten")
+			say("interes.")
+			say("")
+		end
+		when 20012.chat."Kto kupuje u Ciebie?" begin
+			say_title("Yu-Rang, Sprzedawca Tortów:")
+			say("Najwiêcej Ciastek Ry¿owych sprzedajê podczas")
+			say("moich podró¿y. Pewnego dnia tajemniczy rycerz w")
+			say("czerni stan¹³ przede mn¹ i chcia³ kupiæ ciastko.")
+			say("Okaza³o siê jednak, ¿e nie ma Yang. W zamian za")
+			say("ciastko, da³ mi pewn¹ recepturê. Receptura ta")
+			say("opisywa³a krok po kroku jak przygotowaæ Wodê Zin.")
+			say("Mikstura jest w stanie poprawiæ Si³ê Ataku.")
+			say("Sprzeda³am j¹ Huahn-So. Jeœli zaniesiesz")
+			say("Huahn-So Wodê Sim i Ró¿ê Alpejsk¹ na pewno z")
+			say("chêci¹ sporz¹dzi tak¹ miksturê dla Ciebie.")
+			say("")
+		end
+		when 20021.chat."Dlaczego spogl¹dasz tak smutno?" begin
+			say_title("Ariyoung:")
+			say("Och, kto by pomyœla³, ¿e nasze s³odkie marzenia")
+			say("m³odej pary zostan¹ tak bezlitoœnie zniszczone.")
+			say("Mój biedny m¹¿... poleg³ na polu bitwy!")
+			say("Proszê, pomœcij jego œmieræ.")
+			say("")
+		end
+		when 20021.chat."Wielu ginie podczas wojny..." begin
+			say_title("Ariyoung:")
+			say("Coraz wiêcej mê¿czyzn ginie na wojnie, wiêc my,")
+			say("kobiety z wioski, postanowi³yœmy poprosiæ ")
+			say("Huahn-So, aby stworzy³ lepsze mikstury uleczaj¹ce.")
+			say("Po bardzo d³ugich badaniach i eksperymentach")
+			say("uda³o mu siê znaleŸæ sposób na wyprodukowanie")
+			say("mikstury, która zwiêksza obronê - dziêki temu")
+			say("zu¿ywa siê mniej zwyk³ych mikstur leczniczych.")
+			say("IdŸ i z nim porozmawiaj. Na pewno Ci pomo¿e.")
+			say("Odkryt¹ miksurê nazwa³ Wod¹ Sam-Bo. Aby j¹ ")
+			say("wyprodukowaæ potrzebuje Wodê Dok i Ró¿ê Alpejsk¹.")
+			say("")
+		end
+		when 20002.chat."Co s³ychaæ u Twojego mê¿a?" begin
+			say_title("Aranyo:")
+			say("Mój tak zwany m¹¿ o¿eni³ siê z w³asnymi")
+			say("ksi¹¿kami. On ledwie na mnie spogl¹da.")
+			say("A ja nie jestem brzydk¹ kobiet¹. ")
+			say("")
+		end
+		when 20002.chat."Gdzie jest mój m¹¿? " begin
+			say_title("Aranyo:")
+			say("Gdzie on siê móg³ schowaæ? Jest w tym coraz")
+			say("lepszy! Raczej ciê¿ko go odnaleŸæ... ")
+			say("Zastanawiam siê, czy nie powinnam powiesiæ mu")
+			say("dzwonka na szyi, tak jak mi doradzi³a Handlarka.")
+			say("")
+		end
+		when 20003.chat."Co u was s³ychaæ? " begin
+			say_title("Ah-Yu:")
+			say("Moje dziecko! Jestem taka nerwowa... Teraz, kiedy")
+			say("mój m¹¿ poleg³ na wojnie, muszê siê odnaleŸæ... ")
+			say("Próbujê utrzymaæ mnie i moje dziecko sama. To")
+			say("dziêki Wodzie Bo mogê zapewniæ utrzymanie mojej")
+			say("rodzinie. Muszê dostarczyæ do Yu-Hwan 100 Soków z")
+			say("Kwiatów Kaki i jeden Grzyb Tue. Za dostarczenie")
+			say("tych sk³adników dostanê Wodê Bo, któr¹ bêdê mog³a")
+			say("sprzedaæ. Muszê jakoœ dostarczyæ te materia³y...")
+			say("")
+		end
+		when 20003.chat."Och, co za s³odki brzd¹c..." begin
+			say_title("Ah-Yu:")
+			say("Znowu zaczyna krzyczeæ...")
+			say("Ju¿ nie wiem, czy chce trochê s³odyczy, czy...")
+			say("Och, nie!")
+			say("")
+		end
+		when 20010.chat."Jak tam Twoje interesy?" begin
+			say_title("Domokr¹¿ca:")
+			say("Od czasu rozpoczêcia wojny, bardzo trudno na")
+			say("siebie zarobiæ. Zwi¹zek Handlowy kiedyœ by³ ")
+			say("bardzo potê¿ny, ale jego czasy œwietnoœci minê³y.")
+			say("Nie mo¿emy ju¿ d³u¿ej ignorowaæ dzikusów,")
+			say("Zaprzysiê¿onych ¯o³nierzy i ¯o³nierzy Czarnego")
+			say("Wiatru tak jak by³o do tej pory.")
+			say("")
+		end
+		when 20014.chat."Dlaczego jesteœ w z³ym nastroju?" begin
+			say_title("Taurean:")
+			say("Harang to niedobra dziewczyna!")
+			say("Nienawidzê jej! Jestem s³aby, a ona czêsto mnie")
+			say("zaczepia!")
+			say("")
+			if math.random(2) == 1 then
+				wait()
+				say_pc_name()
+				say("Jesteœ facetem i masz miêœnie.")
+				say("Poæwicz je trochê!")
+				say("")
+			end
+		end
+		when 20024.chat."Co robisz?" begin
+			say_title("Harang:")
+			say("Czekam na Taurean! Czêsto bawimy siê razem i")
+			say("walczymy ze sob¹. Co za tchórz! Jeœli nie")
+			say("przyjdzie sam, to oberwie po uszach!")
+		end
+		when 20024.chat."Taurean boi siê Ciebie." begin
+			say_title("Harang:")
+			say("Taurean jest silniejszy ode mnie, dlatego te¿ ")
+			say("wymyœli³am sposób na pokonanie go w walce. Wiem")
+			say("od pewnego m¹drego ninja, ¿e jeœli pomieszam Wodê ")
+			say("Young z Morw¹, to otrzymam miksturê, która")
+			say("umo¿liwia szybsze zadawanie ciosów. Z tak¹ ")
+			say("mikstur¹ jestem w stanie pokonaæ Taurean,")
+			say("nawet, jeœli jest silniejszy. Jeœli chcia³byœ ")
+			say("szybciej zadawaæ ciosy, to udaj siê do Huahn-So z")
+			say("odpowiednimi sk³adnikami i poproœ go, aby")
+			say("przygotowa³ tak¹ miksturê dla Ciebie.")
+		end
+		when 20015.chat."Wygl¹dasz na silnego..." begin
+			say_title("Deokbae:")
+			say("Od wielu pokoleñ, sekret wielkiej si³y jest")
+			say("przekazywany w mojej rodzinie z pokolenia na")
+			say("pokolenie. Mój ojciec powiedzia³ mi kiedyœ, ¿e")
+			say("jeœli we w³aœciwy sposób przygotuje siê Pokrzywê,")
+			say("to mo¿na otrzymaæ miksturê zwiêkszaj¹c¹ si³ê na")
+			say("krótki okres czasu. Z tego co wiem, Baek-Go zna")
+			say("tê recepturê. Musisz tylko dostarczyæ mu")
+			say("odpowiednie sk³adniki.")
+			say("")
+		end
+		when 20087.chat."Kim jesteœ?" begin
+			say_title("Wonda-Rim:")
+			say("Jestem Wonda-Rim, bratanek Chaegiraba. Mój wujek")
+			say("jest bardzo s³awnym biologiem! Znasz go? Zajmuje")
+			say("siê sporz¹dzaniem mikstur z przeró¿nych zió³.")
+			say("Odkry³, ¿e jeœli zmiesza siê 100 Wód Bo z Morw¹,")
+			say("to mo¿na otrzymaæ bardzo siln¹ ochronê przed")
+			say("magi¹. Z tego co wiem, Huahn-So jest w stanie")
+			say("przygotowaæ tak¹ miksturê. Wystarczy, ¿e dasz mu")
+			say("odpowiednie sk³adniki.")
+			say("")
+		end
+		when 9009.chat."Ulepszanie Wêdki" begin
+			say_title("Rybak:")
+			say("Wiêc, chcesz poznaæ sekret ulepszania Wedki?")
+			say("W prawdzie to nie jest wielka tajemnica. Jeœli")
+			say("spêdzisz wiêcej czasu na ³owieniu, poziom twojej")
+			say("Wêdki wzroœnie. Jeœli twoja wêdka osi¹gnie")
+			say("maksymalny poziom, przynieœ j¹ do mnie. Postaram")
+			say("siê j¹ ulepszyæ.")
+			say("Dobrze. Wybierz Wêdkê, któr¹ chcesz ulepszyæ ")
+			say("i daj mi j¹.")
+			say("")
+		end
+	end
+end

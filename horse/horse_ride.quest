@@ -1,0 +1,47 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_ride begin
+	state start begin
+		when 20349.chat."Zsi¹dŸ z konia" with pc.level>=10 and pc.is_mount() begin
+			local msg = "Chcesz zsi¹œæ z konia?"
+			say(msg)
+			local s = select("Tak", "Nie")
+			if s==1 then
+			pc.unmount()
+			end
+		end
+		when 20349.chat."Jazda Konna (u¿yj biletu)" with pc.level>=10 and not pc.is_mount() begin
+			if get_global_time() - pc.getqf("ride_time") < 3600 then
+				local no_lend_horse_yet =
+					"Nie mo¿esz jeszcze wynaj¹æ konia[ENTER] "..
+					"Przykro mi."
+				say(no_lend_horse_yet)    
+			else
+				say_title("Stajenny:")
+				local msg =
+					"Czy chcesz pojeŸdziæ konno?[ENTER]"..
+					"Wynajmujemy konie posiadaczom[ENTER]"..
+					"Biletu Na Jazdê Konn¹. Ze wzglêdu na twoje[ENTER]"..
+					"umiejêtnoœci, jesteœ w stanie jeŸdziæ przez [ENTER]"..
+					"jakieœ 10 minut. Nie jesteœ jeszcze zaznajomiony [ENTER]"..
+					"z jeŸdziectwem. Dlatego nie mo¿esz atakowaæ z[ENTER] Konia."
+				local no_horse_ticket = "Potrzebujesz Biletu Na Jazdê Konn¹!"
+				local horse_ticket_vnum = 50083
+				say(msg)
+				local s=select("Jazda na koniu","Nie jeŸdzij ")
+				if s==1 then
+					if pc.countitem(horse_ticket_vnum)>0 then
+						pc.removeitem(horse_ticket_vnum, 1)
+						pc.mount(20030, 600)
+						pc.setqf("ride_time", get_global_time())
+					else
+						say(no_horse_ticket)
+					end
+				end
+			end
+		end
+	end
+end 

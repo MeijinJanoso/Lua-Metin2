@@ -1,0 +1,161 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest szkata begin
+	state start begin
+		when 50186.use begin
+			szkata.open({11690, 11890, 11490, 11290, 3150, 170, 1120, 7150, 250, 2180, 14220, 16220, 17220, 14200, 16200,
+						12260, 12530, 12670, 12280, 12540, 12390, 12680, 12400, 13140, 27003, 27002, 27006, 27005,})
+			item.remove()
+		end
+		function open(box)
+			local give,a = number(1, 5),{}
+			for i = 1, give do
+				table.insert(a,i,box[number(1, table.getn(box))])
+			end
+			table.foreach(a,function(i,l) pc.give_item2(l) end)
+		end
+		when 50187.use or 50212.use or 50213.use begin
+			pc.give_item2(27001, 20)
+			pc.give_item2(27004, 10)
+			pc.give_item2(27100, 5)
+			pc.give_item2(27103, 5)
+			pc.give_item2(50188, 1)
+			if pc.job == 3 then
+				pc.give_item2(7000)
+			elseif pc.job == 1 then
+				pc.give_item2(1000)
+			else
+				pc.give_item2(10)
+			end
+			item.remove()
+		end
+		when 50188.use begin
+			if pc.get_level() < 10 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71014, 3)
+				pc.give_item2(71050, 3)
+				pc.give_item2(72723, 1)
+				pc.give_item2(50189, 1)
+				pc.give_item2(71004, 3)
+				item.remove()
+			end
+		end
+		when 50189.use begin
+			if pc.get_level() < 20 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(72723, 1)
+				pc.give_item2(50190, 1)
+				pc.give_item2(27989, 1)
+				pc.give_item2(71151, 1)
+				pc.give_item2(71152, 1)
+				item.remove()
+			end
+		end
+		when 50190.use begin
+			if pc.get_level() < 30 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71050, 3)
+				pc.give_item2(70003, 1)
+				pc.give_item2(50191, 1)
+				pc.give_item2(25040, 5)
+				item.remove()
+			end
+		end
+		when 50191.use begin
+			if pc.get_level() < 40 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71101, 3)
+				pc.give_item2(70003, 1)
+				pc.give_item2(71153, 1)
+				pc.give_item2(50192, 1)
+				item.remove()
+			end
+		end
+		when 50192.use begin
+			if pc.get_level() < 50 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71101, 3)
+				pc.give_item2(70038, 20)
+				pc.give_item2(70058, 1)
+				pc.give_item2(71095, 5)
+				pc.give_item2(50193, 1)
+				item.remove()
+			end
+		end
+		when 50193.use begin
+			if pc.get_level() < 60 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71101, 3)
+				pc.give_item2(70020, 5)
+				pc.give_item2(50194, 1)
+				pc.give_item2(71032, 3)
+				item.remove()
+			end
+		end
+		when 50194.use begin
+			if pc.get_level() < 70 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71101, 3)
+				pc.give_item2(50195, 1)
+				pc.give_item2(71002, 1)
+				pc.give_item2(71085, 3)
+				pc.give_item2(71084, 3)
+				item.remove()
+			end
+		end
+		when 50195.use begin
+			if pc.get_level() < 80 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(71034, 3)
+				pc.give_item2(71101, 3)
+				pc.give_item2(72728, 1)
+				pc.give_item2(71035, 3)
+				pc.give_item2(50196, 1)
+				item.remove()
+			end
+		end
+		when 50196.use begin
+			if pc.get_level() < 90 then
+				chat("Twój poziom jest ni¿szy od poziomu przedmiotu po ulepszeniu.")
+			else
+				pc.give_item2(72724, 1)
+				pc.give_item2(70024, 1)
+				pc.give_item2(30191, 3)
+				pc.give_item2(30320, 3)
+				item.remove()
+			end
+		end
+		when 50127.use with pc.get_level() >= 50 begin
+			pc.give_item2(72727, 1)
+			pc.give_item2(50190, 1)
+			pc.give_item2(27989, 1)
+			pc.give_item2(71151, 1)
+			pc.give_item2(71152, 1)
+			item.remove()
+		end
+		when 50129.use with pc.get_level() >= 90 begin
+			pc.give_item2(72727, 1)
+			pc.give_item2(50190, 1)
+			pc.give_item2(27989, 1)
+			pc.give_item2(71151, 1)
+			pc.give_item2(71152, 1)
+			item.remove()
+		end
+	end
+end

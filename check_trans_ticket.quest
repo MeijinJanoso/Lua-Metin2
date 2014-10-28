@@ -1,0 +1,48 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest check_trans_ticket begin
+	state start begin
+		when login or levelup with pc.level >0 begin
+			set_state(zone_enter)
+		end
+	end
+	state zone_enter begin
+		when 20088.chat."Do Sekretnej Komnaty" begin
+			say_title("Chuk-Sal:")
+			say("Witaj!")
+			say("Jestem stra¿nikiem Tajemniczej ")
+			say("Komnaty w Lochu Paj¹ków. Zobaczmy ")
+			say("czy jesteœ na tyle odwa¿ny, ")
+			say("aby do niej wejœæ... ")
+			say("")
+			wait()
+			if pc.count_item(71095)>0 then
+				say_title("Chuk-Sal:")
+				say("Jesteœ naprawdê odwa¿ny. ")
+				say("Masz Przepustkê, wiêc pozwolê Ci przejœæ... ")
+				say("chodŸ za mn¹... ")
+				say("")
+				pc.remove_item(71095)
+				char_log(0,"GO_SPIDER2","USE_ITEM(71095)")
+			elseif pc.count_item(71096) >0 then
+				say_title("Chuk-Sal:")
+				say("Jesteœ naprawdê odwa¿ny. ")
+				say("Masz Medal Portalu, wiêc pozwolê Ci przejœæ...")
+				say("chodŸ za mn¹... ")
+				say("")
+				char_log(0,"GO_SPIDER2","USE_ITEM(71096)")
+			else
+				say_title("Chuk-Sal:")
+				say("Wróæ gdy zdobêdziesz Przepustkê. ")
+				say("")
+				say_item("Przepustka", 71095, "")
+				return
+			end
+			wait()
+			pc.warp(704100, 464100)
+		end
+	end
+end

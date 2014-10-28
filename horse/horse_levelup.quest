@@ -1,0 +1,1081 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_levelup begin
+	state treningi_do_11_lvl0 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Pierwszy poziom konia w œwiecie Metin2")
+			say("musisz trochê pobiegaæ, aby go zdobyæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ!")
+			say("")
+			say("")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl1 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl2 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl3 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl4 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl5 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl6 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl7 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl8 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl9 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl10 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state treningi_do_11_lvl11 begin
+		when letter begin
+			send_letter("Trening Konny")
+			target.pos("__TARGET1__", 852, 1391, 64, "Trening Konny")
+		end
+		when button or info begin
+			say_title("Trening Konny:")
+			say("Aby wytrenowaæ konia w œwiecie Metin2")
+			say("musisz na nim trochê pojeŸdziæ.")
+			say("Bierz siê za to i masz tutaj 3 punkty")
+			say("do których musisz siê udaæ, nie mo¿esz")
+			say("spaœæ, ani zejœæ z konia, w innym wypadku")
+			say("misja zostanie nie zaliczona!")
+			say_reward("Punkty znajduj¹ siê w Dolnie Seungryoung!")
+			
+		end
+		when __TARGET1__.target.arrive begin
+			target.delete("__TARGET1__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET2__", 200, 750, 64, "Trening Konny")
+		end
+		when __TARGET2__.target.arrive begin
+			target.delete("__TARGET2__")
+			say_title("Punkt Kontrolny:")
+			say("Dobrze! JedŸ do nastêpnego punktu!")
+			target.pos("__TARGET3__", 1396, 141, 64, "Trening Konny")
+		end
+		when __TARGET3__.target.arrive begin
+			target.delete("__TARGET3__")
+			say_title("Punkt Kontrolny:")
+			say("To ju¿ ostatni punkt, wróæ do stajennego!")
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+			target.delete("__TARGET1__")
+			target.delete("__TARGET2__")
+			target.delete("__TARGET3__")
+		end
+	end
+	state training1 begin
+		when letter begin
+			q.set_counter("Bo", 5-pc.getqf("kill_count"))
+		end
+		when 492.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Bo", 5-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Bo!")
+			q.set_title("Zabij Bo!")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Bo!")
+			say("Zabij 5 Bo, a")
+			say("twój egzamin na 12 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+		end
+		when 492.kill with pc.getf("horse_levelup","kill_count") >= 5 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training2 begin
+		when letter begin
+			q.set_counter("Chuong", 5-pc.getqf("kill_count"))
+		end
+		when 494.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Chuong", 5-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Chuong!")
+			q.set_title("Zabij Chuong!")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Chuong!")
+			say("Zabij 5 Chuong, a")
+			say("twój egzamin na 13 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 494.kill with pc.getf("horse_levelup","kill_count") >= 5 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training3 begin
+		when letter begin
+			q.set_counter("Elit. Ork-Genera³ ", 10-pc.getqf("kill_count"))
+		end
+		when 635.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Elit. Ork-Genera³ ", 10-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Elit. Ork-Genera³ ")
+			q.set_title("Zabij Elit. Ork-Genera³ ")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Elit. Ork-Genera³ ")
+			say("Zabij 10 Dumnych Ork-Genera³ów, a")
+			say("twój egzamin na 14 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 635.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training4 begin
+		when letter begin
+			q.set_counter("Czarny Ork", 10-pc.getqf("kill_count"))
+		end
+		when 636.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Czarny Ork", 10-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Czarny Ork!")
+			q.set_title("Zabij Czarny Ork!")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Czarny Ork!")
+			say("Zabij 10 Czarnych Orków, a")
+			say("twój egzamin na 15 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 636.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training5 begin
+		when letter begin
+			q.set_counter("Ezot. Drêczyciel", 10-pc.getqf("kill_count"))
+		end
+		when 706.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Ezot. Drêczyciel", 10-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Ezot. Drêczyciel")
+			q.set_title("Zabij Ezot. Drêczyciel")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Ezot. Drêczyciela")
+			say("Zabij 10 Ezot. Drêczycielów, a")
+			say("twój egzamin na 16 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+		end
+		when 706.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training6 begin
+		when letter begin
+			q.set_counter("Szpon. Truj¹cy Paj¹k", 10-pc.getqf("kill_count"))
+		end
+		when 2034.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Szpon. Truj¹cy Paj¹k", 10-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Szpon. Truj¹cy Paj¹k")
+			q.set_title("Zabij Szpon. Truj¹cy Paj¹k")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Szpon. Truj¹cy Paj¹k")
+			say("Zabij 10 Szpon. Truj¹cych Paj¹ków, a")
+			say("twój egzamin na 17 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 2034.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training7 begin
+		when letter begin
+			q.set_counter("Pustynny Zawadiaka", 20-pc.getqf("kill_count"))
+		end
+		when 2108.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Pustynny Zawadiaka", 20-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Pustynny Zawadiaka")
+			q.set_title("Zabij Pustynny Zawadiaka")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Pustynny Zawadiaka")
+			say("Zabij 20 Pustynnych Zawadiaków, a")
+			say("twój egzamin na 18 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 2108.kill with pc.getf("horse_levelup","kill_count") >= 20 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training8 begin
+		when letter begin
+			q.set_counter("Lodowy Golem", 10-pc.getqf("kill_count"))
+		end
+		when 1107.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Lodowy Golem", 10-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Lodowy Golem")
+			q.set_title("Zabij Lodowy Golem")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Lodowy Golem")
+			say("Zabij 10 Lodowych Golemów, a")
+			say("twój egzamin na 19 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 1107.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training9 begin
+		when letter begin
+			q.set_counter("Walcz¹cy Tygrys", 20-pc.getqf("kill_count"))
+		end
+		when 2203.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Walcz¹cy Tygrys", 20-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij Walcz¹cy Tygrys")
+			q.set_title("Zabij Walcz¹cy Tygrys")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij Walcz¹cy Tygrys")
+			say("Zabij 20 Walczacych Tygrysów, a")
+			say("twój egzamin na 20 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+
+		end
+		when 2203.kill with pc.getf("horse_levelup","kill_count") >= 20 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state training10 begin
+		when letter begin
+			q.set_counter("P³omieñ ", 20-pc.getqf("kill_count"))
+		end
+		when 2204.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("P³omieñ ", 20-pc.getqf("kill_count"))
+		end
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+		when leave begin
+			q.done()
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Zabij P³omieñ ")
+			q.set_title("Zabij P³omieñ ")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Zabij P³omieñ ")
+			say("Zabij 20 P³omieni, a")
+			say("twój egzamin na 21 poziom konia siê powiedzie.")
+			say("Nie mo¿esz zejœæ, ani spaœæ z konia w czasie")
+			say("treningu, w innym wypadku, bêdziesz musia³ ")
+			say("powtórzyæ misjê!")
+		end
+		when 2204.kill with pc.getf("horse_levelup","kill_count") >= 20 begin
+			setstate(report)
+		end
+		when unmount begin
+			setstate(failure)
+		end
+	end
+	state start begin
+		when 20349.chat."GM: Wyzeruj czas testów" with pc.is_gm() begin
+			say("Czas zosta³ wyzerowany.")
+			pc.setqf("trening_kon", 0)
+		end
+		when 20349.chat."Trening Konny" begin
+				say_title("Stajenny:")
+				say("Treningi Konne, to zadania, dziêki")
+				say("którym twój koñ nabêdzie lepsze")
+				say("umiejêtnoœci i co za tym idzie")
+				say("dostanie wiêkszy poziom.")
+				say_reward("Czy chcesz trenowaæ konia?")
+				local s = select("Tak!", "Nie!")
+				if s == 2 then
+					return
+				elseif s == 1 then
+				say_title("Stajenny:")
+			if pc.get_horse_level() > 20 then
+				say("Nie mo¿esz ju¿ trenowaæ konia!")
+				say("Masz maksymalny poziom!")
+				return
+			end
+			if get_time()<pc.getqf("trening_kon") then
+				local roznica = pc.getqf("trening_kon") - get_time()
+				local minuty = roznica/60
+				local minuty2 = math.floor(minuty)
+				say("Musisz poczekaæ,")
+				say("aby powtórzyæ trening.")
+				say("Wróæ do mnie za: "..minuty2.." minut!")
+				say("")
+				return
+			end
+			if horse.get_stamina_pct()<=10 and pc.get_horse_level() > 0 then
+				say("Twój koñ jest zbyt wyczerpany.")
+				say("")
+				return
+			end
+			if horse.get_health_pct()<=10 and  pc.get_horse_level() > 0 then
+				say("Twój koñ jest zbyt wyczerpany.")
+				say("")
+				return
+			end
+			if pc.countitem("50050")<1 then
+				say("Musisz posiadaæ Medal Konny.")
+				say("")
+				setstate(need_item50050)
+				return
+			end
+				horse.ride()
+				say("Wiêc chcesz konia")
+				say("do dalszego kszta³cenia!")
+				say("Dlatego masz tutaj jest twoje")
+				say("zadanie.")
+				if pc.get_horse_level() > 0 then
+					say("Ale uwa¿aj, nie mo¿esz spaœæ, ani zejœæ z konia!")
+					say("")
+				end
+				if pc.get_horse_level()==0 then
+					setstate(treningi_do_11_lvl0)
+				elseif horse.get_level()==1 then
+					setstate(treningi_do_11_lvl1)
+				elseif horse.get_level()==2 then
+					setstate(treningi_do_11_lvl2)
+				elseif horse.get_level()==3 then
+					setstate(treningi_do_11_lvl3)
+				elseif horse.get_level()==4 then
+					setstate(treningi_do_11_lvl4)
+				elseif horse.get_level()==5 then
+					setstate(treningi_do_11_lvl5)
+				elseif horse.get_level()==6 then
+					setstate(treningi_do_11_lvl6)
+				elseif horse.get_level()==7 then
+					setstate(treningi_do_11_lvl7)
+				elseif horse.get_level()==8 then
+					setstate(treningi_do_11_lvl8)
+				elseif horse.get_level()==9 then
+					setstate(treningi_do_11_lvl9)
+				elseif horse.get_level()==10 then
+					setstate(treningi_do_11_lvl10)
+				elseif horse.get_level()==11 then
+					setstate(training1)
+				elseif horse.get_level()==12 then
+					setstate(training2)
+				elseif horse.get_level()==13 then
+					setstate(training3)
+				elseif horse.get_level()==14 then
+					setstate(training4)
+				elseif horse.get_level()==15 then
+					setstate(training5)
+				elseif horse.get_level()==16 then
+					setstate(training6)
+				elseif horse.get_level()==17 then
+					setstate(training7)
+				elseif horse.get_level()==18 then
+					setstate(training8)
+				elseif horse.get_level()==19 then
+					setstate(training9)
+				elseif horse.get_level()==20 then
+					setstate(training10)
+				end
+			end
+		end
+	end
+	state need_item50050 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Medal Konny")
+			q.set_title("Medal Konny")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Medal Konny")
+			say("PrzejdŸ do Lochu Ma³p")
+			say("i zdob¹dŸ Medal Konny.")
+			setstate(start)
+			q.done()
+		end
+	end
+	state failure begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trening nie udany!")
+			q.set_title("Trening nie udany!")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Trening nie udany!")
+			say("Spróbuj ponownie poŸniej.")
+			say("")
+			setstate(start)
+			q.done()
+		end
+	end
+	state report begin
+		when letter begin
+			local v=find_npc_by_vnum(20349)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Powrót do stajennego!")
+			q.set_title("Powrót do stajennego!")
+			q.start()
+		end
+		when button or info begin
+			say_reward("Powrót do stajennego!")
+			say("Wróæ do stajennego.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say("Wszystko posz³o dobrze?")
+			say("Skoro wykona³eœ zadanie")
+			say("TRENINGOWE.")
+			say("Twój wynik pojawi siê na medalu konnym.")
+			pc.setqf("kill_count", 0)
+			setstate(reward)
+			q.done()
+		end
+	end
+	state reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Wynik audytu")
+			q.set_title("Wynik audytu")
+			q.start()
+		end
+		when button or info begin
+			say_title("Wynik audytu")
+			say("")
+				pc.setqf("trening_kon", get_time()+2*60*60)
+			if horse.get_level()<=10 and pc.get_horse_level() > 0 then
+				if pc.countitem("50050")>=1 then
+					say_reward("Trening Udany!")
+					say("Konia mo¿esz trenowaæ co 2 godziny, ")
+					say("wróæ do stajennego za ten czas!")
+					horse.unride()
+					horse.advance()
+					horse.ride()
+					setstate(start)
+					q.done()
+				else
+					say("Nie masz Medalu Konnego!")
+				end
+			elseif pc.get_horse_level() == 0 then
+				if pc.countitem("50050")>=1 then
+					say_reward("Trening Udany!")
+					say("Konia mo¿esz trenowaæ co 2 godziny, ")
+					say("wróæ do stajennego za ten czas!")
+					horse.unride()
+					horse.advance()
+					horse.ride()
+					setstate(start)
+					q.done()
+				else
+					say("Nie masz Medalu Konnego!")
+				end
+			elseif horse.get_level()>20 then
+				say("Twój koñ osi¹gn¹³ ju¿ maksymalny poziom!")
+			elseif (horse.get_level()>=11 and horse.get_level()<=20) then
+				say_reward("Trening udany!")
+				if pc.countitem("50050")>=1 then
+					pc.removeitem("50050", 1)
+					horse.unride()
+					horse.advance()
+					horse.ride()
+					say("Konia mo¿esz trenowaæ co 2 godziny, ")
+					say("wróæ do stajennego za ten czas!")
+					say_reward("Je¿eli nie masz ksi¹¿ki odbierz j¹ od stajennego!")
+					say("")
+					setstate(start)
+					q.done()
+				else
+					say("Hmm, a gdzie medal konny ?")
+					say("Musisz go mieæ!")
+				end
+			end
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

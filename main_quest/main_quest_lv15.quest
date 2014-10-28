@@ -1,0 +1,255 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv15 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 15 then
+				setstate(gotoboss)
+			end
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Odszukaj Kapitana.")
+			q.set_title("Sytuacja jest bardzo powa¿na")
+			q.start()
+		end
+		when button or info begin
+			say_title("Krytyczna sytuacja.")
+			say("")
+			say("Udaj siê do Kapitana, dowiesz siê ")
+			say("nieco wiêcej o sytuacji")
+			say("trzech królestw.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("Widzê, ¿e jesteœ gotowy na to,")
+			say("aby poznaæ szczegó³y sytuacji.")
+			say("Mo¿e zacznê od naszego królestwa.")
+			say("Je¿eli chcesz wygraæ wojnê, to musisz poznaæ ")
+			say("siebie, a w szczególnoœci naszego wroga.")
+			say("")
+			wait()
+			local empire = pc.getempire()
+			if empire == 1 then
+				say_title("Kapitan:")
+				say("")
+				say("Shinsoo:")
+				say("Nasze królestwo od wieków nazywane jest ")
+				say("królestwem handlu. Mieliœmy szerokie szlaki")
+				say("handlowe, dlatego nasze królestwo rozkwita³o.")
+				say("Od czasu Kamieni Metin handel upada³.")
+				say("W chwili obecnej jest ju¿ bardzo Ÿle!")
+				say("W naszym królestwie mieliœmy potê¿ne armie, ale")
+				say("uznaliœmy, ¿e nie ma na ni¹ zapotrzebowania.")
+				say("To by³ b³¹d.")
+				say("Ze wzglêdu na nasze bogactwo zatrudniliœmy wielu")
+				say("najemników, ale wiadomo, nie s¹ oni godni")
+				say("zaufania... Nie wiedz¹ czym jest Honor.")
+				say("")
+				wait()
+				say_title("Kapitan:")
+				say("")
+				say("Dziêki najemnikom nasz kraj ma szansê wróciæ ")
+				say("do stabilnoœci.")
+				say("Jednak nie jesteœmy przygotowani do tej wojny,")
+				say("potrzebujemy na ni¹ wiêcej wiêcej najemników.")
+				say("Bêdzie to wymaga³o wielkiej pracy, ale")
+				say("musimy daæ radê.")
+				say("")
+				wait()
+				say_title("Kapitan:")
+				say("")
+				say("Przydzielê ci nowe zadanie.")
+				say("Jest to specjalnoœæ Yu-Hwan, który")
+				say("znajduje siê w s¹siedniej wsi.")
+				say("Nasze królestwo musi handlowaæ, bez tego")
+				say("zwyczajnie nie istnieje.")
+				say("Bêdziesz o wiele bardziej przydatny, ni¿ ci")
+				say("siê wydaje. Yu-Hwan ciê potrzebuje.")
+			elseif empire == 2 then
+				say_title("Kapitan:")
+				say("")
+				say("Chunjo:")
+				say("Nasze królestwo jest pod w³adz¹ Warlord Liu-Bang.")
+				say("Nasz naród stoi w obronie religii.")
+				say("Dziêki temu wiedzieliœmy zacznie wczeœniej o")
+				say("istnieniu Ciemnoœci.")
+				say("Nasi szamani s¹ ju¿ przygotowani na nadejœcie")
+				say("Kamieni Metin.")
+				say("Szamani bardzo d³ugo siê przygotowywali")
+				say("do wype³nienia tej misji.")
+				say("Szamani s¹ znacznie m¹drzejsi przez ich,")
+				say("mistyczn¹ moc,")
+				say("która jest podstaw¹ich potêgi,")
+				say("bez nich ta wojna nie mia³aby sensu obrony.")
+				say("")
+				wait()
+				say_title("Kapitan:")
+				say("")
+				say("Wieœniacy z naszego kraju s¹ bardzo wierni")
+				say("i nieustannie modl¹siêdo boga smoka.")
+				say("Smok jest nasz¹ obron¹ od wieków ")
+				say("miejmy nadziejê, ¿e i tym razem powstanie z")
+				say("ciemnoœci. Trzeba ataki barbarzyñców odeprzeæ ")
+				say("a imperium powinno zostaæ pod nasz¹ obrona.")
+				say("")
+				wait()
+				say_title("Kaptain:")
+				say("")
+				say("Przydzielê ci teraz nowe zadanie.")
+				say("Przesy³ka to pos¹g boga smoka. Udaj siê do")
+				say("Yu-Hwan, który znajduje siê w 2 wiosce.")
+				say("Religia i g³êbokie przekonanie w moc boga smoka")
+				say("s¹ bardzo wa¿ne dla naszego królestwa.")
+				say("Je¿eli nam pomo¿esz to wykonasz dla")
+				say("wioski ogromn¹ przys³uge.")
+			elseif empire == 3 then
+				say_title("Kaptain:")
+				say("")
+				say("Jinno:")
+				say("Nasze królestwo ma d³ugie tradycje.")
+				say("Mo¿e dziêki nim da³y radê ")
+				say("zapanowaæ nad tutejszym z³em.")
+				say("Nawet teraz, kiedy królestwo jest atakowane")
+				say("to dajemy radê siê obroniæ. Nasze królestwo")
+				say("nadal posiada prawowit¹ w³adzê Liu Qi.")
+				say("")
+				wait()
+				say_title("Kaptain:")
+				say("")
+				say("Posiadamy najpotê¿niejsz¹ armiê, o jakiej")
+				say("kiedykolwiek s³ysza³ œwiat.")
+				say("Tak¹ armi¹ damy radê pokonaæ ka¿dego.")
+				say("z wrogów, a nawet innego królestwa.")
+				say("Powinieneœ w trening w³o¿yæ jak najwiêcej czasu,")
+				say("je¿eli chcesz staæ siê wzorowym wojownikiem.")
+				say("")
+				wait()
+				say_title("Kaptain:")
+				say("")
+				say("Przydzielê ci nowe zadanie.")
+				say("Przesy³ka jest 'amunicj¹' Yu-Hwan. Znajduje")
+				say("siê ona w s¹siedniej wsi.")
+				say("Nasze królestwo ma potê¿n¹ armie,")
+				say("jednak musimy byæ pewni, ¿e wystarczy nam broni.")
+				say("Je¿eli chcemy pomóc, dostarcz t¹ przesy³kê ")
+				say("dla Yu-Hwan.")
+				say("")
+			end
+			say("[ENTER]")
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty doœwiadczenia: ".." 20.000")
+			say_reward("Yang: ".." 10.000")
+			set_state(gotomusition)
+			q.done()
+		end
+	end
+	state gotomusition begin
+		when letter begin
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Yu-Hwan.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "OdnajdŸ Yu-Hwan." )
+			q.set_title("OdnajdŸ Yu-Hwan.")
+			q.start()
+		end
+		when button begin
+			say_title("Krytyczna sytuacja.")
+			say("")
+			say_reward("Pozorozmawiaj Yu-Hwan.")
+		end
+		when info begin
+			say_title("Krytyczna sytuacja.")
+			say("")
+			say_reward("Pozorozmawiaj Yu-Hwan.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Yu-Hwan:")
+			say("")
+			say("Dawno, dawno temu mia³a miejsce krwawa bitwa.")
+			say("Miêdzy Panem Z³a a Bogiem Smoków.")
+			say("Teraz ta sytuacja mo¿ê powtórzyæ siê ponownie...")
+			say("Oh, to znowu Ty!")
+			say("Czgo chcesz tym razem?")
+			say("Kapitan posiada dla mnie informacje, tak?")
+			say("Dziêkuje.")
+			say("Nie chcê, aby tym razem ktoœ nas znowu ujrza³.")
+			say("Dobrze, wróæ do Kapitana!")
+			say("")
+			setstate(gotoboss2)
+			q.done()
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Udaj siê do Kapitana.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Porozmawiaj z Kapitanem" )
+			q.set_title("Porozmawiaj z Kapitanem")
+			q.start()
+		end
+		when button begin
+			say_title("Krytyczna sytuacja.")
+			say("")
+			say_reward("Porozmawiaj z Kapitanem.")
+			say("")
+		end
+		when info begin
+			say_title("Krytyczna sytuacja.")
+			say("")
+			say_reward("Porozmawiaj z Kapitanem.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			pc.give_exp2( 20000 )
+			pc.change_money( 10000 )
+			target.delete("__TARGET__")
+			say_title("Captain:")
+			say("")
+			say("Dobrze ! Jesteœ coraz lepszy w swoim zawodzie.")
+			say( "[ENTER]")
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty doœwiadczenia: 20.000" )
+			say_reward("Yang: 10.000")
+			clear_letter()
+			q.done()
+			setstate(__COMPLETE__)
+			set_quest_state("main_quest_lv16","run")
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

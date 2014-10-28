@@ -1,0 +1,80 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv1 begin
+	state start begin
+		when login or levelup with pc.get_level() == 1 begin
+			set_state( gotoinfomation )
+		end
+	end
+	state gotoinfomation begin
+		when letter begin
+			send_letter("Witamy w Metin2")
+		end
+		when button or info begin
+			say_title("Witamy w Metin2")
+			say("Ekscytuj¹ce przygody z Metin2 to dopiero")
+			say("pocz¹tek! Na rozpoczêcie dostaniesz kilka")
+			say("podstawowych informacji i ró¿nych zadañ od")
+			say("Stra¿nika Miejskiego.")
+			say("Proszê udaj siê do niego, ju¿ na Ciebie czeka.")
+			say("Jeœli bêdziesz chcia³ zapolowaæ, znajdziesz kilka")
+			say("dzikich zwierz¹t na zewn¹trz wioski,")
+			say("które s¹ oznaczone na czerwono na Mini-Mapie.")
+			say("Na pocz¹tek powinieneœ polowaæ na")
+			say("naj³atwiejsze zwierzêta, np. Dzikie Psy.")
+			say("Powodzenia")
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "ZnajdŸ Stra¿nika Miejskiego.")
+			end
+		end
+		when button or info begin
+			say_title("ZnajdŸ Stra¿nika Miejskiego")
+			say("")
+			say_reward("Porozmawiaj ze Stra¿nikiem Miejskim.")
+			say_reward("ZnajdŸ NPC, którego wskazuje strza³ka i na")
+			say_reward("niego kliknij. Jeœli nie widzisz ¿adnego NPC")
+			say_reward("Pod¹¿aj za czerwonym znaczkiem na Mini-Mapie..")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Musisz byæ tym nowym cz³onkiem miasta... Widzê, ¿e")
+			say("nie zrobili jeszcze z Ciebie prawdziwego bohatera!")
+			say("Czy w ogóle umiesz pos³ugiwaæ siê broni¹? Spójrz")
+			say("na siebie! S³uchaj!")
+			say("Musisz mieæ siê na bacznoœci, jeœli naprawdê ")
+			say("chcesz przetrwaæ wojnê! Pomogê Ci, dopóki nie")
+			say("uzyskasz wystarczaj¹cego doœwiadczenia, b¹dŸ ")
+			say("10 poziomu. Jestem zajêt¹ osob¹, wiêc nie marnuj")
+			say("mojego cennego czasu!")
+			say("Rurzaj siê!")
+			say("")
+			wait()
+			say_title("Stra¿nik Wsi:")
+			say("")
+			say("Teraz biegnij i naucz siê podstaw. Gdy osi¹gniesz")
+			say("wy¿szy poziom doœwiadczenia, wróæ do wioski,")
+			say("odszukaj Mnie i ze Mn¹ porozmawiaj!")
+			say("Czemu tutaj nadal stoisz? Zdob¹dŸ doœwiadczenie")
+			say("jak najprêdzej i wróæ do Mnie!")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv2","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

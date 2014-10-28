@@ -1,0 +1,265 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest collect_quest_lv90 begin
+	state start begin
+	end
+	state run begin
+		 when login or levelup with pc.level >= 90 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Badania Biologa")
+			end
+			send_letter("Badania Biologa")
+		end
+		when button or info begin
+			say_title("Badania Biologa")
+			say("Biolog Chaegirab, uczeñ Uriela,")
+			say("w³aœnie Ciê szuka³. Proszê idŸ ")
+			say("do niego i zaoferuj swoj¹ pomoc.")
+			say("")
+		end
+		when __TARGET__.target.click or 20084.chat."ZnajdŸ Biologa" begin
+			target.delete("__TARGET__")
+			say_title("Biolog Chaegirab:")
+			say("Niebiosa, proszê pomó¿ mi... ")
+			say("Badam wszystkie rodzaje roœlin w tym ")
+			say("imperium. Jest bardzo du¿o rzeczy, ")
+			say("które musz¹ zostaæ zbadane. Nie mam ")
+			say("czasu abym móg³ sam wybraæ siê na wyprawê. ")
+			say("Proszê,pomó¿ mi. ")
+			say("")
+			wait()
+			say_title("Biolog Chaegirab:")
+			say("Aktualnie badam Notatki Przywódców.")
+			say("Muszê przeprowadziæ kilka eksperymentów,")
+			say("dlatego potrzebujê kilku egzemplarzy.")
+			say("Czy móg³byœ przynieœæ mi 50 Notatek Przywódców? ")
+			say("Proszê, pomó¿ mi! Zawsze przynoœ mi po jednym,")
+			say("abym mia³ czas na ich dok³adne przebadanie!")
+			say("")
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Badania Biologa")
+		end
+		when button or info begin
+			say_title("Notatki Przywódców")
+			say("Biolog Chaegirab, uczeñ Uriela, obecnie zajmuj")
+			say("siê studiowaniem zachowania Przywódców")
+			say("Potworów. Do swoich badañ potrzebuj 50 Notatek")
+			say("Przywódców. Postaraj siê je zdobyæ i")
+			say("pamietaj, aby zanosiæ je do biologa pojedynczo.")
+			say("")
+			say_item_vnum(30168)
+			say("")
+			say_reward("Do tej pory dostarczy³eœ: "..pc.getqf("collect_count").." Notatek.")
+			say("")
+		end
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") and pc.getqf("drink_drug") < 1 then
+				say_reward("Eliskir Poszukiwacza:")
+				say("Ten magiczny przedmiot zmniejsza czas")
+				say("oddania nastêpnego przedmiotu u biologa,")
+				say("po jego u¿yciu mo¿esz natychmiast")
+				say("oddaæ przedmiot!")
+				say("Ponadto dajê wiêksz¹ szansê na przyjêcie przedmiotu!")
+				say_reward("Czy chcesz u¿yæ Eliksiru?")
+				say_reward("Zostanie on usuniêty po u¿yciu.")
+				local wy = select("U¿yj.", "Nie u¿ywaj.")
+				if wy == 2 then
+					return
+				elseif wy == 1 then
+					pc.setqf("duration", 0)
+					pc.setqf("drink_drug",1)
+					say("Mo¿esz ju¿ oddaæ przedmiot biologowi!")
+					say_reward("Eliksir Poszukiwacza zostajê usuniêty!")
+					pc.remove_item(71035, 1)
+				end
+			else
+				say_reward("Eliksir Poszukiwacza:")
+				say("Nie mo¿esz u¿yæ przedmiotu, poniewa¿ ")
+				say("biolog ju¿ mo¿e przyj¹æ przedmiot.")
+				return
+			end
+		end
+		when 20084.chat."Notatka Przywódcy" with pc.count_item(30168) > 0 begin
+			local roznica = pc.getqf("duration") - get_time()
+			local minuty = roznica/60
+			local minuty2 = math.floor(minuty)
+			if get_time() > pc.getqf("duration") then
+				say_title("Biolog Chaegirab:")
+				say("Och! Znalaz³eœ! Notatkê ")
+				say("Poczekaj chwilkê, muszê go sprawdziæ...")
+				say("")
+				pc.remove_item("30168", 1)
+				pc.setqf("duration",get_time()+60*60*1)
+				wait()
+				local pass_percent
+				if pc.getqf("drink_drug")==0 then
+					pass_percent=60
+				else
+					pass_percent=90
+				end
+				local s= number(1,100)
+				if s<= pass_percent then
+					if pc.getqf("collect_count")< 49 then
+					local index =pc.getqf("collect_count")+1
+					pc.setqf("collect_count",index)
+					say_title("Biolog Chaegirab:")
+					say_green("Oh!! Ta Notatka jest doskona³ej jakoœci!")
+					say("Przynieœ mi jeszcze: "..50-pc.getqf("collect_count").. " Notatek.")
+					say("Proszê, spróbuj je znaleŸæ! ")
+					say("")
+					pc.setqf("drink_drug",0)
+					return
+					end
+					say_title("Biolog Chaegirab:")
+					say("Dostarczy³eœ mi 50 Notatek, to wspaniale!")
+					say("Zgadujê, ¿e domyœlasz siê, czego teraz")
+					say("potrzebujê. Nadal brakuje Kamienia Liderów. Gdy")
+					say("mi go dostarczysz, bêdê mia³ ju¿ wszystko. Dasz")
+					say("sobie radê z tym zadaniem, prawda? Zdob¹dŸ Kamieñ ")
+					say("Liderów i mi go przynieœ. Mo¿esz go zdobyæ od tak")
+					say("zwanych bossów.")
+					say("")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)
+					pc.setqf("duration",0)
+					set_state(key_item)
+					return
+				else
+					say_title("Biolog Chaegirab:")
+					say_red("Przykro mi, ale ta Notatka jest z³ej jakoœci!")
+					say("Proszê, przynieœ mi inny!")
+					say("Proszê, pomó¿ mi!")
+					say("")
+					pc.setqf("drink_drug",0)
+					return
+				end
+			else
+				say_title("Biolog Chaegirab:")
+				say("Jeszcze nie skoñczy³em badaæ ostatniej notatki !")
+				say("PrzyjdŸ do mnie za : "..minuty2.." minut!")
+				say("")
+			end
+		end
+	end
+	state key_item begin
+		when letter begin
+			send_letter("Badania Biologa")
+			if pc.count_item(30224)>0 then
+				local v = find_npc_by_vnum(20084)
+				if v != 0 then
+					target.vid("__TARGET__", v, "Badania Biologa")
+				end
+			end
+		end
+		when button or info begin
+			if pc.count_item(30224) >0 then
+				say_title("Kamieñ Liderów")
+				say("W koñcu uda³o Ci siê zdobyæ Kamieñ. ")
+				say("Zanieœ go do Biologa Chaegirab. On czeka ju¿ na")
+				say("Ciebie.")
+				say("")
+				return
+			end
+			say_title("Kamieñ Liderów")
+			say("Dostarczy³eœ Biologowi 50 Notatek Przywódców.")
+			say("Teraz, Chaegirab potrzebuje Kamieñ ")
+			say("Liderów, który pomo¿e je zrozumieæ. ")
+			say("")
+			say_item_vnum(30224)
+			say("")
+			say("Mo¿esz go zdobyæ z")
+			say("wszystkich bosów.")
+			say("")
+			say("")
+		end
+		when 2191.kill or 2091.kill or 1304.kill or 1091.kill or 1093.kill or 691.kill or 2206.kill or 1901.kill begin
+			local s = number(1, 50)
+			if s == 1 and pc.count_item(30224)==0 then
+				pc.give_item2(30224, 1)
+				send_letter("Otrzymano Kamieñ Liderów")
+			end
+		end
+		when __TARGET__.target.click or
+			20084.chat."Otrzymano Kamieñ Liderów" with pc.count_item(30224) > 0 begin
+			target.delete("__TARGET__")
+			say_title("Biolog Chaegirab:")
+			say("Oh! dobra robota! Teraz, w koñcu, mogê dokñczyæ ")
+			say("moje badania. Jako nagrodê, dam Ci tajemnicz¹ ")
+			say("recepturê. Zanieœj¹ do Baek-Go, a przyrz¹dzi on")
+			say("dla Ciebie specjaln¹ miksturê. ¯yczê mi³ego dnia!")
+			say("I dziêkujê za Twoj¹ pomoc. Sam bym sobie nie")
+			say("poradzi³!")
+			say("")
+			pc.remove_item(30224,1)
+			set_state(__reward)
+		end
+	end
+	state __reward begin
+		when letter begin
+			send_letter("Nagroda od Chaegiraba")
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Nagroda od Chaegiraba")
+			end
+		end
+		when button or info begin
+			say_title("Nagroda od Chaegiraba")
+			say("W nagrodê za zebranie Notatek Przywódców i")
+			say("zdobycie Kamienia Liderów, biolog Chaegirab da³ ")
+			say("Ci sekretn¹ recepturê. IdŸ teraz do Baek-Go, on")
+			say("przygotuje dla Ciebie cudown¹ miksturê.")
+			say("")
+		end
+		when __TARGET__.target.click or
+			20018.chat."Nagroda za Notatki" begin
+			target.delete("__TARGET__")
+			say_title("Baek-Go:")
+			say("Spójrz, czy to nie Sekretna Receptura od ")
+			say("Chaegirab, tego znanego biologa? Hm, zwiêkszy ona")
+			say("Twoj¹ Si³ê Ataku podczas walki z innym graczami.")
+			say("Oto Twój napój!")
+			say("")
+			wait()
+			say_title("Baek-Go:")
+			say("A tym razem dostaniesz Niebiesk¹ Ebonitow¹ ")
+			say("Szkatu³kê. Jesteœ ciekawy co wy niej mo¿e byæ?")
+			say("To j¹ otwórz!")
+			say("")
+			say_reward("Twoja Si³a Ataku, przeciwko innym graczom")
+			say_reward("zosta³a Zwiêkszona o 10% (bonus sta³y).")
+			say_reward("Nieb. Ebonit. Szkatu³ka")
+			say_reward("")
+			affect.add_collect(apply.ATT_GRADE_BONUS, 10, 60*60*24*365*60)
+			pc.give_item2(50114)
+			clear_letter()
+			set_quest_state("seon_pyeong_92", "run")
+			set_state(__complete)
+		end
+	end
+	state __giveup__ begin
+		when 20084.chat."Poddajesz siê? " begin
+			say("Biolog Chaegirab:")
+			say("Czy jesteœ pewieñ, ¿e chcesz siê poddaæ? ")
+			say("Nie bedziesz mia³ szansy, aby zacz¹æ ")
+			say("ponownie.")
+		end
+	end
+	state __complete begin
+	end
+end

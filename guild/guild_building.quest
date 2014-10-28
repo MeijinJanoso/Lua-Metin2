@@ -1,0 +1,63 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest guild_building begin
+	state start begin
+		when 20040.click begin
+			say_title("Agent L¹dowy:")
+			say("A wiêc mówisz mi ¿e chcesz kupiæ teren gildii?")
+			say("Zacny pomys³ wojowniku lecz trudny do spe³nienia...")
+			say("Ta ziemia jest doœæ droga lecz na niej mo¿esz[ENTER]wybudowaæ wiele wspania³ych budowli.[ENTER]Czy chcesz kupiæ gildiê?")
+			local s = select(locale.yes, locale.no)
+			if s == 1 then
+				if not pc.is_guild_master() then
+					say_title("Agent L¹dowy:")
+					say("Niestety nie jesteœ za³o¿ycielem[ENTER]"..
+						"w³asnej gildii.")
+				elseif building.has_land(pc.get_guild()) then
+					say_title("Agent L¹dowy:")
+					say("Niestety twoja gildia posiada teren.")
+				else
+					local land_id = building.get_land_id(pc.get_map_index(), pc.get_x()*100, pc.get_y()*100)
+					if land_id == 0 then
+						say_title("Agent L¹dowy:")
+						say("Tu nie ma zadnej ziemii!")
+					else
+						local price, owner, guild_level_limit = building.get_land_info(land_id)
+						say_title("Agent L¹dowy:")
+						say("Twoja gildia musi posiadaæ "..guild_level_limit.."poziom oraz[ENTER]"..
+							"musisz mi zap³aciæ "..price..locale.gold.." Yang[ENTER]")
+						if guild.level(pc.get_guild()) < guild_level_limit then
+							say_title("Agent L¹dowy:")
+							say("Twoja gildia nie spelnia warunkow[ENTER]aby otrzymac teren gildii![ENTER]")
+						else
+							say("Czy chcesz kupic teren gildii?")
+							s = select(locale.yes, locale.no)
+							if s == 1 then
+								local price, owner, guild_level_limit = building.get_land_info(land_id)
+								if owner != 0 then
+									say_title("Agent L¹dowy:")
+									say("Posiadasz juz teren gildii...")
+								elseif pc.gold < price then
+									say("Nie masz tyle Yang.")
+								else
+									pc.changegold(-price)
+									building.set_land_owner(land_id, pc.get_guild())
+									notice(guild.name(pc.get_guild()).." kupi³a teren gildii!!")
+								end
+							else
+								say_title("Agent L¹dowy:")
+								say("Nie udalo sie kupic terenu gildii...")
+							end
+						end
+					end
+				end
+			else
+				say_title("Agent L¹dowy:")
+				say("Wroc, kiedy juz sie zdecydujesz!")
+			end
+		end
+	end
+end

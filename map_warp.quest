@@ -1,0 +1,226 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest map_warp begin
+	state start begin
+		when 9012.chat."Chcesz podró¿owaæ "  begin
+			say_title("Teleporter:")
+			say ("To ³adna wioska... Ale czy w ogóle coœ siê tu[ENTER]dzieje? Jest specjalne miejsce, gdzie mogê Ciê[ENTER]przenieœæ. Jednak z³a si³a znowu roœnie, czas i[ENTER]przestrzeñ powoli ulegaj¹ chaosowi. Dlatego[ENTER]powrót nie zawsze siê udaje... Hmm. Czy chcesz[ENTER]siê gdzieœ przenieœæ?")
+			local main_set = select("Tak","Nie")
+			if main_set == 2 then
+				return
+			end
+			
+			if pc.get_level() <= 10 then
+			say_title("Teleporter:")
+				say("Z twoim poziomem nie wytrzymasz podró¿y w czasie")
+				say("i przestrzeni. Dopiero po osiagniêciu 10 poziomu")
+				say("mo¿esz skorzystaæ z moich us³ug.")
+				say("")
+				return
+			end
+
+			local map = pc.get_map_index()
+			local empire = pc.get_empire()
+			local level = pc.get_level()
+			local cost = math.floor(level / 5) * 1000
+
+			-- ?? ????
+			if cost < 1000 then
+				cost = 1000
+			end
+
+			say_title("Teleporter:")
+			say("Gdzie chcesz siê przenieœæ?")
+			say_reward(string.format("Koszt to: %d Yang.", cost))
+
+                        -- ?? ?? ???? ?? ?? (? ?? 1,2 ??)
+                        if map == 13  then
+	       say_red("Chêtnie bym ci pomóg³, ale wiesz, jak raz coœ[ENTER] Nabroi³eœ, to musisz to odsiedzieæ!")
+                        elseif map == 1 or map == 3 or map == 21 or map == 23 or map == 41 or map == 43 then
+
+                                local guild_map_names = {
+                                        "Kraj Imha",
+                                        "Kraj Imha",
+                                        "Kraj Imha",
+                                }
+
+                                guild_map_name = guild_map_names[empire]
+                                local empire_castle={
+                                        "Zamek Shinsoo",
+                                        "Zamek Chunjo",
+                                        "Zamek Jinno",
+                                }
+                                empire_castle =empire_castle[empire]
+                                local sub_set = 0
+                                if level < 60 then -- 60?? : ?????, ???, ????, ???
+                                        sub_set = select(guild_map_name, "Dolina Seungryong", "Pustynia Yongbi", "Góra Sohan","Anuluj")
+                                        if sub_set == 5 then -- ??
+                                                return
+                                        end
+
+                                else -- 61?? : ????, ???, ????, ????
+                                        sub_set = select(guild_map_name, "Dolina Seungryong", "Pustynia Yongbi", "Góra Sohan","Dalej")
+                                        if sub_set == 5 then -- ??
+                                          say_title("Teleporter:")
+						say("To s¹ miejsca, w które mogê Ciê przenieœæ dopiero ")
+						say("po osi¹gniêciu 60 poziomu.")
+						say_reward(string.format("Ale bêdzie Ciê to kosztowa³o %d Yang.", cost))
+                                                sub_set = select("Doyyumhwai", "Wie¿a Demonów", "Las Duchów", "Czerwony Las", "Wróæ ", "Anuluj") + 5
+                                                if sub_set == 11 then -- ??
+                                                        return
+                                                end
+                                                if sub_set == 10 then -- ??
+                                                 say_title("Teleporter:")
+							say("Poœpiesz siê i powiedz mi, gdzie chcesz abym Ciê ")
+							say("przeniós³. Jestem ju¿ zmêczony! ")
+                                                 say_reward(string.format("Koszt: %d Yang.", cost))
+							say_reward("Ale wkrótce podniosê cenê, jeœli bêdziesz ")
+							say_reward("tak marudziæ. Na pewno jednak podwy¿szê ")
+							say_reward("cenê, jeœli nadal tak bêdziesz siê zachowywa³!")
+                                                        sub_set = select(guild_map_name, "Dolina Seungryong", "Pustynia Yongbi", "Góra Sohan","Dalej")
+                                                        if sub_set == 5 then -- ??
+                                                                ---                                                   l
+                                                        say_title("Teleporter:")
+								say("Tak ja mówi³em wczeœniej: mogê Ciê tam")
+								say("przenieœæ dopiero po osi¹gnieciu 60 poziomu.[ENTER]Czy nadal chcesz sie tam przenieœæ? Zamknij[ENTER]okno jeœli zmieni³eœ zdanie. To jak, co robisz?")
+								say("Nie jestem tutaj dla zabawy.")
+								say_reward(string.format("Mimo wszystko, koszt to: %d Yang.", cost))
+                                                                sub_set = select("Doyyumhwai", "Wie¿a Demonów", "Las Duchów", "Czerwony Las", "Wróæ") + 5
+                                                                if sub_set == 10 then -- ??
+                                                                        return
+                                                                end
+                                                        end
+                                                end
+                                        end
+                                end
+
+                                if pc.gold < cost then
+                                   say_title("Teleporter:")
+					say("Móg³bym Ciê, przenieœæ za darmo, ale mam du¿¹[ENTER]rodzinê. Aby j¹ utrzymaæ, potrzebujê pieniêdzy.")
+					say_reward(string.format("Koszt to: %d Yang.", cost))
+                                        return
+                                end
+
+                                pc.changegold(-cost)
+
+                                local warp = {
+                    -- guild_map
+                    {
+                        { 128500, 1000 },
+                        { 179500, 1000 },
+                        { 271800, 13000 },
+                                        } ,
+                    -- 64 map_n_threeway
+                    {
+                        { 402100, 673900 },
+                        { 270400, 739900 },
+                        { 321300, 808000 },
+                    },
+                    -- 63 metin2_map_n_desert_01
+                    {
+                        { 217800, 627200 },
+                        { 221900, 502700 },
+                        { 344000, 502500 },
+                    },
+                    -- 61 map_n_snowm_01
+                    {
+                        { 434200, 290600 },
+                        { 375200, 174900 },
+                        { 491800, 173600 },
+                    },
+                                        -- empire_castle
+                                        {
+                                                { 975200, 133000 },
+                                                { 977200, 185000 },
+                                                { 923900, 183600 },
+                                        
+                                        } ,
+                    -- 62 metin2_map_n_flame_01
+                    {
+                        { 599400, 756300 },
+                        { 597800, 622200 },
+                        { 730700, 689800 },
+
+                    },
+                    -- devil_tower
+                    {
+                        { 590500, 110500 },
+                        { 590500, 110500 },
+                        { 590500, 110500 },
+                    },
+                                        {
+                        { 288700, 5700 },
+                        { 288700, 5700 },
+                        { 288700, 5700 },
+                    },
+                                        {
+                        { 1119900, 70800 },
+                        { 1119900, 70800 },
+                        { 1119900, 70800 },
+                    },
+                                }
+                                        
+                                test_chat(warp[sub_set][empire][1]..warp[sub_set][empire][2])
+                            say_title("Teleporter:")
+				say("Przeniosê Ciê od razu.")
+				say("Idziesz do niebezpiecznego miejsca...")
+				say("Dbaj o siebie... i powodzenia...")
+                                wait()
+                                pc.warp(warp[sub_set][empire][1], warp[sub_set][empire][2])
+                        
+
+                        else -- ? ?? 1,2 ? ??? ?????? ? ?? 1,2 ? ??? ?? ??      
+                                local sub_set2 = 3
+
+                                --sub_set2 = select(locale.vileage1_name[empire], locale.vileage2_name[empire], locale.cancel)
+                                if empire==1 then    
+					sub_set2 = select("Yongan","Yayang" , locale.cancel)
+				elseif  empire ==2 then  
+					sub_set2 = select("Joan","BokJung" , locale.cancel)
+				elseif  empire ==3 then 
+					sub_set2 = select("Pyungmoo","Bakra" , locale.cancel)
+                                end     
+                                if sub_set2 != 3 then
+                                        if pc.gold < cost then
+                                          say_title("Teleporter:")
+					       say("Móg³bym Ciê, przenieœæ za darmo, ale mam du¿¹[ENTER]rodzinê. Aby j¹ utrzymaæ, potrzebujê pieniêdzy.")
+					       say_reward(string.format("Koszt to: %d Yang.", cost))
+                                                say("")
+                                        else
+                                                if sub_set2 == 1 then
+                                                 say_title("Teleporter:")
+							say("Skoro tak mówisz... Na razie!")
+							say("")
+                                                        wait()
+
+                                                        if empire == 1 then
+                                                                pc.warp(474300,954800)
+                                                        elseif empire == 2 then
+                                                                pc.warp(63800,166400)
+                                                        elseif empire == 3 then
+                                                                pc.warp(959900,269200)
+                                                        end     
+                                                elseif sub_set2 == 2 then
+                                                 say_title("Teleporter:")
+							say("Skoro tak mówisz... Na razie!")
+							say("")
+                                                        wait()
+                                                        if empire == 1 then
+                                                                pc.warp(353100,882900)
+                                                        elseif empire == 2 then
+                                                                pc.warp(145500,240000)
+                                                        elseif empire == 3 then
+                                                                pc.warp(863900,246000)
+                                                        end     
+                                                end
+
+                                                pc.changegold(-cost)
+                                        end
+                                end
+                        end
+                end -- end_of_chat
+        end -- end_of_state
+end -- end_of_quest

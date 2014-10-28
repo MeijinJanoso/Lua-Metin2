@@ -1,0 +1,593 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest marriage_manage begin
+	state start begin
+		when oldwoman.chat."Chcê wzi¹æ œlub" with not pc.is_engaged_or_married() begin
+			if not npc.lock() then
+				say_title("Starsza Pani:")
+				say("Witam, jestem odpowiedzialana za œluby w tym")
+				say("kraju, nie rób pochopnych decyzji! Czy")
+				say("na pewno chcesz wzi¹æ œlub?")
+				return
+			end
+			if pc.level < 25 then
+				say_title("Starsza Pani:")
+				say("Niestety, aby unikn¹æ niepotrzenych œlubów w")
+				say("w naszym królestwie wprowadziliœmy restrykcjê ")
+				say("poziomu. Dopiero Gracze którzy posiadaj¹ poziom")
+				say("wy¿szy, ni¿ 25 mog¹ wzi¹æ œlub")
+				say("")
+				say_reward("Wróæ gdy osi¹gniesz poziom wy¿szy ni¿ 25")
+				say("")
+				npc.unlock()
+				return
+			end
+			local m_ring_num = pc.countitem(70301)
+			local m_has_ring = m_ring_num > 0
+			if not m_has_ring then
+				say_title("Starsza Pani:")
+				say("Jak ty chcesz braæ œlub? Nawet nie masz")
+				say("Pierœcionka Zarêczynowego! Oboje musicie")
+				say("go mieæ! Zdob¹dŸ go jakoœ!")
+				say("")
+				say_item("Pierœcionek Zarêczynowy", 70301, "")
+				say_reward("Jak zdobêdziecie obr¹czki zapraszam ponownie!")
+				say("")
+				npc.unlock()
+				return
+			end
+			local m_sex = pc.get_sex()
+			if not marriage_manage.is_equip_wedding_dress() then
+				say_title("Starsza Pani:")
+				say("Chcecie zawrzeæ zwi¹zek ma³¿eñski a nawet nie")
+				say("macie odpowiedniego stroju? Na co wy liczycie?")
+				say("Nie mo¿ecie siê pobraæ gdy nie macie odpowiedniego")
+				say("ubioru!")
+				say("")
+				if m_sex==0 then
+					say_item("Smoking", marriage_manage.get_wedding_dress(pc.get_job()), "")
+					say_reward("Zdob¹dŸ ten przedmiot a siê pobierzesz!")
+				else
+					say_item("Suknia Œlubna", marriage_manage.get_wedding_dress(pc.get_job()), "")
+					say_reward("Zdob¹dŸ ten przedmiot a siê pobierzesz!")
+				end
+				say("")
+				npc.unlock()
+				return
+			end
+			local NEED_MONEY = 1000000
+			if pc.get_money() < NEED_MONEY then
+				say_title("Starsza Pani:")
+				say(" Œlub nie jest tani! To kosztuje troszkê pieniêdzy")
+				say("Ja równie¿ muszê z czegoœ utrzymaæ mê¿a i dzieci!")
+				say("Przecie¿, cz³owiek nie ¿yje sam¹ wod¹...")
+				say("PrzyjdŸ gdy zdobêdziesz 1 Milion Yang.")
+				say("")
+				say_reward(string.format("Potrzebujesz %d? Yang", NEED_MONEY/10000))
+				say("")
+				npc.unlock()
+				return
+			end
+			say_title("Starsza Pani:")
+			say("Mogê daæ wam œlub, robi³am to wiele razy!")
+			say("Na pewno nie zawiedziesz siê w sposobie")
+			say("w jaki przeprowadzê œlub!")
+			say_reward("Podaj imiê osoby z któr¹ chcesz wzi¹æ œlub.")
+			local sname = input()
+			if sname == "" then
+				say_title("Starsza Pani:")
+				say("Tak wiem, ciê¿ko jest tak od razu podj¹æ w³aœciw¹ ")
+				say("decyzjê, lecz mo¿esz do mnie wróciæ gdy nadejdzie")
+				say("w³aœciwy moment, gdy bêdziesz pewny swojego wyboru.")
+				say("")
+				npc.unlock()
+				return
+			end
+			local u_vid = find_pc_by_name(sname)
+			local m_vid = pc.get_vid()
+			if u_vid == 0 then
+				say_title("Starsza Pani:")
+				say("Nie znasz imienia osoby z któr¹ chcesz wzi¹æ œlub?")
+				say("To mo¿e lepiej zrezygnuj z ma³¿eñstwa dla w³asnego")
+				say("bezpieczeñstwa? Najlepiej odpocznij, przeœpij siê ")
+				say("i przemyœl swoj¹ decyzjê. Wtedy imiê powinno Ci")
+				say("siê przypomnieæ!")
+				say("")
+				say_reward(string.format("Postaæ %s nie jest zalogowana.", sname))
+				say("")
+				npc.unlock()
+				return
+			end
+			if not npc.is_near_vid(u_vid, 10) then
+				say_title("Starsza Pani:")
+				say("Osoby które maj¹ braæ œlub musz¹ byæ bardzo")
+				say("zdecydowane i zdeterminowane. A co najwa¿niejsze")
+				say("musz¹ byæ blisko miêdzy sob¹ psychicznie jak i")
+				say("fizycznie. Poproœ aby osoba stane³a blisko Ciebie")
+				say("")
+				say_reward(string.format("%s stoi za dalego od Ciebie", sname))
+				say("")
+				npc.unlock()
+				return
+			end
+			local old = pc.select(u_vid)
+			local u_level = pc.get_level()
+			local u_job = pc.get_job()
+			local u_sex = pc.get_sex()
+			local u_name = pc.name
+			local u_gold = pc.get_money()
+			local u_married = pc.is_married()
+			local u_has_ring = pc.countitem(70301) > 0
+			local u_wear = marriage_manage.is_equip_wedding_dress()
+			pc.select(old)
+			local m_level = pc.get_level()
+			if u_vid == m_vid then
+				say_title("Starsza Pani:")
+				say("Ty siê tak nazywasz!")
+				say("")
+				say_reward("Nie mo¿esz wzi¹æ œlubu z samym sob¹!")
+				say("")
+				npc.unlock()
+				return
+			end
+			if u_sex == m_sex then
+				say_title("Starsza Pani:")
+				say("Przykro mi, ale ja udzielam tylko œlubów")
+				say("heteroseksualnych.")
+				say("")
+				say_reward("Nie mo¿esz wzi¹æ œlubu z osob¹ o tej samej p³ci!")
+				say("")
+				npc.unlock()
+				return
+			end
+			if u_married then
+				say_title("Starsza Pani:")
+				say("Niestety ale ta osoba ju¿ wziê³a œlub.")
+				say("To nie jest mo¿liwe.")
+				say("")
+				say_reward(string.format("Postaæ %s ma œlub.", sname))
+				say("")
+				npc.unlock()
+				return
+			end
+			if u_level < 25 then
+				say_title("Starsza Pani:")
+				say("Niestety, ale ta osoba nie ma poziomu")
+				say("wiêkszego ni¿ 25 i nie s¹dzê, aby by³o")
+				say("staæ t¹ osobê na sta³y zwi¹zek!")
+				say("")
+				say_reward("Ta osoba musi mieæ Poziom wiêkszy ni¿ 25")
+				say("")
+				npc.unlock()
+				return
+			end
+			if m_level - u_level > 15 or u_level - m_level > 15 then
+				say_title("Starsza Pani:")
+				say("Niestety ró¿nica poziomów miêdzy wami jest")
+				say("zbyt du¿a. To zbyt ogromna rozbie¿noœæ poziomu")
+				say("Nie mogê zezwoliæ na ten œlub.")
+				say("")
+				say_reward("Nie mo¿ecie siê ró¿niæ wiêcej ni¿ 15 poziomami.")
+				say("")
+				npc.unlock()
+				return
+			end
+			if not u_has_ring then
+				if m_ring_num >= 2 then
+					say_title("Starsza Pani:")
+					say("Aby wzi¹æ œlub potrzebujesz 2 Pierœcionki")
+					say("Zarêczynowe! Wróæ kiedy je zdobêdziesz.")
+				else
+					say_title("Starsza Pani:")
+					say("Nie mo¿esz braæ œlubu bez 2 Pierœcionków")
+					say("Zarêczynowych.")
+					say("")
+				end
+				say_item("Pierœcionek Zarêczynowy", 70301, "")
+				say_reward("Druga osoba te¿ musi mieæ Pierœcionek")
+				say_reward("Zarêczynowy.")
+				say("")
+				npc.unlock()
+				return
+			end
+			if not u_wear then
+				say_title("Starsza Pani:")
+				say("Chcecie zawrzeæ zwi¹zek ma³¿eñski a nawet nie")
+				say("macie odpowiedniego stroju? Na co wy liczycie?")
+				say("Nie mo¿ecie siê pobraæ gdy nie macie odpowiedniego")
+				say("ubioru!")
+				say("")
+				if u_sex==0 then
+					say_item("Smoking", marriage_manage.get_wedding_dress(u_job), "")
+					say_reward("Aby wzi¹œæ œlub trzeba mieæ za³o¿ony strój!")
+				else
+					say_item("Suknia Œlubna", marriage_manage.get_wedding_dress(u_job), "")
+					say_reward("Aby wzi¹œæ œlub trzeba mieæ za³o¿ony strój!")
+				end
+				say("")
+				npc.unlock()
+				return
+			end
+			local ok_sign = confirm( u_vid, "Chcesz wzi¹æ œlub z"..pc.name.. "?", 30)
+			if ok_sign == CONFIRM_OK then
+				local m_name = pc.name
+				if pc.get_gold()>=NEED_MONEY then
+					pc.change_gold(-NEED_MONEY)
+					pc.removeitem(70301, 1)
+					pc.give_item2(70302, 1)
+					local old = pc.select(u_vid)
+					pc.removeitem(70301, 1)
+					pc.give_item2(70302, 1)
+					pc.select(old)
+					say_title("Starsza Pani:")
+					say("Jesteœmy gotowi do zorganizowania œlubu!")
+					say("Miejmy nadzieje, ¿e druga po³ówka równie¿ ")
+					say("Ciê kocha! Pob³ogos³awiê was teraz, lecz sam")
+					say("œlub obejdzie siê na wyspie Mi³oœci!")
+					say_reward("B³ogos³awiê was imieniem Boga Smoków!")
+					say("")
+					wait()
+					setskin(NOWINDOW)
+					marriage.engage_to(u_vid)
+				end
+			else
+				say_title("Starsza Pani:")
+				say("Osoba z któr¹ chcia³byœ wzi¹æ œlub odmówi³a")
+				say(" wziêcia go!Porozmawiaj z ni¹ na ten temat...")
+				say("Powinno pomóc!")
+				say("")
+				say_reward("Niech Partner zaakceptuje œlub. Inaczej siê nie odbêdzie.")
+			end
+				say("")
+				npc.unlock()
+		end
+		when oldwoman.chat."WejdŸ na twój Œlub!" with pc.is_engaged() begin
+			say("Zostaniesz przeniesiony.")
+			wait()
+			setskin(NOWINDOW)
+			marriage.warp_to_my_marriage_map()
+		end
+		when 9011.chat."Rozpocznij œlub" with pc.is_engaged() and marriage.in_my_wedding() begin
+			if not npc.lock() then
+				say("Twój partner nie jest na tej mapie!")
+				say("")
+				return
+			end
+			say("Jeœli partner")
+			say("jest z innego królestwa,")
+			say("mo¿e teraz")
+			say("wypiæ olejek wygnania.")
+			say(" Œlub mo¿e rozwi¹zaæ by³y partner.")
+			local sname = input()
+			local u_vid = find_pc_by_name(sname)
+			local m_vid = pc.get_vid()
+			if u_vid == 0 then
+				say("Nie znaleziono partnera.")
+				say("")
+				say_reward(string.format("Nie znaleziono gracza %s ", sname))
+				say("")
+				npc.unlock()
+				return
+			end
+			if not npc.is_near_vid(u_vid, 10) then
+				say("Nie jesteœcie ko³o siebie! Nie mo¿ecie siê ")
+				say("pobraæ! Stañcie ko³o siebie...")
+				say("")
+				say("")
+				say_reward(string.format("%s musi stan¹æ ko³o siebie", sname))
+				say("")
+				npc.unlock()
+				return
+			end
+			if u_vid == m_vid then
+				say("Nie mo¿esz wzi¹æ œlubu sam ze sob¹!")
+				say("")
+				say_reward("Musisz j¹ zmieniæ.")
+				say("")
+				npc.unlock()
+				return
+			end
+			if u_vid != marriage.find_married_vid() then
+				say("Twój ma³¿onek nie znajduje sie blisko siebie.")
+				say("")
+				npc.unlock()
+				return
+			end
+			local ok_sign = confirm(u_vid, "Czy chcesz wzi¹æ œlub z"..pc.name.. "?", 30)
+			if ok_sign != CONFIRM_OK then
+				say("Druga osoba nie zaakceptowa³a œlubu!")
+				say("")
+				npc.unlock()
+				return
+			end
+			say("")
+			marriage.set_to_marriage()
+			say("")
+			say_reward("Obr¹czki zosta³y przypisane.")
+			say_reward(" Œlub zosta³ zawarty.")
+			say("")
+			npc.unlock()
+		end
+		function give_wedding_gift()
+			local male_item = {71072, 71073, 71074}
+			local female_item = {71069, 71070, 71071}
+			if pc.get_sex() == MALE then
+				pc.give_item2(male_item[number(1, 3)], 1)
+			else
+				pc.give_item2(female_item[number(1, 3)], 1)
+			end
+		end
+		when 9011.chat."Wystartuj Muzykê " with (pc.is_engaged() or pc.is_married()) and marriage.in_my_wedding() and not marriage.wedding_is_playing_music() begin
+			marriage.wedding_music(true, "wedding.mp3")
+			setskin(NOWINDOW)
+		end
+		when 9011.chat." Zatrzymaj Muzykê " with (pc.is_engaged() or pc.is_married()) and marriage.in_my_wedding() and marriage.wedding_is_playing_music() begin
+			marriage.wedding_music(false, "default")
+			setskin(NOWINDOW)
+		end
+		when 9011.chat."W³¹cz Noc" with pc.is_married() and marriage.in_my_wedding() begin
+			marriage.wedding_dark(true)
+			setskin(NOWINDOW)
+		end
+		when 9011.chat."W³¹cz Œnieg" with pc.is_married() and marriage.in_my_wedding() begin
+			marriage.wedding_snow(true)
+			setskin(NOWINDOW)
+		end
+		when 9011.chat."Zakoñcz Œlub" with pc.is_married() and marriage.in_my_wedding() begin
+			if not npc.lock() then
+				say("Helen:")
+				say("Czy chcesz przerwaæ œlub?")
+				say("")
+				return
+			end
+			say("Helen:")
+			say("Czy chcesz naprawdê przerwaæ ceremoniê?")
+			say("")
+			local s = select("Tak","Nie")
+			if s == 1 then
+				local u_vid = marriage.find_married_vid()
+				if u_vid == 0 then
+					say("Przerwaæ cenemonie osoba musi byæ na")
+					say("tym œlubie. Musi to potwierdziæ.")
+					say("")
+					npc.unlock()
+					return
+				end
+				say("Helen:")
+				say("Aby wzi¹œæ œlub")
+				say("twój partner musi podj¹æ decyzjê.")
+				say("Czekam na odpowiedŸ...")
+				say("")
+				local ok_sign = confirm(u_vid, "Czy chcesz zakoñczyæ wesele?", 30)
+				if ok_sign == CONFIRM_OK then
+					marriage.end_wedding()
+				else
+					say("Wesele nie zosta³o przerwane.")
+					say("Druga osoba nie zgodzi³a siê na œlub.")
+					say("")
+				end
+			end
+			npc.unlock()
+		end
+		when 11000.chat."Rozwód Dwustronny" or 11002.chat."Rozwód Dwustronny" or 11004.chat."Rozwód Dwustronny" with pc.is_married() begin
+			if not marriage_manage.check_divorce_time() then
+				return
+			end
+			local u_vid = marriage.find_married_vid()
+				if u_vid == 0 or not npc.is_near_vid(u_vid, 10) then
+					say_title("Stra¿nik Wsi:")
+					say("Rozwód to bardzo odpowiedzialna decyzja!")
+					say("Jeœli chcesz siê rozwieœæ,")
+					say("twój partner musi byæ zalogowany.")
+					say("")
+					return
+				end
+			say_title("Stra¿nik Wsi:")
+			say("Rozwód bêdzie kosztowa³ 500.000 Yang.")
+			say("Dodadkowo druga osoba musi siê zgodziæ.")
+			say("Czy na pewno chcesz wzi¹æ œlub?")
+			say("")
+			local MONEY_NEED_FOR_ONE = 500000
+			local s = select("Tak", "Nie")
+			if s == 1 then
+				local m_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+				local m_have_ring = pc.countitem(70302) > 0
+				local old = pc.select(u_vid)
+				local u_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+				local u_have_ring = pc.countitem(70302) > 0
+				pc.select(old)
+				if not m_have_ring then
+					say("Musisz przynieœæ obr¹czkê.")
+					return
+				end
+				if not u_have_ring then
+					say("Druga osoba musi przynieœæ obr¹czkê.")
+					return
+				end
+				if not m_enough_money then
+					say("Stra¿nik Wsi:")
+					say("Nie masz wystarczaj¹cej iloœci Yang, aby wzi¹œæ rozwód.")
+					say("")
+					say_reward(string.format("Potrzebujesz %s aby wzi¹œæ rozwód", MONEY_NEED_FOR_ONE/10000))
+					say("")
+					return
+				end
+				if not u_enough_money then
+					say_title("Stra¿nik Wsi:")
+					say("Druga osoba nie ma wystarczaj¹cej iloœci Yang.")
+					say("")
+					say_reward("Aby wzi¹œæ rozwód oboje musicie mieæ 500.00 Yang")
+					say("")
+					return
+				end
+				say("Rozwód jest bardzo bolesn¹ rzecz¹,")
+				say("czy na pewno chcesz siê rozwieœæ?")
+				say("")
+				local c=select("Tak", "Nie")
+				if 2 == c then
+					say_pc_name()
+					say("Chcê rozwodu.")
+					say("Taka jest moja decyzja.")
+					say("")
+					wait()
+					say_title("Stra¿nik Wsi:")
+					say("Niech tak bêdzie...")
+					say("Nie jesteœcie ju¿ par¹ ")
+					say("Mo¿ecie dalej cieszyæ siê ¿yciem.")
+					say("")
+					say_reward("Rozwód zakoñczy³ siê powodzeniem.")
+					say("")
+					return
+				end
+				local ok_sign = confirm(u_vid, pc.name.." chce wzi¹æ rozwód?", 30)
+				if ok_sign == CONFIRM_OK then
+					local m_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+					local m_have_ring = pc.countitem(70302) > 0
+					local old = pc.select(u_vid)
+					local u_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+					local u_have_ring = pc.countitem(70302) > 0
+					pc.select(old)
+					if m_have_ring and m_enough_money and u_have_ring and u_enough_money then
+						pc.removeitem(70302, 1)
+						pc.change_money(-MONEY_NEED_FOR_ONE)
+						local old = pc.select(u_vid)
+						pc.removeitem(70302, 1)
+						pc.change_money(-MONEY_NEED_FOR_ONE)
+						pc.select(old)
+						say_title("Stra¿nik Wsi:")
+						say("Rozwód zakoñczony powodzeniem.")
+						say("Jesteœcie ró¿nymi osobami,")
+						say("nie mo¿na was zmieniæ.")
+						say("")
+						say_reward("Rozwód zakoñczony pomyœlnie!")
+						say("")
+						marriage.remove()
+					else
+						say_title("Stra¿nik Wsi:")
+						say("Wyst¹pi³ b³¹d")
+						say("Nie mo¿ecie siê rozwieœæ.")
+						say("Spróbujcie potem.")
+						say("")
+						say_reward("Nie mo¿na siê teraz rozwieœæ.")
+						say("")
+					end
+				else
+					say_title("Stra¿nik Wsi:")
+					say("Druga osoba siê nie godzi na rozwód.")
+					say("Jeœli j¹ przekonasz")
+					say("daj mi znaæ.")
+					say("")
+					say_reward("Rozwód odwo³any.")
+					say("")
+				end
+			end
+		end
+		when 11000.chat."Usuñ Obr¹czkê " or 11002.chat."Usuñ Obr¹czkê " or 11004.chat."Usuñ Obr¹czkê " with not pc.is_married() and pc.count_item(70302)>0 begin
+			say_title("Stra¿nik Wsi:")
+			say("Masz z³ê wspomnienia...")
+			say("Wszystko rozumiem.")
+			say("")
+			say_reward("Obr¹czki zosta³y zniszczone.")
+			pc.remove_item(70302)
+		end
+		when 11000.chat." Rozwód Jednostronny" or 11002.chat." Rozwód Jednostronny" or 11004.chat." Rozwód Jednostronny" with pc.is_married() begin
+			if not marriage_manage.check_divorce_time() then
+				return
+			end
+			say_title("Stra¿nik Wsi:")
+			say("Jednostronny rozwód kosztuje a¿ 1 Milion.")
+			say("Chcesz zap³aciæ?")
+			say("")
+			local s = select("P³acê ", "Nie zap³acê ")
+			local NEED_MONEY = 1000000
+			if s == 2 then
+				return
+			end
+			if pc.money < NEED_MONEY then
+				say_title("Stra¿nik Wsi:")
+				say("Nie masz wystarczaj¹cej iloœci Yang.")
+				say("To za drogie?")
+				say("PrzyjdŸ jak zdobêdziesz pieni¹dze.")
+				say("")
+				return
+			end
+			say_title("Stra¿nik Wsi:")
+			say("Czy na pewno chcesz wzi¹æ rozwód?")
+			say("")
+			local c = select("Chcê rozwodu!", "Nie chcê rozwodu!")
+			if c == 2 then
+				say_title("Stra¿nik Wsi:")
+				say("Dobra decyzja, ciesz siê...")
+				say("Mo¿e mi³oœæ siê narodzi ponownie...")
+				say("Dwie osoby maj¹ ró¿ne pogl¹dy.")
+				say("")
+				say_reward("Rozwód odwo³any")
+				say("")
+				return
+			end
+			pc.removeitem(70302, 1)
+			pc.change_gold(-NEED_MONEY)
+			marriage.remove()
+			say_title("Stra¿nik Wsi:")
+			say("Oby to by³a dobra decyzja")
+			say("Jesteœ teraz rozwiedzony.")
+			say("Mam nadziejê, ¿e jesteœ szczêœliwy.")
+			say("")
+			say_reward("Jednostronny rozwód powiód³ siê.")
+			say("")
+		end
+		when oldwoman.chat." Lista œlubów " with not pc.is_engaged() begin
+			local t = marriage.get_wedding_list()
+			if table.getn(t) == 0 then
+				say("W tej chwili nie odbywa siê ¿aden œlub.")
+				say("")
+			else
+			local wedding_names = {}
+			table.foreachi(t, function(n, p) wedding_names[n] = p[3].." z "..p[4].." " end)
+			wedding_names[table.getn(t)+1] = locale.confirm
+			local s = select_table(wedding_names)
+				if s != table.getn(wedding_names) then
+					marriage.join_wedding(t[s][1], t[s][2])
+				end
+			end
+		end
+		when 9011.click with not pc.is_engaged() and not pc.is_married() begin
+			say("Wszyscy przyszliœmy tutaj aby œwiêtowaæ!")
+			say("Wesele siê rozpoczê³o! Para zosta³a ")
+			say("pob³ogos³awiona!")
+			say("")
+		end
+		function check_divorce_time()
+			local DIVORCE_LIMIT_TIME = 86400
+			if is_test_server() then
+				DIVORCE_LIMIT_TIME = 60
+			end
+			if marriage.get_married_time() < DIVORCE_LIMIT_TIME then
+				say("Nie mo¿esz jeszcze wzi¹æ œlubu.")
+				say("")
+				return false
+			end
+			return true
+		end
+		function is_equip_wedding_dress()
+			local a = pc.get_armor()
+			return a >= 11901 and a <= 11904
+		end
+		function get_wedding_dress(pc_job)
+			if 0==pc_job then
+				return 11901
+			elseif 1==pc_job then
+				return 11903
+			elseif 2==pc_job then
+				return 11902
+			elseif 3==pc_job then
+				return 11904
+			else
+				return 0
+			end
+		end
+	end
+end

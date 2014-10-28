@@ -1,0 +1,165 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest make_herb_lv25 begin
+	state start begin
+		when login or levelup with pc.get_level() ==25 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Analiza Biologa")
+			end
+			send_letter("Analiza Biologa")
+		end
+		when button or info begin
+			say_title("Analiza Biologa")
+			say("Biolog Chaegirab, uczeñ Uriela,")
+			say("w³aœnie Ciê szuka³. Proszê, idŸ ")
+			say("do niego i zaoferuj swoj¹ pomoc.")
+			say("")
+		end
+		when __TARGET__.target.click or 20084.chat."ZnajdŸ Biologa" begin
+			target.delete("__TARGET__")
+			say_title("Biolog Chaegirab:")
+			say("Niebiosa, proszê, pomó¿cie mi...")
+			say("Badam wszystkie rodzaje roœlin w tym")
+			say("imperium. Jest bardzo du¿o rzeczy,")
+			say("które musz¹ zostaæ zrobione. Nie mam")
+			say("czasu abym móg³ sam wybraæ siê na wyprawê.")
+			say("Proszê, pomó¿ mi.")
+			wait()
+			say_title("Biolog Chaegirab:")
+			say("Aktualnie badam Grzyby Tue. Muszê przeprowadziæ ")
+			say("kilka eksperymentów z tymi grzybami. Czy móg³byœ ")
+			say("dostarczyæ mi kilka z nich? Myœlê, ¿e 10 grzybów")
+			say("wystarczy. Bêdê Ci bardzo wdziêczny, jeœli mi")
+			say("pomo¿esz! Zawsze przynoœ mi po jednym, abym")
+			say("mia³ czas na przeprowadzenie badañ!")
+			set_state(go_to_disciple)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Zadanie specjalne!")
+		end
+		when button or info begin
+			say_title("ZnajdŸ Grzyby Tue")
+			say("")
+			say("Biolog Chaegirab,uczeñ Uriela,")
+			say("szuka grzybów Tue.")
+			say("Zawsze przynoœ mu po jednym,aby mia³ czas")
+			say("na ich dok³adne przebadanie.")
+			say("Grzybów Tue szukaj u G³odnych Br¹zowych NiedŸwiedzi.")
+			say("")
+			say_item_vnum(50706)
+			say_reward("Do tej pory zebra³eœ: "..pc.getqf("collect_count").." Grzybów Tue.")
+			say("")
+		end
+		when 71035.use begin
+			if pc.getqf("drink_drug")==1 then
+				say("")
+				say("¤w¸g¨Ï¼Î¤F1Œ¸")
+				say("")
+				return
+			end
+			if pc.count_item(50706)==0 then
+				say("Biolog Chaegirab:")
+				say("Co? Nie przyniosles mi zadnych")
+				say("grzybow Tue?...")
+				say("")
+				return
+			end
+			item.remove()
+			pc.setqf("drink_drug",1)
+		end
+		when 183.kill begin
+			if pc.count_item(50706)<10 - pc.getqf("collect_count") then
+				pc.give_item2(50706, 1)
+			end
+		end
+		when 20084.chat."Grzyby Tue" with pc.count_item(50706) >0 begin
+			say_reward("Biolog Chaegirab:")
+			say("Oh!!Znalaz³eœ!")
+			say("Pozwól,¿e rzucê okiem...")
+			say("Jeszcze chwilkê.")
+			say("")
+			pc.remove_item(50706, 1)
+			wait()
+			local pass_percent
+			if pc.getqf("drink_drug")==0 then
+				pass_percent=80
+			else
+				pass_percent=100
+			end
+			local pass_percent
+			if pc.getqf("drink_drug")==0 then
+				pass_percent=70
+			else
+				pass_percent=100
+			end
+			local s= number(1,100)
+			if s<= pass_percent then
+			 if pc.getqf("collect_count")< 9 then
+					local index =pc.getqf("collect_count")+1
+					pc.setqf("collect_count",index)
+					say("Biolog Chaegirab:")
+					say_green("Oh!!Ten grzyb Tue jest doskona³ej jakoœci!")
+					say("Przynieœ mi jeszcze: "..10-pc.getqf("collect_count").. " grzybów Tue.")
+					say("Proszê,spróbuj je znaleŸæ!")
+					say("")
+					pc.setqf("drink_drug",0)
+					return
+				end
+				say_reward("Biolog Chaegirab:")
+				say("Oh,zebra³eœ ju¿ wszystkie?")
+				say("Dobra robota...")
+				say("Jako dowód mojej wdziêcznoœci otrzymasz")
+				say("trochê Yang i wynik moich prac.")
+				say("Nagroda:")
+				say_reward("200.000 PD")
+				say_reward("20.000 Yang")
+				if pc.job==0 then
+					pc.give_item2(12222)
+					say_reward("¯elazny He³m +2")
+				end
+				if pc.job==1 then
+					pc.give_item2(12362)
+						 say_reward("Maskê Kolcz¹ +2")
+							 end
+				if pc.job==2 then
+					pc.give_item2(12502)
+					say_reward("Wyzywaj¹cy He³m+2")
+				end
+				if pc.job==3 then
+					pc.give_item2(12642)
+					say_reward("Czapkê Fenixa+2")
+				end
+				pc.setqf("collect_count",0)
+				pc.setqf("drink_drug",0)
+				clear_letter()
+				set_state(__complete)
+				pc.change_money(3000)
+				pc.give_exp2(200000)
+				set_quest_state("levelup","run")
+				return
+			else
+			say_reward("Biolog Chaegirab:")
+			say_red("Przykro mi, ale ten Grzyb Tue jest zepsuty...")
+			say("Proszê,przynieœ mi nastêpny.")
+			say("")
+			pc.setqf("drink_drug",0)
+			return
+			end
+		end
+	end
+	state __complete begin
+	end
+end

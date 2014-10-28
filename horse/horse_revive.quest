@@ -1,0 +1,92 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_revive begin
+	state start begin
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==3 and horse.is_dead() and pc.countitem("50059")<1 begin
+			say("Witaj jeŸdŸcu.")
+			say("Widzê, ¿e twój koñ zdech³.")
+			say("Potrzebne jest specjalne zio³o!")
+			say("Aby wskrzesiæ konia musisz zabiæ Skalist¹ Ma³pê.")
+			if pc.countitem("50058")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			elseif pc.countitem("50057")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			end
+		end
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==3 and horse.is_dead() and pc.countitem("50059")>=1 begin
+			say("Jak widzê twój koñ zdech³...")
+			say("Daj mu zio³o a powinien o¿yæ.")
+			wait()
+			say("Da³eœ koniowi Zio³o.")
+			say("[DELAY value=400]. . .[/DELAY]")
+			horse.summon()
+			wait()
+			say("Twój koñ jest znów ¿ywy.")
+			say("Nie zapomnij go karmiæ.")
+			if pc.countitem("50059")>=1 then
+				pc.removeitem("50059", 1)
+				horse.revive()
+			end
+		end
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==2 and horse.is_dead() and pc.countitem("50058")<1 begin
+			say("Witaj jeŸdŸcu.")
+			say("Widzê, ¿e twój koñ zdech³.")
+			say("Potrzebne jest specjalne zio³o!")
+			say("Aby wskrzesiæ konia musisz zabiæ Chodz¹c¹ Ma³pê.")
+			if pc.countitem("50059")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			elseif pc.countitem("50057")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			end
+		end
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==2 and horse.is_dead() and pc.countitem("50058")>=1 begin
+			say("Jak widzê twój koñ zdech³...")
+			say("Daj mu zio³o a powinien o¿yæ.")
+			wait()
+			say("Da³eœ koniowi Zio³o.")
+			say(" [DELAY value=400]. . .[/DELAY] ")
+			horse.summon()
+			wait()
+			say("Twój koñ jest znów ¿ywy.")
+			say("Nie zapomnij go karmiæ.")
+			if pc.countitem("50058")>=1 then
+				pc.removeitem("50058", 1)
+				horse.revive()
+			end
+		end
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==1 and horse.is_dead() and pc.countitem("50057")<1 begin
+			say("Witaj jeŸdŸcu.")
+			say("Widzê, ¿e twój koñ zdech³.")
+			say("Potrzebne jest specjalne zio³o!")
+			say("Aby wskrzesiæ konia musisz zabiæ Lorda Ma³p.")
+			if pc.countitem("50059")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			elseif pc.countitem("50057")>=1 then
+				say("Znalaz³eœ z³e zio³o.")
+			end
+		end
+		when 20349.chat."Mój Koñ nie ¿yje" with horse.get_grade()==1 and horse.is_dead() and pc.countitem("50057")>=1 begin
+			say("Jak widzê twój koñ zdech³...")
+			say("Daj mu zio³o a powinien o¿yæ.")
+			wait()
+			say("Da³eœ koniowi Zio³o.")
+			say(" [DELAY value=400]. . .[/DELAY] ")
+			horse.summon()
+			wait()
+			say("Twój koñ jest znów ¿ywy.")
+			say("Nie zapomnij go karmiæ.")
+			if pc.countitem("50057")>=1 then
+				pc.removeitem("50057", 1)
+				horse.revive()
+			end
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

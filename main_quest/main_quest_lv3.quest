@@ -1,0 +1,165 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv3 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 3 begin
+			set_state( gototeacher )
+		end
+		when 20354.chat."Pierwsza Misja." begin
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Zak³adam, ¿e pierwsze przydzielone tobie zadanie")
+			say("by³o bardzo proste! B¹dŸ cierpliwy, idŸ zdobywaæ ")
+			say("doœwiadczenie, a gdy osi¹gniesz ju¿ wystarczaj¹co")
+			say("go wróæ do mnie a otrzymasz kolejn¹ misjê.")
+			say("")
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			send_letter("Udaj siê do Stra¿nika Miejskiego")
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Udaj siê do Stra¿nika Miejskiego")
+			end
+		end
+		when button or info begin
+			say_title("Udaj siê do Stra¿nika Miejskiego")
+			say("")
+			-------
+			say_reward("Przestañ polowaæ i wróæ do Stra¿nika Miejskiego.")
+			say_reward("Ma dla Ciebie kolejne zlecenia.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Cieszê siê, ¿e przyszed³eœ do mnie. Mam nadzieje,")
+			say("¿e wiesz, gdzie znajduje siê Handlarka Ró¿noœci?")
+			say("Zwróci³a siê ona do mnie z proœb¹ o pomoc, lecz")
+			say("ja musze nadal staæ na warcie...")
+			say("Jestem pewny ¿e chodzi o coœ powa¿nego.")
+			say("")
+			wait()
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Poza tym Handlarka Ró¿noœciami zajmuje siê ")
+			say("sprzeda¿¹ mikstur regeneracyjnych oraz innych")
+			say("wa¿nych przedmiotów.")
+			say("Przedmioty te mog¹ staæ siê przydatne dla Ciebie")
+			say("w przysz³oœci. Dlatego radzê tobie abyœ mia³ z")
+			say("ni¹ jak najlepsze relacje! Dlaczego jeszcze tu")
+			say("stoisz? Komu w drogê temu w czas! Ruszaj!")
+			say("")
+			wait()
+			set_state( gotogood )
+		end
+	end
+	state gotogood begin
+		when letter begin
+			local v=find_npc_by_vnum(9003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Handlarke Ró¿noœciami")
+			end
+		end
+		when letter begin
+			send_letter("Pomoc Handlarce Ró¿noœciami!")
+		end
+		when button or info begin
+			say_title("Pomórz Handlarce Ró¿noœciami")
+			say("")
+			say_reward("Udaj siê do Handlarki Ró¿noœci,")
+			say_reward("bardzo pilnie potrzebuje twojej pomocy!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Handlarka Ró¿noœciami:")
+			say("")
+			say("Witam. Pewnie przys³a³ Ciê Stra¿nik Miejski,")
+			say("prosi³am go o pomoc, a on obieca³, ¿e siê tym")
+			say("zajmie. Mam dla Ciebie bardzo ³atwe zadanie.")
+			say("Mój ojciec zapomnia³ bardzo wa¿nej ksi¹¿ki.")
+			say("Bêdzie ona mu potrzebna do wytwarzania zbroi.")
+			say("Dostarcz mu j¹ jak najszybciej...")
+			say("")
+			wait()
+			say_title("Handlarka Ró¿noœciami:")
+			say("")
+			say("Czy mo¿esz dostarczyæ t¹ ksi¹¿kê do mojego ojca?")
+			say("Zrobi³abym to sama, lecz nie mogê zostawiæ mojego")
+			say("sklepu. Po wykonaniu tej misji, otrzymasz nagrodê.")
+			say("Mój ojciec stoi we Wsi obok ze sklepu ze zbrojami.")
+			say("")
+			say_item("Technika Wytwarzania Pancerzy", 69000, "")
+			set_state( gotodefend )
+		end
+	end
+	state gotodefend begin
+		when letter begin
+			local v=find_npc_by_vnum(9002)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Handlarza Zbrojami.")
+			end
+		end
+		when letter begin
+			send_letter("Przeka¿ ksi¹¿kê.")
+		end
+		when button or info begin
+			say_title("Przeka¿ ksi¹¿kê.")
+			say("")
+			say_reward("Handlarz Zbrojami potrzebuje ksi¹¿ki od Handlarki")
+			say_reward("Ró¿noœci. Jest on twórc¹ nowych zbroi.")
+			say("")
+			say_item("Technika Wytwarzania Pancerzy", 69000, "")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Handlarz Zbrojami:")
+			say("")
+			say("Jak¹ masz do mnie sprawe? Aaa! Moja córka Ciê tu")
+			say("przys³a³a. Dziêkujê. Potrzebowa³em tej ksiêgi")
+			say("do wykonania nowego zestawu zbroi...")
+			say_item("Technika Wytwarzania Pancerzy", 69000, "")
+			say("Córka musi byæ bardzo zajêta, je¿eli wys³a³a")
+			say("Ciebie, abyœ przekaza³ Mi t¹ ksi¹¿kê...")
+			say("Muszê pomyœleæ nad twoim wynagrodzeniem...")
+			say("")
+			wait()
+			say_title("Handlarz Zbrojami:")
+			say("")
+			say("Jako nagrodê otrzymujesz trochê z³ota, wiêc mo¿esz")
+			say("kupiæ sobie odpowiedni¹ zbrojê! Mam nadziejê, ¿e")
+			say("tyle wystarczy? Z t¹ zbroj¹ mo¿esz o wiele")
+			say("bardziej skutecznie broniæ siê przed atakami")
+			say("wrogów. Ca³y dzieñ spêdzi³em poza moj¹ ")
+			say("miejscowoœci¹. Dziêkujê za pomoc, prawdopodobnie")
+			say("kiedyœ jeszcze bêdê potrzebowaæ Twojej pomocy.")
+			wait("")
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 450" )
+			say_reward("Yang: 5.000")
+			say_reward("20 Niebieskich Miksturek")
+			say("")
+			pc.give_exp2( 450 )
+			pc.change_money( 5000 )
+			pc.give_item2( 27004 ,20 )
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv6","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

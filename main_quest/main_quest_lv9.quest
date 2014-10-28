@@ -1,0 +1,70 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv9 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 9 begin
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Stra¿nika Miejskiego.")
+			end
+		end
+		when letter begin
+			send_letter("Porozmawiaj ze Stra¿nikiem Miejskiego.")
+		end
+		when button or info begin
+			say_title("Porozmawiaj ze Stra¿nikiem Miejskim.")
+			say("")
+			say_reward("On wska¿e Ci kapitana,")
+			say_reward("który ma dla Ciebie now¹ misje.")
+			say_reward("Nagrod¹ za zadanie bêdzie trochê Yang")
+			say_reward("oraz Punktów Doœwiadczenia.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Myœlê, ¿e jesteœ ju¿ przygotowany na nowe,")
+			say("trudniejsze zadania. Nie s¹ one ³atwe.")
+			say("Jednak musimy ciê¿ko pracowaæ dla przysz³oœci")
+			say("naszego królestwa. Bêdziesz uczestniczy³ w wielu")
+			say("bitwach. Niektórzy czasami cierpi¹ przez to, ¿e")
+			say("nie byli uwa¿ni. Zakoñczy³eœ swoje zadanie w miare")
+			say("szybko. Za swoje wysi³ki przydzielê Ci nagrodê.")
+			say("Mam nadziejê, ¿e bêdzie przydatna.")
+			say("")
+			wait()
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Od tej chwili poprawdzi Ciê Kapitan.")
+			say("Bêdzie nadzorowa³ Ciê w przysz³oœci i")
+			say("przydzieli kilka zadañ.")
+			say("Zbierz wiêcej Punktów Doœwiadczenia")
+			say("i udaj siê do Kapitana.")
+			say("Powodzenia!")
+			say("")
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 5000")
+			say_reward("Yang: 2000")
+			pc.give_exp2( 5000 )
+			pc.change_money( 2000 )
+			clear_letter()
+			set_state( __COMPLETE__ )
+			set_quest_state("main_quest_lv10", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

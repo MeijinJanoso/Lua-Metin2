@@ -1,0 +1,192 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest move_ring begin
+	state start begin
+		when 80009.use begin
+			say("Witaj ".. pc.get_name() .."!")
+			say("Gdzie chcesz siê przenieœæ?")
+			say("")
+			local menu = select("Miasta", "Miejsca specjalne", "Expowiska cz.1", "Expowiska cz.2", "Anuluj")
+			if menu == 1 then 
+				say("Witaj ".. pc.get_name().."...")
+				say("Dokonaj wyboru:")
+				local menu = select("Miasta M1", "Miasta M2", "Dozorca", "Itemshop", "WyjdŸ!")
+				if menu == 1 then
+					say(pc.get_name().."...")
+					say("Do którego miasteczka chcesz siê przenieœæ?")
+					say("")
+					local menu = select("Shinsoo", "Chunjo", "Jinno", "WyjdŸ!")
+					if menu == 1 then 
+						say(pc.get_name().."!")
+						say("Lecisz do wioski Shinsoo")
+						wait()
+						pc.warp(474300, 954800)
+					elseif 2 == menu then
+						say(pc.get_name().."!")
+						say("Lecisz do wioski Chunjo")
+						wait()
+						pc.warp(63800, 166400)
+					elseif 3 == menu then
+						say(pc.get_name().."!")
+						say("Lecisz do wioski Jinno")
+						wait()
+						pc.warp(959900, 269200)
+					else
+						return 
+					end 
+				elseif menu == 2 then 
+					say(pc.get_name().."...")
+					say("Do którego miasteczka chcesz siê przenieœæ?")
+					say("")
+					local menu = select("Shinsoo", "Chunjo", "Jinno", "WyjdŸ!")
+					if menu == 1 then 
+						say(pc.get_name().."!")
+						say("Lecisz do drugiej wioski Shinsoo")
+						wait()
+						pc.warp(353100, 882900)
+					elseif 2 == menu then
+						say(pc.get_name().."!")
+						say("Lecisz do drugiej wioski Chunjo")
+						wait()
+						pc.warp(145500, 240000)
+					elseif 3 == menu then
+						say(pc.get_name().."!")
+						say("Lecisz do drugiej wioski Jinno")
+						wait()
+						pc.warp(863900, 246000)
+					else 
+						return 
+					end 
+				elseif menu == 3 then 
+					game.open_safebox()
+				elseif menu == 4 then 
+					game.open_mall()
+				else 
+					return 
+				end
+			elseif menu == 2 then 
+				say(pc.get_name().."...")
+				say("Gdzie chcesz zdobywaæ doœwiadczenie?")
+				say("")
+				local menu = select("Przed DT", "Ziemia Olbrzymów", "WyjdŸ!")
+				if menu == 1 then 
+					say(pc.get_name().."!")
+					say("Zostaniesz Przeniesiony")
+					wait()
+					pc.warp(590500, 110500)
+				elseif 2 == menu then
+					say(pc.get_name().."!")
+					say("Zostaniesz Przeniesiony")
+					wait()
+					pc.warp(845100, 745900)
+				else 
+					return 
+				end 
+			elseif menu == 3 then
+				say(pc.get_name().."...")
+				say("Gdzie chcesz zdobywaæ doœwiadczenie?")
+				say("")
+				local menu = select("Dolina Seungryong", "Pustynia Yongbi", "Góra Sohan", "Loch Paj¹ków v1", "Ognista Ziema", "WyjdŸ!")
+				if menu == 1 then 
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno")
+					wait()
+					local empire = pc.get_empire() 
+					if empire == 1 then
+						pc.warp(402100, 673900)
+					elseif empire == 2 then 
+						pc.warp(270400, 739900)
+					elseif empire == 3 then 
+						pc.warp(321300, 808000)
+					end
+				elseif menu == 2 then 
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait()
+					local empire = pc.get_empire() 
+					if empire == 1 then 
+						pc.warp(217800, 627200)
+					elseif empire == 2 then 
+						pc.warp(221900, 502700)
+					elseif empire == 3 then 
+						pc.warp(344000, 502500)
+					end
+				elseif menu == 3 then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait() 
+					local empire = pc.get_empire() 
+					if empire == 1 then 
+						pc.warp(434200, 290600)
+					elseif empire == 2 then 
+						pc.warp(375200, 174900)
+					elseif empire == 3 then 
+						pc.warp(491800, 173600)
+					end
+				elseif menu == 4 then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait() 
+					pc.warp(60000, 496000)
+				elseif menu == 5 then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait() 
+					local empire = pc.get_empire() 
+					if empire == 1 then 
+						pc.warp(599400, 756300)
+					elseif empire == 2 then 
+						pc.warp(597800, 622200)
+					elseif empire == 3 then 
+						pc.warp(730700, 689800)
+					end
+				else
+					return 
+				end 
+			elseif menu == 4 then 
+				say(pc.get_name().."...")
+				say("Gdzie chcesz zdobywaæ doœwiadczenie?")
+				say("")
+				local menu = select("Loch Paj¹ków V2", "Czerwony Las", "Alantyda V1", "Atlantyda V2", "Katakumby(80lv)", "WyjdŸ!")
+				if menu == 1 then 
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait()
+					pc.warp(704100, 464100)
+				elseif 2 == menu then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait()
+					pc.warp(1119900, 70800)
+				elseif 3 == menu then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait()
+					pc.warp(9800, 1215100)
+				elseif 4 == menu then
+					say("Zostaniesz Przeniesiony")
+					say("Trzymaj siê Mocno!")
+					wait()
+					pc.warp(153600+87700, 1203200+72200 )
+				elseif 5 == menu then
+					if pc.level >= 80 then
+						say("Zostaniesz Przeniesiony")
+						say("Trzymaj siê Mocno")
+						wait()
+						pc.warp(314800, 1209800)
+					else
+						say("Niestety...")
+						say("Nie jesteœ zbyt doœwiadczony, aby siê tam dostaæ...")
+					end
+				else
+					return 
+				end 
+			else
+				return 
+			end 
+		end
+	end
+end

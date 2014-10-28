@@ -1,0 +1,116 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv16 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 16 begin
+			set_state( gotoboss )
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			send_letter( "ZnajdŸ szpiega nr 1" )
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Udaj siê do Kapitana.")
+			end
+		end
+		when button or info begin
+			say_title("ZnajdŸ szpiega nr 1")
+			----                                                  l
+			say("")
+			say_reward("On jest szpiegiem w naszej wiosce.")
+			say_reward("Kapitan ma znacznie wiêcej")
+			say_reward("informacji na temat danego szpiega.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("Mam wra¿enie, ¿e mamy szpiega w naszej wiosce.")
+			say("Jeden z mieszkañców pracuje dla Bia³oskórych.")
+			say("Mo¿e znajdziesz na to jakieœ dowody.")
+			say("Dziêki Twojej pomocy bêdziemy w stanie schwytaæ ")
+			say("szpiega.")
+			say("")
+			wait()
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: ".." 40.000" )
+			say_reward("Yang: ".." 5.000")
+			set_state( killrobber )
+		end
+	end
+	state killrobber begin
+		when letter begin
+			send_letter("OdnajdŸ Szpiega")
+		end
+		when button or info begin
+			say_title("OdnajdŸ Szpiega")
+			say("")
+			say_reward("OdnajdŸ dowody na szpiega Bialoskórych")
+			say_reward("i powróæ do Kapitana.")
+			say("")
+		end
+		when 394.kill or 393.kill or 392.kill or 391.kill or 301.kill or 302.kill or 303.kill or 304.kill begin
+			if number( 1, 10 ) == 1 then
+				pc.give_item2( 30001, 1 )
+				say_title("Szukaj Szpiega!")
+				say("")
+				say_reward("Porozmawiaj z Kapitanem.")
+				say("")
+				set_state(gotoboss2)
+			end
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Udaj siê do Kapitana.")
+			end
+		end
+		when button or info begin
+			say_title("Udaj siê do Kapitana.")
+			say("")
+			say_reward("Znalaz³eœ list, byæ mo¿e jest on")
+			say_reward("dowodem, którego szuka Kapitan.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			if pc.count_item(30001) >= 1 then
+				say_title("Kapitan:")
+				say("")
+				say("Czy masz dowody? Pozwól mi na to spojrzeæ.")
+				say("Bardzo interesuj¹cy list...")
+				say("Mo¿e on byæ wystarczaj¹cym dowodem na to,")
+				say("aby dowiedzieæ siê, kto jest szpiegiem.")
+				say("Dziêki Tobie jesteœmy w stanie poradziæ sobie z")
+				say("tym kryzysem. Wspaniale, ¿e mamy tak¹ osobê ")
+				say("jak Ty!")
+				say("Powodzenia! Poœwiêæ trochê czasu na odpoczynek!")
+				say("Oto Twoja nagroda.")
+				say_title("Nagroda:")
+				say_reward("Punkty Doœwiadczenia: ".." 40.000" )
+				say_reward("Yang: ".." 5.000")
+				say("")
+				pc.remove_item(30001)
+				pc.give_exp2( 40000 )
+				pc.change_money( 5000 )
+				clear_letter()
+				set_state(__COMPLETE__)
+				set_quest_state("main_quest_lv27", "run")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

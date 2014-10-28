@@ -1,0 +1,18 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest give_basic_weapon begin
+	state start begin
+		when login begin
+			if pc.getqf("basic_weapon") != 0 then
+				return
+			end
+			pc.give_item2(50187, 1)
+			set_state(__COMPLETE__)
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

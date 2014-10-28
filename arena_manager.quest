@@ -1,0 +1,158 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest arena_manager begin
+	state start begin
+		when 20017.chat."Walki treningowe" begin
+			if game.get_event_flag("arena_close") > 0 then
+				say_title("Yu-Hwan:")
+				say("Arena treningowa w tej chwil jest nie dostepna.")
+				say("")
+				return
+			end
+			if not npc.lock() then
+				say_title("Yu-Hwan:")
+				say("Ktoœ zapisa³ siê na trening.")
+				say("")
+				say("")
+				return
+			end
+			local useMinLevel = game.get_event_flag("arena_use_min_level")
+			if useMinLevel == 0 then
+				useMinLevel = 25 ;
+			end
+			if pc.get_level() < useMinLevel then
+				say_title("Yuhwan:")
+				say("Dopiero po oœi¹gnieciu "..useMinLevel..", poziomu mo¿esz zapisaæ ")
+				say("siê na walke treningow¹. ")
+				say("")
+				npc.unlock()
+				return
+			else
+				say_title("Yuhwan:")
+				say("Wpisz nazwe gracza, z którym chcesz trenowaæ.")
+				say("")
+				say("")
+				local sname = input()
+				if sname == "" then
+					say_title("Yu-Hwan:")
+					say("Nie wiesz z kim chcesz walczyæ? ")
+					say("")
+					npc.unlock()
+					return
+				else
+					say_title("Yu-Hwan:")
+					say(pc.name.." zapisa³ siê na walke treningow¹ przeciwko ")
+					say(sname.." ")
+					wait("")
+					local opp_vid = find_pc_by_name(sname)
+					if opp_vid == 0 then
+						say_title("Yu-Hwan:")
+						say(sname.." nie jest aktualnie zalogowany.")
+						say("")
+						npc.unlock()
+						return
+					elseif opp_vid == pc.get_vid() then
+						say_title("Yu-Hwan:")
+						say("Czy napewno chcesz walczyæ? ")
+						say("")
+						say("")
+						npc.unlock()
+						return
+					end
+					local old = pc.select(opp_vid)
+					local opp_level = pc.get_level()
+					pc.select(old)
+					if opp_level < useMinLevel then
+						say_title("Yuhwan:")
+						say("Poziom drugiej osoby jest mniejszy niz  "..useMinLevel.." .")
+						say("")
+						npc.unlock()
+						return
+					end
+					if not npc.is_near_vid(opp_vid, 10) then
+						say_title("Yuhwan:")
+						say("Aby zorganizowaæ szkolenia z")
+						say(sname.." ma do mnie podejœæ. ")
+						say("")
+						npc.unlock()
+						return ;
+					end
+					local a = arena.is_in_arena(opp_vid)
+					if a == 0 then
+						say_title("Yuhwan:")
+						say(sname.."  jest ju¿ obecnie w walce.")
+						say("")
+						npc.unlock()
+						return ;
+					end
+					say_title("Decyzja")
+					say(pc.name.." czekam na przyjecie wyzwania")
+					say("of "..sname.." ")
+					local agree = confirm(opp_vid, sname.." czy chcesz walczyæ z  "..pc.name.."", 30)
+					if agree!= CONFIRM_OK then
+						say_title("Yuhwan:")
+						say(sname.." nie chce z tob¹ walczyæ! ")
+						say("")
+						say("")
+						npc.unlock()
+						return
+					end
+					s = arena.start_duel(sname, 3)
+					if s == 0 then
+						say_title("Yu-Hwan:")
+						say("Wyst¹pi³ problem.")
+						say("Czy chcesz zarejestrowac siê ponownie pó¿niej? ")
+						say("")
+					elseif s == 2 then
+						say_title("Yu-Hwan:")
+						say("Inna grupa jest obecnie w walce.")
+						say("")
+					elseif s == 3 then
+						say_title("Yu-Hwan:")
+						say("Arena treningowa jest aktualnie w u¿yciu. ")
+						say("Proszê przyjœæ pózniej. ")
+						say("")
+					end
+				end
+			end
+			npc.unlock()
+		end
+		when 20017.chat."Ogladaj walke treningow¹ " begin
+			local g = arena.get_duel_list()
+			local arena_name = {}
+			local arena_observer = {}
+			table.foreachi(g,
+				function(n, p)
+					arena_name[n] = p[1].." against "..p[2]
+					arena_observer[n] = { p[3], p[4], p[5] }
+				end
+			)
+			table.insert(arena_name, "Close")
+			table.insert(arena_observer, 0)
+			local count = table.getn(g)
+			if count == 0 then
+				say_title("Yu-Hwan:")
+				say("W tej chwili nie ma ¿adnych walk treningowych.")
+				say("")
+				return
+			else
+				say_title("Yu-Hwan:")
+				say("Obecnie "..count.." odbywaja siœ szkolenia.")
+				say("")
+				wait()
+			end
+			if table.getn(g)!= 0 then
+				local s = select_table(arena_name)
+				if table.getn(arena_observer) == s then
+					return
+				end
+				if table.getn(arena_observer) >= s then
+					arena.add_observer(arena_observer[s][1], arena_observer[s][2], arena_observer[s][3])
+				end
+			end
+		end
+	end
+end

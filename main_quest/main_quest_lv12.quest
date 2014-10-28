@@ -1,0 +1,161 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv12 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 12 begin
+			set_state(gotoboss)
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			 send_letter("Odszukaj Kapitana.")
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Odszukaj Kapitana.")
+			end
+		end
+		when button or info begin
+			say_title("Odszukaj Kapitana.")
+			say("")
+			say_reward("Kapitan ma nowe zadanie dla Ciebie.")
+			say_reward("IdŸ i z nim porozmawiaj.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Captain:")
+			say("")
+			say("Kilka Szarych Alfa Wilków")
+			say("szalej¹ na obrze¿ach wsi.")
+			say("By³y znacznie dalej od obrze¿y,")
+			say("jednak zaczê³y zbli¿aæ siê coraz szybciej!")
+			say("W ostatnich dniach intensywniej zaczê³y")
+			say("atakowaæ mieszkañców wsi.")
+			say("Sytuacja musi zostaæ pod kontrol¹.")
+			say("Musimy zabijaæ niektóre z nich!")
+			say("Jestem pewien, ¿e dasz radê je opanowaæ,")
+			say("jednak b¹dŸ ostro¿ny!")
+			say("Biegnij zabij 10 Szarych Alfa Wilków. S¹ one na[ENTER]peryferiach miasta.")
+			say("")
+			wait()
+			say_title("Informacja:")
+			say("")
+			say_reward("Nagrody za wykonanie misji:")
+			say_reward("Punkty Doœwiadczenia: 10.000")
+			say_reward("Yang: 3.500")
+			set_state( killgraydog )
+		end
+	end
+	state killgraydog begin
+		when letter begin
+			send_letter("Zabij 10 Szarych Alfa Wilków.")
+		end
+		when button or info begin
+			say_title("Zabij 10 Szarych Alfa Wilków.")
+			say("")
+			say_reward("Szare Wilki Alfa atakuj¹ wioski!")
+			say_reward("Aby opanowaæ sytuacjê musisz,")
+			say_reward("zabiæ 10 Szarych Alfa Wilków !")
+			say("")
+			say_reward(string.format("Do tej pory zabi³eœ %d Szarych Alfa Wilków", pc.getqf("state")))
+			say("")
+		end
+		when 107.kill begin
+			local count = pc.getqf("state") + 1
+			if count <= 10 then
+				pc.setqf("state", count)
+				q.set_counter("Pozosta³o", 10 - count)
+				if count == 10 then
+					say_title("Informacja:")
+					say("")
+					say_reward("Zabi³eœ 10 Szarych Alfa Wilków!")
+					say_reward("Wróæ do Kapitana.")
+					set_state(gotoboss2)
+					say("")
+				end
+			end
+		end
+		when 20355.chat."Zabij 10 Alfa Wilków" with pc.getqf("state") < 10 begin
+			say_title("Captain:")
+			say("")
+			say("I co nie uda³o ci siê wype³niæ misji?")
+			say("Mia³eœ pewne problemy z zabijaniem")
+			say("Szarych Alfa Wilków?")
+			say("Próbuj dalej!")
+			say("")
+			if pc.is_gm() then
+				wait()
+				say_title("Zabij Szary Alfa Wilk:")
+				say("")
+				say("Czy chcesz zakoñczyæ zadanie?")
+				local s = select("Tak", "Nie")
+				if s == 1 then
+					set_state(gotoboss2)
+				end
+			end
+		end
+		when 20355.chat."Zabij 10 Szarych Alfa Wilków" with pc.getqf("state") >= 10 begin
+			say_title("Kapitan:")
+			say("")
+			say("Wiêc uda³o Ci siê wype³niæ zadanie? Wspaniale!")
+			say("Mam nadziejê, ¿e nie mia³eœ z tym wiekszych")
+			say("problemów? W ka¿dym razie mo¿e przejdŸmy do[ENTER]dalszej czêœci.")
+			say("")
+			set_state(gotoboss2)
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Kapitana:")
+			end
+		end
+		when letter begin
+			send_letter("Misja zosta³a ukoñczona!")
+		end
+		when button or info begin
+			say("Misja zosta³a ukoñczona!")
+			say("")
+			say_reward("Zabi³eœ wszystkie Szare Alfa Wilki!")
+			say_reward("Powróæ do Kapitana.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("S³ysza³em, ¿e da³eœ jednak radê zabiæ ")
+			say("Szare Alfa Wilki.")
+			say("Bardzo Ci za to dziêkuje!")
+			say("Teraz o wiele bêdzie ³atwiej utrzymaæ mi wieœ w ")
+			say("bezpieczeñstwie, kiedy Szare Alfa Wilki s¹ martwe.")
+			say("Jest to bardzo dobra wiadomoœæ w czasie wojny.")
+			say("Myœlê, ¿e zwierzêta atakuj¹ miasto jest")
+			say("spowodowane Kamieniami Metin. Dobra robota,")
+			say("idŸ nieco odpocz¹æ, zanim rozpoczniesz kolejn¹[ENTER]misje.")
+			say("")
+			wait()
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 10.000")
+			say_reward("Yang: 3.500")
+			say("")
+			pc.give_exp2( 10000 )
+			pc.change_money( 3500 )
+			pc.setqf("state", 0)
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv14","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

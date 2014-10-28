@@ -1,0 +1,161 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv27 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 27 then
+				setstate( gotoboss )
+			end
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Kapitana.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Zniszcz Kamienie Metin!" )
+			q.set_title( "Zniszcz Kamienie Metin!" )
+			q.start()
+		end
+		when button begin
+			say_title("Zniszcz Kamienie Metin!")
+			say("")
+			say("Zniszczenia spowodowane atakami Kamieni Metin")
+			say("s¹ coraz wiêksze.")
+			say("Musimy je zniszczyæ jak najszybciej.")
+			say("Udaj siê do Kapitana!")
+			say("")
+		end
+		when info begin
+			say_title("Zniszcz Kamienie Metin!")
+			say("")
+			say("Porozmawiaj z Kapitanem.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("S³ysza³em, ¿e w ostatnich dniach bardzo du¿o")
+			say("pracowa³es. Ludzie mówi¹ o Tobie sam dobre")
+			say("rzeczy. Dziêki mnie, znaleŸliœmy dla Ciebie")
+			say("odpowiednie miejsce. Nie z³oœæ siê!")
+			say("Przecie¿ ¿artujê! Hahaha!")
+			say("Wiem, ¿e jesteœ bardzo utalentowanym graczem.")
+			say("")
+			say("Kamienie Metin odtwrzaj¹ sie!.")
+			say("Oznacza to niema³e k³opoty.")
+			wait()
+			say_title("Kapitan:")
+			say("")
+			say("Kiedy Kamienie Metin reprodukuj¹ sie,")
+			say("ludzie cierpia.")
+			say("Oznacza to, ¿e Kamienie Metin musz¹ zostaæ ")
+			say("zniszczone. Zastanawiam siê, czy przewidywania")
+			say("Szamanki co do o¿ywienia Króla Smoków jest")
+			say("prawda. Kiedy zniszczysz Kamienie Metin daj[ENTER]mi znaæ.")
+			wait()
+			say_title("Przyporz¹dkowanie:")
+			say("")
+			say("Metin Kamienia musi zostaæ zniszczony")
+			say("nazywa siê Metin Czerni. Odszukaj Go!")
+			say("")
+			setstate( killmetinstone )
+			q.done()
+		end
+	end
+	state killmetinstone begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Zniszcz Kamienie Metin!" )
+			q.set_title( "Zniszcz Kamienie Metin!" )
+			q.start()
+		end
+		when button begin
+			say_title("Zniszcz Kamienie Metin!")
+			say("")
+			say("Zniszcz Kamienie Metin Czerni!")
+			say("")
+		end
+		when info begin
+			say_title("Zniszcz Kamienie Metin!")
+			say("")
+			say("Zniszcz Kamienie Metin Czerni!")
+			say("")
+		end
+		when 8005.kill begin
+			say_title("Zniszcz Kamienie Metin!")
+			say("")
+			say("Musisz zniszczyæ Kamienie Metin")
+			say("Wróæ Do Kapitana")
+			say("i porozmawiaj z nim.")
+			say("")
+			setstate(gotoboss2)
+			q.done()
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Odszukaj Kapitana.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Kamienie Metin zosta³y zniszczone!" )
+			q.set_title( "Porozmawiaj z Kapitanem." )
+			q.start()
+		end
+		when button begin
+			say_title("Kamienie Metin zniszczone!")
+			say("")
+			say("Porozmawiaj z Kapitanem.")
+		end
+		when info begin
+			say_title("Kamienie Metin zniszczone!")
+			say("")
+			say("Porozmawiaj z Kapitanem.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kapitan:")
+			say("")
+			say("Da³eœ radê pokonaæ Kamienie Metin?")
+			say("Dziêkujê! Uratowa³eœ miasto!")
+			say("Wiesz sk¹d bior¹ siê te kamienie?")
+			say("Nie ma o nich ¿adnych informacji?")
+			say("Mimo wszystkich problemów uda³o siê opanowaæ ")
+			say("siê sytuacje. S³ysza³em, ¿e Uriel zajmuje siê ")
+			say("badaniami Metin, ale nie wiem")
+			say("czy coœ odkry³.")
+			say("Wykona³eœ kawa³ dobrej roboty!")
+			wait()
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: 300.000" )
+			say_reward("Yang:  15.000")
+			say_reward(string.format("Przedmiot: %s", item_name(30018)))
+			pc.give_exp2( 300000 )
+			pc.change_money( 15000 )
+			pc.give_item2( 30018,1 )
+			q.done()
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv30","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

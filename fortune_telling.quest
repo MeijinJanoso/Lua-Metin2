@@ -1,0 +1,129 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest fortune_telling begin
+	state start begin
+		when oldwoman.chat."S³ysza³em, ¿e jesteœ Wró¿k¹. " begin
+			if pc.level<=20 then
+				say_title("Starsza Pani:")
+				local novice_say=	"Twoja twarz mówi mi, ¿e nie by³eœ w okolicy zbyt[ENTER]"..
+								"d³ugo... Dlatego chcesz poznaæ swoj¹ przys³oœ[ENTER]"..
+								"tak szybko? Czy masz jakieœ problemy? Twoja[ENTER]"..
+								"przysz³oœæ nie jest jeszcze mi znana...[ENTER]"..
+								"Proszê, przyjœæ póŸniej.[ENTER]"
+				say(novice_say)
+			elseif get_time()-pc.getqf("time")<8*60*60 then
+				local passed_time = get_time() - pc.getqf("time")
+				say_title("Starsza Pani:")
+				say("Czy na pewno chcesz prze¿yæ ca³e swoje ¿ycie[ENTER]"..
+					"s³uchaj¹c rad Wró¿ki? Nigdy nie powinieneœ braæ[ENTER]"..
+					"wró¿ki na serio. Najwa¿niejsz¹ rzecz¹ to byæ po[ENTER]"..
+					"prostu sob¹. Je¿eli stosujesz siê do tej zasady[ENTER]"..
+					"wszystko bêdzie dobrze. Je¿eli nadal bêdziesz[ENTER]"..
+					"chcia³ poznaæ swoj¹ przys³oœæ, przyjdŸ jutro.[ENTER]")
+				wait()
+				local idx = pc.getqf("idx")
+				if idx!=0 then
+					say_title("Starsza Pani:")
+					say("Jak ju¿ ci powiedzia³am, twoja przepowiednia na [ENTER]"..
+						"dzisiaj brzmi nastêpujaco: "..locale.fortune_words[idx][1].." [ENTER]")
+					if pc.getqf("talisman") == 0 and special.fortune_telling[idx][5]>0 then
+						local talisman_cost = special.fortune_telling[idx][5]
+						wait()
+						say_title("Starsza Pani:")
+						say("Bêdziesz nieszczêœliwy i nie kupi³eœ jeszcze[ENTER]"..
+							"swojego Talizmanu przeciw z³u... Czy przypadkiem[ENTER]"..
+							"nie chcia³byœ kupiæ Talizmanu?")
+						local s = select("Tak, chcia³bym.","Nie, dziêkujê.")
+						if s == 1 then
+							if pc.gold < talisman_cost then
+								say_title("Starsza Pani:")
+								say("Mogê byæ przyjazna, ale nie mogê rozdawaæ ich za[ENTER]"..
+									"darmo. Je¿eli chcesz unikn¹æ z³ego losu i[ENTER]"..
+									"nieszczêœcia, bêdziesz musia³ zap³aciæ mi za ten[ENTER]"..
+									"Amulet Karmy.[ENTER]Amulet Karmy kosztuje 777 Yang.")
+								pc.setqf("talisman", 0)
+							else
+								pc.give_item2(70052,1)
+								pc.changegold(-talisman_cost)
+								pc.setqf("talisman", 1)
+							end
+						else
+						end
+					end
+				end
+			else
+				local gold = 2500
+				say_title("Starsza Pani:")
+				say("Jesteœ za m³ody by oddychaæ tak g³êboko![ENTER]"..
+					"Czy chcesz poznaæ swoj¹ przys³oœæ,[ENTER]"..
+					"przeczytan¹ przez mistyczn¹ si³ê? Powinieneœ[ENTER]"..
+					"wiedzieæ, ¿e istniej¹ moce, które s¹ w stanie[ENTER]"..
+					"odpowiedzieæ Ci na najtrudniejsze pytania.[ENTER]")
+				local s = select('Powiedz mi!', 'Nie chcê wiedzieæ ')
+				if s == 1 then
+					n = number(1,10000)
+					local i
+					local idx
+					for i = 1, table.getn(special.fortune_telling) do
+					if n<=special.fortune_telling[i][1] then
+						idx = i
+						break
+					else
+						n = n - special.fortune_telling[i][1]
+					end
+				end
+				i = idx
+				say(locale.fortune_words[i][2])
+				local t = {}
+				n = 0
+				local j
+				for j = 2,4 do
+					if special.fortune_telling[i][j] != 0 then
+						n=n+1
+						t[n] = j
+					end
+				end 
+				if n>0 then
+					n = number(1, n)
+					__give_char_priv(t[n]-1, special.fortune_telling[i][t[n]])
+				end
+				pc.setqf("time", get_time())
+				pc.setqf("idx", i)
+				if special.fortune_telling[i][5]>0 then
+					wait()
+					say(locale.fortune_words[i][3])
+					local talisman_cost = special.fortune_telling[i][5]
+					local s = select("Tak, chcia³bym.","Nie, dziêkujê. ")
+					if s== 1 then
+						if pc.gold < talisman_cost then
+							say_title("Starsza Pani:")
+							say("Mogê byæ przyjazna, ale mogê tego rozdawaæ za[ENTER]"..
+								"darmo. Je¿eli chcesz unikn¹æ z³ego losu i[ENTER]"..
+								"nieszczêœcia, musisz zap³aciæ za Talizman.")
+							pc.setqf("talisman", 0)
+						else
+							pc.give_item2(70052,1)
+							pc.changegold(-talisman_cost)
+							pc.setqf("talisman", 1)
+						end
+					elseif s == 2 then
+						say_title("Starsza Pani:")
+						say("Odchodzisz? Prawdopodobnie masz racjê. Z³y los i[ENTER]"..
+							"smutek to czêœæ naszego ¿ycia. Powodzenia i[ENTER]"..
+							"¿egnaj! Je¿eli zmienisz zdanie, wróæ. ")
+						pc.setqf("talisman", 0)
+					end
+				end
+				elseif s == 2 then
+					say_title("Starsza Pani:")
+					say("Dobrze. Pod¹¿aæ swoj¹ w³asn¹ drog¹ i dawa z [ENTER]"..
+						"siebie wszystko to najwa¿niejsza rzecz w ¿yciu.[ENTER]"..
+						"Powodzenia!")
+				end
+			end
+		end
+	end
+end

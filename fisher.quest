@@ -1,0 +1,56 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest fisher begin
+	state start begin
+		when 9009.chat."Otwórz Sklep"  begin
+			npc.open_shop()
+			setskin(NOWINDOW)
+		end
+		when 9009.chat."Manwoo" with game.get_event_flag("manwoo")==0 begin
+			say("Przepraszam ciebie, wydarzenie Manwoo jest")
+			say("nieaktualne i nie mogê zamieniæ twoich ryb na")
+			say("szkatu³kê... Spróbuj przekonaæ w³adców to mo¿e")
+			say("og³osz¹ to wydarzenie za aktualne!")
+			say("")
+		end
+		when 9009.take with item.vnum < 27400 or item.vnum > 27590 begin
+			say("Nie masz wystarczajaco du¿o punktów w tej wêdce!")
+			say("")
+		end
+		when 9009.take with item.vnum == 27590 begin
+			say("Twoja wêdka ma 20 poziom! Nie mogê jej ulepszyæ!")
+			say("")
+		end
+		when 9009.take with item.vnum >= 27400 and item.vnum < 27590 and item.get_socket(0) != item.get_value(2) begin
+			say("Nie masz wystarczaj¹co du¿o")
+			say("punktów w tej wêdce!")
+			say("")
+		end
+		when 9009.take with item.vnum >= 27400 and item.vnum < 27590 and item.get_socket(0) == item.get_value(2) begin
+			say("Czy chcesz ulepszyæ swoj¹ wedkê?")
+			say("Hmm, niestety to bêdzie kosztowaæ!")
+			say("Kontynuowaæ?")
+			say("")
+			local s = select("Tak", "Nie")
+			if s == 1 then
+				local f = __fish_real_refine_rod(item.get_cell())
+				if f == 2 then
+					say("Hmm, niestety ale ta wêdka")
+					say("nie by³a zbyt dobra, aby j¹ ulepszyæ!")
+					say("Nie uda³o siê!")
+					say("")
+				elseif f == 1 then
+					say("Uda³o siê! Twoja wêdka zosta³a ulepszona!")
+					say("")
+				else
+					say("Skorzystaj z moich us³ug ponownie!")
+					say("")
+				end
+			end
+		end
+	end
+end
+

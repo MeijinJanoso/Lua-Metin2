@@ -1,0 +1,9 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest dragon_lair_access begin
+	state start begin
+	end
+end

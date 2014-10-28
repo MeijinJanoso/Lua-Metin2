@@ -1,0 +1,68 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest guild_building_npc begin
+	state start begin
+		when 20044.click begin
+			if npc.get_guild() == pc.get_guild() then
+				say_title("Kowal Broni")
+				say("Nazywam siê Stanley. Jestem odpowiedzialny za")
+				say("ulepszanie broni. Jestem w tym du¿o lepszy od")
+				say("Kowala z miasta Jeœli spróbujesz ulepszyæ u mnie")
+				say("broñ, szansa na powodzenie bêdzie zwiêkszona o")
+				say("10%. Daj mi broñ któr¹ chcesz ulepszyæ.")
+			else
+				say_title("Kowal Broni")
+				say("Nazywam siê Stanley. Jestem odpowiedzialny za")
+				say("ulepszanie broni. Jestem w tym du¿o lepszy od")
+				say("Kowala z miasta Jeœli spróbujesz ulepszyæ u mnie")
+				say("broñ, szansa na powodzenie bêdzie zwiêkszona o")
+				say("10%. Daj mi broñ któr¹ chcesz ulepszyæ.")
+			end
+		end
+		when 20045.click begin
+			if npc.get_guild() == pc.get_guild() then
+				say_title("Kowal Zbroi")
+				say("Nazywam siê Stanton, jestem odpowiedzialny")
+				say("za ulepszanie zbroi. Mogê ulepszyæ zbrojê,")
+				say("tarcze he³my.")
+				say("Jestem w tym du¿o lepszy od Kowala z miasta!")
+				say("Jeœli spróbujesz coœ u mnie ulepszyæ, szansa na")
+				say("powodzenie bêdzie zwiêkszona o 10%.")
+				say("Daj mi przedmiot, który chcesz ulepszyæ.")
+			else
+				say_title("Kowal Zbroi")
+				say("Nazywam siê Stanton, jestem odpowiedzialny")
+				say("za ulepszanie zbroi. Mogê ulepszyæ zbrojê,")
+				say("tarcze he³my.")
+				say("Jestem w tym du¿o lepszy od Kowala z miasta!")
+				say("Jeœli spróbujesz coœ u mnie ulepszyæ, szansa na")
+				say("powodzenie bêdzie zwiêkszona o 10%.")
+				say("Daj mi przedmiot, który chcesz ulepszyæ.")
+			end
+		end
+		when 20046.click begin
+			if npc.get_guild() == pc.get_guild() then
+				say_title("Jubiler")
+				say("Nazywam siê Starbuck, jestem odpowiedzialny za")
+				say("ulepszanie bi¿uterii. Jestem w tym du¿o lepszy od")
+				say("Kowala z miasta! Jeœli spróbujesz ulepszyæ u mnie")
+				say("swoje akcesoria, szansa na powodzenie bêdzie")
+				say("zwiêkszona o 10%. Mogê ulepszyæ bransoletki,")
+				say("kolczyki i buty. Daj mi przedmiot, który chcesz")
+				say("ulepszyæ.")
+			else
+				say_title("Jubiler")
+				say("Nazywam siê Starbuck, jestem odpowiedzialny za")
+				say("ulepszanie bi¿uterii. Jestem w tym du¿o lepszy od")
+				say("Kowala z miasta! Jeœli spróbujesz ulepszyæ u mnie")
+				say("swoje akcesoria, szansa na powodzenie bêdzie")
+				say("zwiêkszona o 10%. Mogê ulepszyæ bransoletki,")
+				say("kolczyki i buty. Daj mi przedmiot, który chcesz")
+				say("ulepszyæ.")
+			end
+		end
+	end
+end

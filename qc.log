@@ -1,0 +1,1808 @@
+QUEST : make_herb_lv4
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 4
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 173.kill
+WHEN  : 20084.chat ("Kwiaty Brzoskwini")
+	with pc . count_item ( 50701 ) > 0
+STATE : __complete
+QUEST : make_herb_lv7
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 7
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Porozmawiaj z Biologiem")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 175.kill
+WHEN  : 20084.chat ("Pokrzywy")
+	with pc . count_item ( 50702 ) > 0
+STATE : __complete
+QUEST : make_herb_lv10
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 10
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Rozmowa z Biologiem")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 177.kill
+WHEN  : 20084.chat ("Kwiaty Kaki")
+	with pc . count_item ( 50703 ) > 0
+STATE : __complete
+QUEST : make_herb_lv15
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 15
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 181.kill
+WHEN  : 20084.chat ("Korzenie Gango")
+	with pc . count_item ( 50704 ) > 0
+STATE : __complete
+QUEST : make_herb_lv20
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 20
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa.")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 182.kill
+WHEN  : 20084.chat ("Bez")
+	with pc . count_item ( 50705 ) > 0
+STATE : __complete
+QUEST : make_herb_lv25
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 25
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 183.kill
+WHEN  : 20084.chat ("Grzyby Tue")
+	with pc . count_item ( 50706 ) > 0
+STATE : __complete
+QUEST : collect_quest_lv30
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 30
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 20084.chat ("Zêby Orka")
+	with pc . count_item ( 30006 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 635.kill or
+WHEN  : 636.kill or
+WHEN  : 637.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Znalaz³em Kamieñ Duszy")
+	with pc . count_item ( 30220 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat ("Nagroda")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz sie?")
+STATE : __complete
+QUEST : collect_quest_lv40
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 40
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 20084.chat (" Ksiêga Kl¹tw ")
+	with pc . count_item ( 30047 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2032.kill or
+WHEN  : 2033.kill or
+WHEN  : 2034.kill or
+WHEN  : 2035.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Œwi¹tynny Kamieñ Duszy")
+	with pc . count_item ( 30221 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat ("Baek-Go")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz sie?")
+STATE : __complete
+QUEST : collect_quest_lv50
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 50
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Znajdz Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 20084.chat (" Pami¹tka Po Demonie ")
+	with pc . count_item ( 30015 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1031.kill or
+WHEN  : 1032.kill or
+WHEN  : 1033.kill or
+WHEN  : 1034.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat (" Kamieñ Duszy Sagyi ")
+	with pc . count_item ( 30222 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat (" Nagroda ")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz sie?")
+STATE : __complete
+QUEST : collect_quest_lv60
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 60
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Znajdz Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 20084.chat ("Matowy Lód")
+	with pc . count_item ( 30050 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1102.kill or
+WHEN  : 1103.kill or
+WHEN  : 1104.kill or
+WHEN  : 1106.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Kamieñ Duszy Aurtumryu")
+	with pc . count_item ( 30223 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat (" Nagroda ")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz siê?")
+STATE : __complete
+QUEST : collect_quest_lv70
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 70
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 2301.kill or
+WHEN  : 2302.kill or
+WHEN  : 2303.kill or
+WHEN  : 2304.kill or
+WHEN  : 2305.kill or
+WHEN  : 2311.kill or
+WHEN  : 2312.kill or
+WHEN  : 2313.kill or
+WHEN  : 2314.kill or
+WHEN  : 2315.kill
+WHEN  : 20084.chat (" Konar Zelkova ")
+	with pc . count_item ( 30165 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2301.kill or
+WHEN  : 2302.kill or
+WHEN  : 2303.kill or
+WHEN  : 2304.kill or
+WHEN  : 2305.kill or
+WHEN  : 2311.kill or
+WHEN  : 2312.kill or
+WHEN  : 2313.kill or
+WHEN  : 2314.kill or
+WHEN  : 2315.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Kamieñ Duszy Gyimok")
+	with pc . count_item ( 30224 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat ("Odbierz nagrodê ")
+STATE : __complete
+QUEST : collect_quest_lv80
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 80
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 1401.kill or
+WHEN  : 1402.kill or
+WHEN  : 1403.kill or
+WHEN  : 1601.kill or
+WHEN  : 1602.kill or
+WHEN  : 1603.kill
+WHEN  : 20084.chat ("Certyfikat Tugyisa")
+	with pc . count_item ( 30166 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1401.kill or
+WHEN  : 1402.kill or
+WHEN  : 1403.kill or
+WHEN  : 1601.kill or
+WHEN  : 1602.kill or
+WHEN  : 1603.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Kamieñ Duszy Tugyi")
+	with pc . count_item ( 30225 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat (" Nagroda ")
+STATE : __complete
+QUEST : collect_quest_lv85
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 85
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 2301.kill or
+WHEN  : 2302.kill or
+WHEN  : 2303.kill or
+WHEN  : 2304.kill or
+WHEN  : 2305.kill or
+WHEN  : 2311.kill or
+WHEN  : 2312.kill or
+WHEN  : 2313.kill or
+WHEN  : 2314.kill or
+WHEN  : 2315.kill
+WHEN  : 20084.chat ("Czerwone Konary")
+	with pc . count_item ( 30167 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2301.kill or
+WHEN  : 2302.kill or
+WHEN  : 2303.kill or
+WHEN  : 2304.kill or
+WHEN  : 2305.kill or
+WHEN  : 2311.kill or
+WHEN  : 2312.kill or
+WHEN  : 2313.kill or
+WHEN  : 2314.kill or
+WHEN  : 2315.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Znalaz³em Kamieñ Duszy")
+	with pc . count_item ( 30224 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat ("Nagroda")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz sie?")
+STATE : __complete
+QUEST : collect_quest_lv90
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 90
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("ZnajdŸ Biologa")
+STATE : go_to_disciple
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 71035.use
+WHEN  : 20084.chat ("Notatka Przywódcy")
+	with pc . count_item ( 30168 ) > 0
+STATE : key_item
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2191.kill or
+WHEN  : 2091.kill or
+WHEN  : 1304.kill or
+WHEN  : 1091.kill or
+WHEN  : 1093.kill or
+WHEN  : 691.kill or
+WHEN  : 2206.kill or
+WHEN  : 1901.kill
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20084.chat ("Otrzymano Kamieñ Liderów")
+	with pc . count_item ( 30224 ) > 0
+STATE : __reward
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20018.chat ("Nagroda za Notatki")
+STATE : __giveup__
+WHEN  : 20084.chat ("Poddajesz siê? ")
+STATE : __complete
+QUEST : guild_building
+STATE : start
+WHEN  : 20040.click
+QUEST : alter_of_power
+STATE : start
+WHEN  : 20077.click
+	with npc . get_guild ( ) == pc . get_guild ( ) and pc . is_guild_master ( )
+WHEN  : 20078.click
+	with npc . get_guild ( ) == pc . get_guild ( ) and pc . is_guild_master ( )
+WHEN  : 20079.click
+	with npc . get_guild ( ) == pc . get_guild ( ) and pc . is_guild_master ( )
+WHEN  : 20077.click or
+WHEN  : 20078.click or
+WHEN  : 20079.click
+	with npc . get_guild ( ) == pc . get_guild ( ) and pc . is_guild_master ( ) ~= true
+QUEST : guild_building_melt
+STATE : start
+FUNCTION GetOreRefineCost(cost)
+FUNCTION GetOreRefineGoodPct()
+FUNCTION GetOreRefineBadPct()
+FUNCTION GetMyRefineNum(race)
+FUNCTION IsRefinableRawOre(vnum)
+FUNCTION DoRefineDiamond(pct)
+FUNCTION DoRefine(pct)
+WHEN  : 20060.take or
+WHEN  : 20061.take or
+WHEN  : 20062.take or
+WHEN  : 20063.take or
+WHEN  : 20064.take or
+WHEN  : 20065.take or
+WHEN  : 20066.take or
+WHEN  : 20067.take or
+WHEN  : 20068.take or
+WHEN  : 20069.take or
+WHEN  : 20070.take or
+WHEN  : 20071.take or
+WHEN  : 20072.take
+	with guild_building_melt . GetMyRefineNum ( npc . race ) == item . vnum
+WHEN  : 20060.take or
+WHEN  : 20061.take or
+WHEN  : 20062.take or
+WHEN  : 20063.take or
+WHEN  : 20064.take or
+WHEN  : 20065.take or
+WHEN  : 20066.take or
+WHEN  : 20067.take or
+WHEN  : 20068.take or
+WHEN  : 20069.take or
+WHEN  : 20070.take or
+WHEN  : 20071.take or
+WHEN  : 20072.take
+	with guild_building_melt . IsRefinableRawOre ( item . vnum ) and guild_building_melt . GetMyRefineNum ( npc . race ) ~= item . vnum
+WHEN  : 20060.click or
+WHEN  : 20061.click or
+WHEN  : 20062.click or
+WHEN  : 20063.click or
+WHEN  : 20064.click or
+WHEN  : 20065.click or
+WHEN  : 20066.click or
+WHEN  : 20067.click or
+WHEN  : 20068.click or
+WHEN  : 20069.click or
+WHEN  : 20070.click or
+WHEN  : 20071.click or
+WHEN  : 20072.click
+	with npc . get_guild ( ) == pc . get_guild ( ) and pc . isguildmaster ( )
+QUEST : guild_building_npc
+STATE : start
+WHEN  : 20044.click
+WHEN  : 20045.click
+WHEN  : 20046.click
+QUEST : guild_manage
+STATE : start
+WHEN  : guild_man1.chat ("GM: Ogranicz.") or
+WHEN  : guild_man2.chat ("GM: Ogranicz.") or
+WHEN  : guild_man3.chat ("GM: Ogranicz.")
+	with pc . is_gm ( )
+WHEN  : guild_man1.chat ("GM: SprawdŸ.") or
+WHEN  : guild_man2.chat ("GM: SprawdŸ.") or
+WHEN  : guild_man3.chat ("GM: SprawdŸ.")
+	with pc . is_gm ( )
+WHEN  : guild_man1.chat (locale.guild.withdraw) or
+WHEN  : guild_man2.chat (locale.guild.withdraw) or
+WHEN  : guild_man3.chat (locale.guild.withdraw)
+	with pc . hasguild ( ) and not pc . isguildmaster ( ) and ( pc . is_gm ( ) or npc . empire == pc . empire )
+WHEN  : guild_man1.chat (locale.guild.disband) or
+WHEN  : guild_man2.chat (locale.guild.disband) or
+WHEN  : guild_man3.chat (locale.guild.disband)
+	with pc . hasguild ( ) and pc . isguildmaster ( ) and ( pc . is_gm ( ) or npc . empire == pc . empire )
+WHEN  : guild_man1.chat ("Stwórz gildiê.") or
+WHEN  : guild_man2.chat ("Stwórz gildiê.") or
+WHEN  : guild_man3.chat ("Stwórz gildiê.")
+	with ( pc . is_gm ( ) or npc . empire == pc . empire )
+QUEST : guild_ranking
+STATE : start
+WHEN  : guild_man1.chat (locale.show_guild_ranking_around)
+	with pc . hasguild ( )
+WHEN  : guild_man1.chat (locale.show_guild_ranking_top)
+	with pc . hasguild ( )
+WHEN  : guild_man1.chat (locale.show_guild_cur_score)
+	with pc . hasguild ( )
+WHEN  : guild_man2.chat (locale.show_guild_ranking_around)
+	with pc . hasguild ( )
+WHEN  : guild_man2.chat (locale.show_guild_ranking_top)
+	with pc . hasguild ( )
+WHEN  : guild_man2.chat (locale.show_guild_cur_score)
+	with pc . hasguild ( )
+WHEN  : guild_man3.chat (locale.show_guild_ranking_around)
+	with pc . hasguild ( )
+WHEN  : guild_man3.chat (locale.show_guild_ranking_top)
+	with pc . hasguild ( )
+WHEN  : guild_man3.chat (locale.show_guild_cur_score)
+	with pc . hasguild ( )
+QUEST : guild_war_join
+STATE : start
+WHEN  : letter
+WHEN  : button
+QUEST : horse_exchange_ticket
+STATE : start
+WHEN  : 20349.chat ("Jazda konna (u¿yj biletu)")
+	with pc . countitem ( "50005" ) >= 1
+QUEST : horse_guard
+STATE : start
+WHEN  : 20349.chat ("Informacje o Koniach")
+QUEST : horse_menu
+STATE : start
+FUNCTION horse_menu()
+WHEN  : 20030.click
+WHEN  : 20101.click
+WHEN  : 20102.click
+WHEN  : 20103.click
+WHEN  : 20104.click
+WHEN  : 20105.click
+WHEN  : 20106.click
+WHEN  : 20107.click
+WHEN  : 20108.click
+WHEN  : 20109.click
+QUEST : horse_revive
+STATE : start
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 3 and horse . is_dead ( ) and pc . countitem ( "50059" ) < 1
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 3 and horse . is_dead ( ) and pc . countitem ( "50059" ) >= 1
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 2 and horse . is_dead ( ) and pc . countitem ( "50058" ) < 1
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 2 and horse . is_dead ( ) and pc . countitem ( "50058" ) >= 1
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 1 and horse . is_dead ( ) and pc . countitem ( "50057" ) < 1
+WHEN  : 20349.chat ("Mój Koñ nie ¿yje")
+	with horse . get_grade ( ) == 1 and horse . is_dead ( ) and pc . countitem ( "50057" ) >= 1
+STATE : __COMPLETE__
+WHEN  : enter
+QUEST : horse_ride
+STATE : start
+WHEN  : 20349.chat ("Zsi¹dŸ z konia")
+	with pc . level >= 10 and pc . is_mount ( )
+WHEN  : 20349.chat ("Jazda Konna (u¿yj biletu)")
+	with pc . level >= 10 and not pc . is_mount ( )
+QUEST : horse_summon
+STATE : start
+FUNCTION get_horse_summon_prob_pct()
+WHEN  : 20349.chat ("Nowa Ksiêga Zwyk³ego Konia ")
+	with horse . get_grade ( ) == 1 and pc . countitem ( "50051" ) < 1
+WHEN  : 20349.chat ("Nowa Ksiêga Opancerz. Konia ")
+	with horse . get_grade ( ) == 2 and pc . countitem ( "50052" ) < 1
+WHEN  : 20349.chat ("Nowa Ksiêga Wojskowego Konia ")
+	with horse . get_grade ( ) == 3 and pc . countitem ( "50053" ) < 1
+WHEN  : 50051.use
+	with horse . get_grade ( ) == 0
+WHEN  : 50051.use
+	with horse . get_grade ( ) == 1
+WHEN  : 50051.use
+	with horse . get_grade ( ) == 2
+WHEN  : 50051.use
+	with horse . get_grade ( ) == 3
+WHEN  : 50052.use
+	with horse . get_grade ( ) == 0
+WHEN  : 50052.use
+	with horse . get_grade ( ) == 1
+WHEN  : 50052.use
+	with horse . get_grade ( ) == 2
+WHEN  : 50052.use
+	with horse . get_grade ( ) == 3
+WHEN  : 50053.use
+	with horse . get_grade ( ) == 0
+WHEN  : 50053.use
+	with horse . get_grade ( ) == 1
+WHEN  : 50053.use
+	with horse . get_grade ( ) == 2
+WHEN  : 50053.use
+	with horse . get_grade ( ) == 3
+QUEST : main_quest_lv1
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . get_level ( ) == 1
+STATE : gotoinfomation
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+STATE : gototeacher
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv2
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 2
+WHEN  : 20354.chat ("Co robisz?")
+	with pc . get_level ( ) < 2
+STATE : gototeacher
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : killdog
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 101.kill
+WHEN  : 20354.chat ("Pierwsze Zadanie")
+	with pc . getf ( "main_quest_lv2" , "state" ) < 9
+WHEN  : 20354.chat ("Pierwsze Zadaniezadania")
+	with pc . getf ( "main_quest_lv2" , "state" ) >= 9
+STATE : gototeacher2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv3
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 3
+WHEN  : 20354.chat ("Pierwsza Misja.")
+STATE : gototeacher
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotogood
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotodefend
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv6
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 6
+STATE : gototeacher
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotosmith
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotowarehousekeeper
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotosmith2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv7
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 7
+STATE : gotosmith
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotofisher
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 20016.chat ("Dostarcz Wêdkê.")
+WHEN  : 9009.chat ("Dostarcz Wêdkê.")
+STATE : gotosmith2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : refine
+WHEN  : login
+	with pc . getf ( "main_quest_lv7" , "refine_chance" ) == 0
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+STATE : __COMPLETE__
+QUEST : main_quest_lv9
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 9
+STATE : gototeacher
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv10
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 10
+STATE : gotoboss
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotomusition
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv12
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 12
+STATE : gotoboss
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : killgraydog
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 107.kill
+WHEN  : 20355.chat ("Zabij 10 Alfa Wilków")
+	with pc . getqf ( "state" ) < 10
+WHEN  : 20355.chat ("Zabij 10 Szarych Alfa Wilków")
+	with pc . getqf ( "state" ) >= 10
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv14
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 14
+STATE : gotoboss
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : killmetinstone
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 8003.kill
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv15
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+STATE : gotoboss
+WHEN  : letter
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotomusition
+WHEN  : letter
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+WHEN  : enter
+QUEST : main_quest_lv16
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+	with pc . get_level ( ) >= 16
+STATE : gotoboss
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : killrobber
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 394.kill or
+WHEN  : 393.kill or
+WHEN  : 392.kill or
+WHEN  : 391.kill or
+WHEN  : 301.kill or
+WHEN  : 302.kill or
+WHEN  : 303.kill or
+WHEN  : 304.kill
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv27
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+STATE : gotoboss
+WHEN  : letter
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : killmetinstone
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : 8005.kill
+STATE : gotoboss2
+WHEN  : letter
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+QUEST : main_quest_lv30
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup or
+WHEN  : enter
+STATE : gotoeUriel
+WHEN  : letter
+WHEN  : letter
+WHEN  : info or
+WHEN  : button
+WHEN  : target (__TARGET__.click)
+STATE : clickstone
+WHEN  : letter
+WHEN  : letter
+WHEN  : info or
+WHEN  : button
+WHEN  : target (__TARGET1__.click)
+STATE : gotoeUriel2
+WHEN  : letter
+WHEN  : letter
+WHEN  : info or
+WHEN  : button
+WHEN  : target (__TARGET__.click)
+STATE : clickplace
+WHEN  : letter
+WHEN  : letter
+WHEN  : info or
+WHEN  : button
+WHEN  : target (__TARGET2__.click)
+STATE : gotoeUriel3
+WHEN  : letter
+WHEN  : letter
+WHEN  : info or
+WHEN  : button
+WHEN  : target (__TARGET__.click)
+STATE : __COMPLETE__
+WHEN  : enter
+QUEST : change_empire
+STATE : start
+WHEN  : 20090.chat ("Imperium")
+	with game . get_event_flag ( "c_e" ) > 0
+WHEN  : 71054.use
+FUNCTION move_pc()
+QUEST : change_guild_master
+STATE : start
+FUNCTION change_master(name,level_limit,time_resign_limit,time_be_other_leader,time_be_other_member,iscacheitem)
+WHEN  : 71099.use
+QUEST : changename
+STATE : start
+WHEN  : 71055.use
+QUEST : item_change_sex
+STATE : start
+WHEN  : 71048.use
+QUEST : change_to_lotto
+STATE : start
+WHEN  : 9006.chat ("Loteria")
+	with game . get_event_flag ( "luck_scroll" ) > 0
+QUEST : check_trans_ticket
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . level > 0
+STATE : zone_enter
+WHEN  : 20088.chat ("Do Sekretnej Komnaty")
+QUEST : cube
+STATE : start
+WHEN  : 20018.chat ("Badacz Zió³ ")
+	with pc . level >= 15
+WHEN  : 20017.chat ("Badacz Zió³ ")
+	with pc . level >= 30
+WHEN  : 20022.chat ("Tajny przepis")
+	with pc . level >= 45
+QUEST : PiekielneKatakumby
+STATE : start
+WHEN  : 20367.chat ("Piekielne Katakumby")
+WHEN  : login
+	with pc . get_map_index ( ) == 206
+WHEN  : kill
+	with pc . get_map_index ( ) == 206 and not npc . is_pc ( ) and pc . getqf ( "klucz" ) == 1
+FUNCTION spawn_doors()
+FUNCTION spawn_tele()
+WHEN  : 30101.take
+	with item . get_vnum ( ) == 30311
+WHEN  : 30198.use
+WHEN  : 30103.chat ("Przejscie na Poziom 3")
+WHEN  : kill
+	with npc . get_race ( ) == 8038 and pc . in_dungeon ( )
+WHEN  : labirynt.timer
+WHEN  : 30104.chat ("Przejscie na 5 poziom")
+WHEN  : kill
+	with npc . get_race ( ) == 2591 and party . is_party ( ) and pc . in_dungeon ( )
+WHEN  : 30102.take
+WHEN  : devilcatacomb_floor6_timer.timer
+WHEN  : kill
+	with npc . get_race ( ) == 2597 and party . is_party ( ) and pc . in_dungeon ( )
+WHEN  : kill
+	with npc . get_race ( ) == 2598 and party . is_party ( ) and pc . in_dungeon ( )
+WHEN  : koniec.timer
+QUEST : deviltower_zone
+STATE : start
+WHEN  : login
+WHEN  : deviltower_man.chat (locale.deviltower_man_chat)
+WHEN  : devil_stone1.kill
+WHEN  : devil_stone1_1.timer
+WHEN  : devil_stone3.kill
+FUNCTION get_4floor_stone_pos()
+WHEN  : 8016.kill
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : devil_stone4_fail1.server_timer
+WHEN  : devil_stone4_fail2.server_timer
+WHEN  : devil_stone4_fail.server_timer
+WHEN  : devil_stone4_update.server_timer
+WHEN  : devil_stone4_stop_timer.server_timer
+WHEN  : devil_stone4_end.server_timer
+WHEN  : devil_stone5_fail1.server_timer
+WHEN  : devil_stone5_fail2.server_timer
+WHEN  : devil_stone5_fail3.server_timer
+WHEN  : devil_stone5_fail.server_timer
+WHEN  : 1062.kill
+	with pc . in_dungeon ( ) and d . getf ( "level" ) == 5
+WHEN  : devil_stone5.take
+	with item . vnum == 50084
+WHEN  : devil_stone6.kill
+WHEN  : 20074.chat ("WyÅ¼sze piÄ™tro")
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 20075.chat ("WyÅ¼sze piÄ™tro")
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 20076.chat ("WyÅ¼sze piÄ™tro")
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : devil_jump_7.timer
+WHEN  : 8018.kill
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 8019.kill
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 30300.use
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 30302.use
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : devil_jump_8.timer
+WHEN  : 1040.kill
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 20366.take
+	with item . vnum == 30304
+WHEN  : devil_jump_9.timer
+WHEN  : kill
+	with npc . get_race ( ) == 1093 and pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : 20348.chat ("Ostatnie PiÄ™tro")
+	with pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : kill
+	with npc . get_race ( ) == 1095 and pc . in_dungeon ( ) and pc . get_map_index ( ) >= 660000 and pc . get_map_index ( ) < 670000
+WHEN  : devil_end_jump.timer
+QUEST : fisher
+STATE : start
+WHEN  : 9009.chat ("Otwórz Sklep")
+WHEN  : 9009.chat ("Manwoo")
+	with game . get_event_flag ( "manwoo" ) == 0
+WHEN  : 9009.take
+	with item . vnum < 27400 or item . vnum > 27590
+WHEN  : 9009.take
+	with item . vnum == 27590
+WHEN  : 9009.take
+	with item . vnum >= 27400 and item . vnum < 27590 and item . get_socket ( 0 ) ~= item . get_value ( 2 )
+WHEN  : 9009.take
+	with item . vnum >= 27400 and item . vnum < 27590 and item . get_socket ( 0 ) == item . get_value ( 2 )
+QUEST : fortune_telling
+STATE : start
+WHEN  : oldwoman.chat ("S³ysza³em, ¿e jesteœ Wró¿k¹. ")
+QUEST : grotte
+STATE : start
+WHEN  : 20092.chat ("Grota Wygnañców")
+QUEST : arena_manager
+STATE : start
+WHEN  : 20017.chat ("Walki treningowe")
+WHEN  : 20017.chat ("Ogladaj walke treningow¹ ")
+QUEST : blacksmith
+STATE : start
+WHEN  : blacksmith.chat ("Chcê coœ poprawiæ.")
+QUEST : buy_fishrod
+STATE : start
+WHEN  : 9009.chat ("Kup zestaw Wêdkarski")
+	with pc . level >= 7 and pc . level <= 42
+STATE : notify_event
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+STATE : play_event
+WHEN  : letter
+WHEN  : button
+WHEN  : info
+WHEN  : 9009.chat ("Wydarzenie wêdkarskie - Daj mu 5 karasi")
+	with pc . countitem ( "27833" ) >= 5
+WHEN  : 9009.chat ("Wydarzenie wêdkarskie - Daj mu 5 Karasi")
+	with pc . countitem ( "27833" ) < 5
+STATE : reward
+WHEN  : letter
+WHEN  : button
+STATE : __COMPLETE__
+WHEN  : enter
+QUEST : levelup
+STATE : run
+WHEN  : 20095.chat
+STATE : start
+WHEN  : info
+WHEN  : login
+WHEN  : button
+WHEN  : 20095.chat
+WHEN  : kill
+FUNCTION show_mob_pos(lev)
+QUEST : map_warp
+STATE : start
+WHEN  : 9012.chat ("Chcesz podró¿owaæ ")
+QUEST : marriage_manage
+STATE : start
+WHEN  : oldwoman.chat ("Chcê wzi¹æ œlub")
+	with not pc . is_engaged_or_married ( )
+WHEN  : oldwoman.chat ("WejdŸ na twój Œlub!")
+	with pc . is_engaged ( )
+WHEN  : 9011.chat ("Rozpocznij œlub")
+	with pc . is_engaged ( ) and marriage . in_my_wedding ( )
+FUNCTION give_wedding_gift()
+WHEN  : 9011.chat ("Wystartuj Muzykê ")
+	with ( pc . is_engaged ( ) or pc . is_married ( ) ) and marriage . in_my_wedding ( ) and not marriage . wedding_is_playing_music ( )
+WHEN  : 9011.chat (" Zatrzymaj Muzykê ")
+	with ( pc . is_engaged ( ) or pc . is_married ( ) ) and marriage . in_my_wedding ( ) and marriage . wedding_is_playing_music ( )
+WHEN  : 9011.chat ("W³¹cz Noc")
+	with pc . is_married ( ) and marriage . in_my_wedding ( )
+WHEN  : 9011.chat ("W³¹cz Œnieg")
+	with pc . is_married ( ) and marriage . in_my_wedding ( )
+WHEN  : 9011.chat ("Zakoñcz Œlub")
+	with pc . is_married ( ) and marriage . in_my_wedding ( )
+WHEN  : 11000.chat ("Rozwód Dwustronny") or
+WHEN  : 11002.chat ("Rozwód Dwustronny") or
+WHEN  : 11004.chat ("Rozwód Dwustronny")
+	with pc . is_married ( )
+WHEN  : 11000.chat ("Usuñ Obr¹czkê ") or
+WHEN  : 11002.chat ("Usuñ Obr¹czkê ") or
+WHEN  : 11004.chat ("Usuñ Obr¹czkê ")
+	with not pc . is_married ( ) and pc . count_item ( 70302 ) > 0
+WHEN  : 11000.chat (" Rozwód Jednostronny") or
+WHEN  : 11002.chat (" Rozwód Jednostronny") or
+WHEN  : 11004.chat (" Rozwód Jednostronny")
+	with pc . is_married ( )
+WHEN  : oldwoman.chat (" Lista œlubów ")
+	with not pc . is_engaged ( )
+WHEN  : 9011.click
+	with not pc . is_engaged ( ) and not pc . is_married ( )
+FUNCTION check_divorce_time()
+FUNCTION is_equip_wedding_dress()
+FUNCTION get_wedding_dress(pc_job)
+QUEST : monkey_dungeon
+STATE : start
+WHEN  : login
+WHEN  : button
+WHEN  : logout
+	with pc . get_map_index ( ) >= 1.07e+06 and pc . get_map_index ( ) < 1.1e+06
+FUNCTION determine_level()
+WHEN  : 20350.chat (locale.monkey_dungeon.button)
+WHEN  : regen_middle_boss.timer
+WHEN  : 5116.party_kill
+	with pc . getf ( "monkey_dungeon" , "level" ) == 2
+WHEN  : 5127.party_kill
+	with pc . getf ( "monkey_dungeon" , "level" ) == 3
+WHEN  : 5161.party_kill
+	with pc . getf ( "monkey_dungeon" , "level" ) == 1
+WHEN  : 5162.party_kill
+	with pc . getf ( "monkey_dungeon" , "level" ) == 2
+WHEN  : 5163.party_kill
+	with pc . getf ( "monkey_dungeon" , "level" ) == 3
+WHEN  : failtimer.timer
+WHEN  : successtimer.timer
+FUNCTION spawn_goto_mobs(level)
+QUEST : move_ring
+STATE : start
+WHEN  : 80009.use
+QUEST : neutral_warp
+STATE : start
+WHEN  : old_man.chat ("Witaj!")
+QUEST : npc_talk
+STATE : start
+WHEN  : 9003.take
+	with pc . is_gm ( )
+WHEN  : 20354.click
+WHEN  : 20008.chat ("Co za cudowny zapach... ")
+WHEN  : 20005.chat ("Opowiedz mi trochê o ceramice.")
+WHEN  : 20005.chat ("Wygl¹dasz na silnego i zdrowego jak na Twoje lata...")
+WHEN  : 20017.chat ("Sz³a dzieweczka do laseczka. Do zielonego...")
+WHEN  : 20023.chat ("Dlaczego czytasz tak du¿o?")
+WHEN  : 20023.chat ("Masz dzieci?")
+WHEN  : 20020.chat ("Dlaczego masz tyle blizn?")
+WHEN  : 20020.chat ("Dlaczego nazywaj¹ Ciê zdrajc¹? ")
+WHEN  : 20011.chat (" To Ciebie nazywaj¹ mêdrcem?")
+WHEN  : 20018.chat ("Powiedziano mi, ¿e jesteœ uzdrawiaczem. Czy to prawda?")
+WHEN  : 20019.chat ("Jak tam ³owy?")
+WHEN  : 20019.chat ("Sk¹d bierze siê Twoja celnoœæ strza³ów?")
+WHEN  : 20006.chat ("Och, jaki piêkny wianek z kwiatów...")
+WHEN  : 20006.chat ("Gdzie jest twój brat?")
+WHEN  : 20012.chat ("Sprzedajesz Ciastka Ry¿owe?")
+WHEN  : 20012.chat ("Kto kupuje u Ciebie?")
+WHEN  : 20021.chat ("Dlaczego spogl¹dasz tak smutno?")
+WHEN  : 20021.chat ("Wielu ginie podczas wojny...")
+WHEN  : 20002.chat ("Co s³ychaæ u Twojego mê¿a?")
+WHEN  : 20002.chat ("Gdzie jest mój m¹¿? ")
+WHEN  : 20003.chat ("Co u was s³ychaæ? ")
+WHEN  : 20003.chat ("Och, co za s³odki brzd¹c...")
+WHEN  : 20010.chat ("Jak tam Twoje interesy?")
+WHEN  : 20014.chat ("Dlaczego jesteœ w z³ym nastroju?")
+WHEN  : 20024.chat ("Co robisz?")
+WHEN  : 20024.chat ("Taurean boi siê Ciebie.")
+WHEN  : 20015.chat ("Wygl¹dasz na silnego...")
+WHEN  : 20087.chat ("Kim jesteœ?")
+WHEN  : 9009.chat ("Ulepszanie Wêdki")
+QUEST : oxevent_manager
+STATE : start
+WHEN  : 20011.chat ("Konkurs OX")
+WHEN  : 20358.chat ("Konkurs OX")
+	with pc . is_gm ( )
+WHEN  : 20358.chat ("Konkurs OX - Nagrody")
+	with pc . is_gm ( )
+QUEST : priv_empire
+STATE : start
+WHEN  : guild_man1.chat ("GM: Bonus servera") or
+WHEN  : guild_man2.chat ("GM: Bonus servera") or
+WHEN  : guild_man3.chat ("GM: Bonus servera")
+	with pc . is_gm ( )
+QUEST : priv_guild
+STATE : start
+WHEN  : guild_man1.chat ("GM: Gildia Bonusy.") or
+WHEN  : guild_man2.chat ("GM: Gildia Bonusy.") or
+WHEN  : guild_man3.chat ("GM: Gildia Bonusy.")
+	with pc . is_gm ( )
+QUEST : reset_scroll
+STATE : start
+WHEN  : 71002.use or
+WHEN  : 76001.use
+WHEN  : 71003.use
+QUEST : reset_status
+STATE : start
+WHEN  : 71103.use or
+WHEN  : 71104.use or
+WHEN  : 71105.use or
+WHEN  : 71106.use
+QUEST : skill_group
+STATE : start
+WHEN  : login
+	with pc . level >= 5 and pc . skillgroup == 0
+WHEN  : levelup
+	with pc . level >= 5 and pc . skillgroup == 0
+STATE : run
+WHEN  : login
+	with pc . get_skill_group ( ) ~= 0
+WHEN  : letter
+	with pc . get_skill_group ( ) == 0
+WHEN  : leave
+WHEN  : button or
+WHEN  : info
+FUNCTION join(job,group,title,text,error_msg)
+WHEN  : target (teacher1.click) or
+WHEN  : skill_group1_1.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_1.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_1.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher2.click) or
+WHEN  : skill_group1_2.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_2.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_2.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher3.click) or
+WHEN  : skill_group1_3.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_3.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_3.chat ("Trening Umiejêtnoœci  ")
+WHEN  : target (teacher4.click) or
+WHEN  : skill_group1_4.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_4.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_4.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher5.click) or
+WHEN  : skill_group1_5.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_5.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_5.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher6.click) or
+WHEN  : skill_group1_6.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_6.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_6.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher7.click) or
+WHEN  : skill_group1_7.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_7.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_7.chat ("Trening Umiejêtnoœci ")
+WHEN  : target (teacher8.click) or
+WHEN  : skill_group1_8.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group2_8.chat ("Trening Umiejêtnoœci ") or
+WHEN  : skill_group3_8.chat ("Trening Umiejêtnoœci ")
+QUEST : skill_reset2
+STATE : start
+WHEN  : oldwoman.chat ("Resetuj punkty statusu")
+QUEST : spider_dungeon_2floor
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . level > 0
+STATE : to_spider_2floor
+WHEN  : 20089.chat ("Wróæ na 1. Poziom ")
+QUEST : training_grandmaster_skill
+STATE : start
+WHEN  : 50513.use
+FUNCTION BuildGrandMasterSkillList(job,group)
+QUEST : upgrade_refine_scroll
+STATE : start
+WHEN  : 20016.chat ("Wytwarzanie Zwoju Wojny")
+WHEN  : 20016.chat ("Wykonaj Zwój Boga Smoków ")
+WHEN  : 20016.chat ("Wytwarzanie Podrêcznika Kowalstwa")
+QUEST : stash
+STATE : start
+WHEN  : warehouse_keeper.click
+WHEN  : oldwoman.chat (locale.stash.enlarge_2_recommendation)
+	with pc . getf ( "stash" , "recommendation" ) == 1
+STATE : enlarge_stash1
+WHEN  : info
+WHEN  : warehouse_keeper.click
+WHEN  : kill
+WHEN  : enlarge_1_kill_bear.timer
+WHEN  : login
+STATE : enlarge_1_fail
+WHEN  : info
+WHEN  : warehouse_keeper.click
+STATE : enlarge_3
+WHEN  : info
+WHEN  : warehouse_keeper.click
+WHEN  : kill
+WHEN  : enlarge_3_kill_esoteric.timer
+WHEN  : login
+STATE : enlarge_3_fail
+WHEN  : warehouse_keeper.click
+QUEST : ride
+STATE : start
+FUNCTION Ride(vnum,remain_time)
+WHEN  : login
+WHEN  : 71114.use or
+WHEN  : 71115.use or
+WHEN  : 71116.use or
+WHEN  : 71117.use or
+WHEN  : 71118.use or
+WHEN  : 71119.use or
+WHEN  : 71120.use or
+WHEN  : 71121.use or
+WHEN  : 71124.use or
+WHEN  : 71125.use or
+WHEN  : 71126.use or
+WHEN  : 71127.use or
+WHEN  : 71128.use or
+WHEN  : 71131.use or
+WHEN  : 71132.use or
+WHEN  : 71133.use or
+WHEN  : 71134.use or
+WHEN  : 71137.use or
+WHEN  : 71138.use or
+WHEN  : 71139.use or
+WHEN  : 71140.use or
+WHEN  : 71141.use or
+WHEN  : 71142.use
+WHEN  : 52001.use or
+WHEN  : 52002.use or
+WHEN  : 52003.use or
+WHEN  : 52004.use or
+WHEN  : 52005.use or
+WHEN  : 52006.use or
+WHEN  : 52007.use or
+WHEN  : 52008.use or
+WHEN  : 52009.use or
+WHEN  : 52010.use or
+WHEN  : 52011.use or
+WHEN  : 52012.use or
+WHEN  : 52013.use or
+WHEN  : 52014.use or
+WHEN  : 52015.use or
+WHEN  : 52016.use or
+WHEN  : 52017.use or
+WHEN  : 52018.use or
+WHEN  : 52019.use or
+WHEN  : 52020.use or
+WHEN  : 52021.use or
+WHEN  : 52022.use or
+WHEN  : 52023.use or
+WHEN  : 52024.use or
+WHEN  : 52025.use or
+WHEN  : 52026.use or
+WHEN  : 52027.use or
+WHEN  : 52028.use or
+WHEN  : 52029.use or
+WHEN  : 52030.use or
+WHEN  : 52031.use or
+WHEN  : 52032.use or
+WHEN  : 52033.use or
+WHEN  : 52034.use or
+WHEN  : 52035.use or
+WHEN  : 52036.use or
+WHEN  : 52037.use or
+WHEN  : 52038.use or
+WHEN  : 52039.use or
+WHEN  : 52040.use or
+WHEN  : 52041.use or
+WHEN  : 52042.use or
+WHEN  : 52043.use or
+WHEN  : 52044.use or
+WHEN  : 52045.use or
+WHEN  : 52046.use or
+WHEN  : 52047.use or
+WHEN  : 52048.use or
+WHEN  : 52049.use or
+WHEN  : 52050.use or
+WHEN  : 52051.use or
+WHEN  : 52052.use or
+WHEN  : 52053.use or
+WHEN  : 52054.use or
+WHEN  : 52055.use or
+WHEN  : 52056.use or
+WHEN  : 52057.use or
+WHEN  : 52058.use or
+WHEN  : 52059.use or
+WHEN  : 52060.use or
+WHEN  : 52061.use or
+WHEN  : 52062.use or
+WHEN  : 52063.use or
+WHEN  : 52064.use or
+WHEN  : 52065.use or
+WHEN  : 52066.use or
+WHEN  : 52067.use or
+WHEN  : 52068.use or
+WHEN  : 52069.use or
+WHEN  : 52070.use or
+WHEN  : 52071.use or
+WHEN  : 52072.use or
+WHEN  : 52073.use or
+WHEN  : 52074.use or
+WHEN  : 52075.use or
+WHEN  : 52076.use or
+WHEN  : 52077.use or
+WHEN  : 52078.use or
+WHEN  : 52079.use or
+WHEN  : 52080.use or
+WHEN  : 52081.use or
+WHEN  : 52082.use or
+WHEN  : 52083.use or
+WHEN  : 52084.use or
+WHEN  : 52085.use or
+WHEN  : 52086.use or
+WHEN  : 52087.use or
+WHEN  : 52088.use or
+WHEN  : 52089.use or
+WHEN  : 52090.use
+QUEST : szkata
+STATE : start
+WHEN  : 50186.use
+FUNCTION open(box)
+WHEN  : 50187.use or
+WHEN  : 50212.use or
+WHEN  : 50213.use
+WHEN  : 50188.use
+WHEN  : 50189.use
+WHEN  : 50190.use
+WHEN  : 50191.use
+WHEN  : 50192.use
+WHEN  : 50193.use
+WHEN  : 50194.use
+WHEN  : 50195.use
+WHEN  : 50196.use
+WHEN  : 50127.use
+	with pc . get_level ( ) >= 50
+WHEN  : 50129.use
+	with pc . get_level ( ) >= 90
+QUEST : teleport_ring
+STATE : start
+WHEN  : 70058.use
+QUEST : mining
+STATE : start
+WHEN  : 20015.chat ("Otwórz sklep")
+WHEN  : 20015.take
+	with item . vnum >= 29101 and item . vnum < 29200 and item . get_socket ( 0 ) ~= item . get_value ( 2 )
+WHEN  : 20015.take
+	with item . vnum >= 29101 and item . vnum < 29200 and item . get_socket ( 0 ) == item . get_value ( 2 )
+WHEN  : 20047.click or
+WHEN  : 20048.click or
+WHEN  : 20049.click or
+WHEN  : 20050.click or
+WHEN  : 20051.click or
+WHEN  : 20052.click or
+WHEN  : 20053.click or
+WHEN  : 20054.click or
+WHEN  : 20055.click or
+WHEN  : 20056.click or
+WHEN  : 20057.click or
+WHEN  : 20058.click or
+WHEN  : 20059.click or
+WHEN  : 30301.click or
+WHEN  : 30302.click or
+WHEN  : 30303.click or
+WHEN  : 30304.click or
+WHEN  : 30305.click
+QUEST : energy_system
+STATE : start
+WHEN  : alchemist.chat (locale.energy_system.title_1)
+STATE : can_make
+FUNCTION setting()
+FUNCTION getItemNum(str,r)
+WHEN  : alchemist.chat (locale.energy_system.title_2)
+WHEN  : alchemist.take
+WHEN  : alchemist.chat (locale.energy_system.say_16)
+QUEST : PetSystem
+STATE : start
+FUNCTION get_pet_skill_id(pet,skill)
+FUNCTION get_max_skill_number(pet,skill)
+FUNCTION buduj_liste()
+FUNCTION get_free_points()
+FUNCTION get_level()
+FUNCTION get_max_level()
+FUNCTION get_exp()
+FUNCTION need_exp()
+FUNCTION is_summon()
+FUNCTION get_pet_info(itemVnum)
+WHEN  : 34011.click or
+WHEN  : 34012.click or
+WHEN  : 34008.click or
+WHEN  : 34007.click or
+WHEN  : 34005.click or
+WHEN  : 34006.click
+	with PetSystem . is_summon ( )
+WHEN  : 53009.use or
+WHEN  : 53008.use or
+WHEN  : 53010.use or
+WHEN  : 53011.use or
+WHEN  : 53012.use or
+WHEN  : 53013.use
+WHEN  : logout
+WHEN  : kill
+	with not npc . is_pc ( ) and PetSystem . is_summon ( )
+QUEST : dragon_lair_access
+STATE : start
+QUEST : InGameItemShop
+STATE : start
+WHEN  : 20095.chat ("Item Shop")
+QUEST : komnata
+STATE : start
+WHEN  : 30121.click
+WHEN  : kill
+	with npc . get_race ( ) == 2493 and party . is_in_dungeon ( )
+WHEN  : koniec.timer
+QUEST : start_login
+STATE : start
+WHEN  : login
+	with pc . getqf ( "pierwsze_logowanie" ) == 0
+QUEST : fabula1
+STATE : start
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 1
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Test Na Wojownika")
+STATE : misja
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 101.kill
+	with pc . getqf ( "fab1" ) == 1
+STATE : powrot
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Test Na Wojownika")
+STATE : __complete
+QUEST : fabula2
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 25
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Niszczycielska Magia")
+STATE : misja
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2158.kill
+	with pc . getqf ( "fab2" ) == 1 and pc . count_item ( 30519 ) == 0
+WHEN  : 2106.kill
+	with pc . getqf ( "fab2" ) == 1 and pc . count_item ( 30518 ) == 0
+STATE : powrot
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Niszczycielska Magia")
+	with pc . count_item ( 30519 ) >= 1 and pc . count_item ( 30518 ) >= 1 and pc . getqf ( "fab2" ) == 1
+STATE : __complete
+QUEST : fabula3
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 50
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Szukajac ")
+STATE : misja
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1107.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . count_item ( 30512 ) == 0
+WHEN  : 1107.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . getqf ( "fab3f1" ) == 1 and pc . count_item ( 30511 ) == 0
+WHEN  : 1107.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . getqf ( "fab3f2" ) == 1 and pc . count_item ( 30515 ) == 0
+WHEN  : 1107.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . getqf ( "fab3f3" ) == 1 and pc . count_item ( 30514 ) == 0
+WHEN  : 1107.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . getqf ( "fab3f4" ) == 1 and pc . count_item ( 30509 ) == 0
+STATE : misja2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("W poszukiwaniu")
+	with pc . count_item ( 30512 ) >= 1 and pc . count_item ( 30511 ) >= 1 and pc . count_item ( 30515 ) >= 1 and pc . count_item ( 30514 ) >= 1 and pc . count_item ( 30509 ) >= 1 and pc . getqf ( "fab3" ) == 1
+STATE : misja3
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 8013.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . count_item ( 30510 ) == 0
+WHEN  : 8013.kill
+	with pc . getqf ( "fab3" ) == 1 and pc . getqf ( "fab3mm1" ) == 1 and pc . count_item ( 30516 ) == 0
+STATE : powrot
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("W poszukiwaniu")
+	with pc . count_item ( 30510 ) >= 1 and pc . count_item ( 30516 ) >= 1 and pc . getqf ( "fab3" ) == 1
+STATE : __complete
+QUEST : fabula4
+STATE : start
+STATE : run
+WHEN  : login or
+WHEN  : levelup
+	with pc . level >= 75
+STATE : information
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Zbiórka Ekwipunku")
+STATE : misja
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1131.kill
+	with pc . getqf ( "fab4" ) == 1
+WHEN  : 1134.kill
+	with pc . getqf ( "fab4" ) == 1
+STATE : misja2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Zbiórka Ekwipunku")
+	with pc . count_item ( 30500 ) == 5 and pc . count_item ( 30501 ) == 5 and pc . getqf ( "fab4" ) == 1
+STATE : misja3
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 2411.kill
+	with pc . getqf ( "fab4" ) == 1
+STATE : powrot
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Zbiórka Ekwipunku")
+	with pc . count_item ( 30502 ) == 8 and pc . getqf ( "fab4" ) == 1
+STATE : __complete
+QUEST : wskaznikHpWroga
+STATE : start
+WHEN  : login
+WHEN  : info or
+WHEN  : button
+QUEST : kon_lv_up
+STATE : start
+WHEN  : 50050.use
+STATE : informacja
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Misja na 11 lvl konia")
+STATE : misjakon
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 636.kill or
+WHEN  : 637.kill
+	with pc . getqf ( "kon11" ) == 1
+STATE : powrot
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Misja na 11 lvl konia")
+STATE : __complete1
+STATE : informacja2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Misja na 21 lvl konia")
+STATE : misjakon2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : 1107.kill
+	with pc . getqf ( "kon21" ) == 1
+STATE : powrot2
+WHEN  : letter
+WHEN  : button or
+WHEN  : info
+WHEN  : target (__TARGET__.click) or
+WHEN  : 20355.chat ("Misja na 21 lvl konia")
+STATE : __complete
+STATE : czytanie
+WHEN  : 50050.use
+QUEST : bug_xyli
+STATE : start
+WHEN  : 20016.chat ("Zglos blad administracji")

@@ -1,0 +1,23 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_exchange_ticket begin
+	state start begin
+		when 20349.chat."Jazda konna (u¿yj biletu)" with pc.countitem("50005")>=1 begin
+			say("Chcesz przywo³aæ konia za bilet konny?")
+			local b=select("Tak", "Nie")
+			if 1==b then
+				if pc.countitem("50005")>=1 then
+					horse.summon()
+					pc.mount()
+					pc.remove_item(-50005, 1)
+					say_reward("Koñ zosta³ przywo³any!")
+				end
+			else
+				return
+			end
+		end
+	end
+end

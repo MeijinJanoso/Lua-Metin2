@@ -1,0 +1,215 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv30 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 30 then
+				setstate( gotoeUriel )
+			end
+		end
+	end
+	state gotoeUriel begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Uriela.")
+			end
+		end
+		when letter begin
+			send_letter( "Sekret Kamieni Metin!")
+		end
+		when info or  button begin
+			say_title("Sekret Kamieni Metin!")
+			say("")
+			say("Uriel posiada trochê informacji dotycz¹cych")
+			say("tajnych Kamieni Metin.")
+			say("IdŸ i odnajdŸ m¹drego Uriela!")
+			say("Kiedy zakoñczysz zadanie,")
+			say("otrzymasz trochê Punktów Doœwiadczenia i")
+			say("Yang.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			say("Kapitan ju¿ wys³a³ do mnie t¹ informacjê raz.")
+			say("Wydaje siê on byæ bardzo utalentowany.")
+			say("Muszê poprosiæ Ciê o przys³uge.")
+			say("Jesteœ œwiadomy co mog¹ zrobiæ Kamenie Metin.")
+			say("Wiesz do jakich zniszczeñ mog¹ doprowaidzc.")
+			say("Kamienie Metin spadaj¹ z nieba!")
+			say("Przez nie rozprzestrzeniaj¹ sie,")
+			say("wszelkie zarazy i zwierzêta starj¹ siê dzikie.")
+			say("Nie wiemy jakim cudem oni dotarli do naszego")
+			say("œwiata i co je zasila.")
+			say("To jest najtrudniejsze do rozwi¹zania.")
+			say("Ostatnio mia³em pewne podejrzenie co do")
+			say("tajemnicy Kamieni Metin.")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			say("Jest jakaœ tabliczka, która znajduje siê ")
+			say("w Lochu Ma³p.")
+			say("Myœlê, ¿e informacje potrzebne Urielowi")
+			say("znajduj¹ce siê na tabliczce mog¹ zaradziæ coœ na")
+			say("Kamienie Metin. Je¿eli przyniesiesz mi trochê ")
+			say("informacji, mo¿e bêdê umia³ odnaleŸæ")
+			say("tajemnicê Kamieni Metin.")
+			say("Proszê, przynieœ mi informacje")
+			say("z Logu Ma³p!")
+			say("")
+			say_title("Nagroda:")
+			say("")
+			say_reward("Punkty Doœwiadczenia: ".." 420.000" )
+			say_reward("Yang: ".." 20.000")
+			setstate( clickstone )
+			q.done()
+		end
+	end
+	state clickstone begin
+		when letter begin
+			local v=find_npc_by_vnum(20352)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Sujin Dungeon Gujeon-Tablet")
+			end
+		end
+		when letter begin
+			send_letter( "Tajemnica Kamieni Metin.")
+		end
+		when info or  button begin
+			say_title("Tajemnica Kamieni Metin.")
+			say("")
+			say("IdŸ sprawdziæ, czy jest pomnik!")
+			say("")
+		end
+		when __TARGET1__.target.click begin
+			target.delete("__TARGET1__")
+			say_title("Tajemnica Kamieni Metin.")
+			say("")
+			say("Wróæ do Uriela, kiedy znajdziesz")
+			say("jakieœ informacje znajduj¹ce siê na pomniku.")
+			setstate(gotoeUriel2)
+		end
+	end
+	state gotoeUriel2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Uriela.")
+			end
+		end
+		when letter begin
+			send_letter("Tajemnica Kamieni Metin.")
+		end
+		when info or button begin
+			say_title("Tajemnica Kamieni Metin.")
+			say("")
+			say("Porozmawiaj z Urielem.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			say("Oh! Wiêc jest informacja znajduj¹ca siê na pomniku.")
+			say("O nie! Nie ma czegoœ takiego jak 'nie wiem'!")
+			say("Nie dajê rady rozszyfrowaæ tych listów.")
+			say("Jest to okazja do historycznego odkrycia!")
+			say("To wspania³e!")
+			say("")
+			say("Hm, mo¿liwe, ¿e mam pewien pomys³.")
+			say("Czy wiesz gdzie jest Dolina Orków? S¹ tam")
+			say("staro¿ytne, tajemnicze budowle. Myœlê, ¿e")
+			say("to w³aœnie tam ukryte s¹ te niezbêdne")
+			say("informacje.")
+			wait()
+			say("S¹ tam ukryte staro¿ytne pisma, musimy szukaæ ")
+			say("pomocy tylko i wy³¹cznie w zabytkowych budowlach.")
+			say("Niezbêdne informacje odnajedziemy w.")
+			say("Œwi¹tyni Hwang.")
+			say("Wtedy bêdê móg³ odkryæ tajemnicê ")
+			say("Kamieni Metin.")
+			say("")
+			set_state(clickplace)
+		end
+	end
+	state clickplace begin
+		when letter begin
+			local v=find_npc_by_vnum(20353)
+			if 0==v then
+			else
+				target.vid("__TARGET2__", v, "Dragon Valley Jugeon-table")
+			end
+		end
+		when letter begin
+		   send_letter( "Tajemnica Kameni Metin.")
+		end
+		when info or  button begin
+			say_title("Tajemnica Kamieni Metin.")
+			say("")
+			say("Naukowiec Uriel potrzebuje dodatkowych")
+			say("informacji. Mo¿e uda ci siê je odnaleŸæ w")
+			say("Dolnie Orków. Udaj siê do Dolniy Orków")
+			say("i odnajdŸ tablice.")
+		end
+		when __TARGET2__.target.click begin
+			target.delete("__TARGET2__")
+			say("Wróæ do Uriela po sprawdzeniu")
+			say("informacji na pomniku.")
+			setstate(gotoeUriel3)
+			q.done()
+		end
+	end
+	state gotoeUriel3 begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Uriela.")
+			end
+		end
+		when letter begin
+			send_letter( "Tajemnica Kamieni Metin.")
+		end
+		when info or  button begin
+			say_title("Tajemnica Kamieni Metin.")
+			say("")
+			say("Porozmawiaj z Urielem.")
+		end
+		when __TARGET__.target.click begin
+			pc.give_exp2( 420000 )
+			pc.change_money( 20000 )
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			say("Oh! Dziêki Tobie jestem w stanie")
+			say("odkryæ tajemnicê Kamieni Metin.")
+			say("Moje badania przynios¹ owoce")
+			say("szybciej ni¿ siê tego spodziewa³em.")
+			say("Dziêkujê, dziêkujê Ci bardzo!")
+			say("Oto dowód mojej wdziêcznoœci. Proszê weŸ go.")
+			say("")
+			say_title("Nagroda")
+			say("")
+			say_reward("Punkty Doœwiadczenia: ".." 420.000" )
+			say_reward("Yang: ".." 20.000")
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv32","run")
+			q.done()
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

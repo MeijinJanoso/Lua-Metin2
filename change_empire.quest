@@ -1,0 +1,117 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest change_empire begin
+	state start begin
+		when 20090.chat."Imperium" with game.get_event_flag("c_e") >0  begin
+			local count = pc.get_change_empire_count()
+			if count >= 1 then
+				say("Nie mo¿esz zmieniæ Imperium")
+				return
+			end
+			say_reward("Imperium")
+			say("")
+			say("Wybierz jedno z królestw")
+			say("Przywódca Gildii nie mo¿e zmieniæ królestwa")
+			say("Najpierw usuñ gildie.")
+			say("Je¿eli jestes zamê¿ny/zamê¿na musisz wzi¹œæ rozwód")
+			say("Koszt rozwodu to 500.000 Yang.")
+			say("")
+			say("Napewno Chcesz Zmieniæ Imperium?")
+			say("")
+			local s = select("Zmieñ Imperium", "Nie Zmieniaj Imperium.")
+			if s == 1 then
+				change_empire.move_pc()
+			end
+		end
+		when 71054.use begin
+			say("Zmiana Imperium powiod³a siê ")
+			say("W³adcy Nowego Imperium Zapraszaj¹ ")
+			if get_time() < pc.getqf("next_use_time") then
+				say("Nie mo¿esz jeszcze zmieniæ Imperium.")
+				say("")
+				if pc.is_gm() then
+					say("Czy chcesz mo¿e usunaæ rame czasow¹?")
+					say("Jesli to uczynisz bêdziesz móg³ ")
+					say("zmieniæ Królestwo od razu.")
+					say("")
+					local s = select("Tak, chce zresetowaæ.", "Rozmysli³em siê.")
+					if s == 1 then
+						say_reward("Zlecono reset czasu.")
+						say_reward("Mo¿esz ju¿ zmieniæ Królestwo.")
+						pc.setqf("next_use_time", 0)
+					end
+				end
+				return
+			end
+			if change_empire.move_pc() == true then
+				pc.setqf("next_use_time", get_time() + 86400 * 7)
+			end
+		end
+		function move_pc()
+			if pc.is_engaged() then
+				say("Jestes zamê¿ny/zamê¿na,")
+				say("Nie mo¿esz zmieniæ królestwa.")
+				say("")
+				return false
+			end
+			if pc.is_married() then
+				say("Jestes zamê¿ny/zamê¿na,")
+				say("Nie mo¿esz zmieniæ królestwa.")
+				return false
+			end
+			if pc.is_polymorphed() then
+				say("Jestes przemieniony")
+				say("Nie mo¿esz zmieniæ królestwa.")
+				return false
+			end
+			if pc.has_guild() then
+				say("Jestes w Gildii.")
+				say("Nie mo¿esz zmieniæ królestwa.")
+				return false
+			end
+			if pc.money < 500000 then
+				say("Nie masz wystarczaj¹cej iloœci Yang")
+				say("¿eby dokonaæ przeniesienia potrzebujesz 500k Yang.")
+				return false
+			end
+			say("Dokonaj  wyboru:")
+			local s = select("Shinsoo", "Jinno", "Anuluj")
+			if 3==s then
+				return false
+			end
+			say("")
+			say_reward("Napewno chcesz zmieniæ Imperium?")
+			say_reward("Po zmianie nie ma Odwrotu!")
+			say("")
+			local a = select("Zmieñ ", "Nie Zmieniaj")
+			if 2== a then
+				return false
+			end
+			local ret = pc.change_empire(s)
+			local oldempire = pc.get_empire()
+			if ret == 999 then
+				say("Pomyœlnie zmieni³eœ Imperium.")
+				say("Proszê siê wylogowaæ i zalogowaæ ponownie")
+				pc.change_gold(-500000)
+				pc.remove_item(71054)
+				char_log(0, "CHANGE_EMPIRE", string.format("%d -> %d", oldempire, s))
+				return true
+			else
+				if ret == 1 then
+					say("Jesteœ w tym Imperium.")
+					say("Wybierz Imperium powtórnie")
+				elseif ret == 2 then
+					say("Zmiana nie jest mo¿liwa")
+					say("Nie mo¿esz zmieniæ Imperium, niedawno odesz³es z Gildii")
+				elseif ret == 3 then
+					say("Zmiana nie jest mo¿liwa")
+					say("Nie mo¿esz zmieniæ Imperium, niedawno by³as/es mê¿atk¹/ ¿onaty.")
+				end
+			end
+			return false
+		end
+	end
+end

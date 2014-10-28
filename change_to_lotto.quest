@@ -1,0 +1,24 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest change_to_lotto begin
+	state start begin
+		when 9006.chat."Loteria" with game.get_event_flag("luck_scroll")>0 begin
+			say("W pañstwie administracja organizuje")
+			say("loterie.")
+			say("")
+			if pc.countitem(50027) > 0 then
+				say("Czy chcesz ucznestniczyæ w loterri?")
+				local s = select('Tak', 'Nie')
+				if s == 1 then
+					pc.removeitem(50027, 1)
+					pc.give_lotto()
+				end
+			else
+				say("Jeszcze nie masz ¿adnego losu!")
+			end
+		end
+	end
+end

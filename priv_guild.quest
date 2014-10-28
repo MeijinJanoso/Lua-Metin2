@@ -1,0 +1,78 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest priv_guild begin
+	state start begin
+		when guild_man1.chat."GM: Gildia Bonusy." or
+			guild_man2.chat."GM: Gildia Bonusy." or
+			guild_man3.chat."GM: Gildia Bonusy." with pc.is_gm() begin
+			say_title("Dodaj Bonusy Gildii:")
+			say("Tutaj mo¿esz daæ bonus dla ka¿dej gildii." )
+			say("")
+			say("Wpisz nazwê gildii:")
+			local g_name = input()
+			local g_id = __get_guildid_byname( g_name )
+			if 0 == g_id then
+				say("Nie ma takiej gildii!")
+				return
+			end
+			say_title( "Dystrybucja premii dla Gildii:" )
+			say("Aktualny bonus:")
+			say( __get_guild_priv_string( g_id ) )
+			say("Wybierz premiê dla gildii:")
+			local t = select(locale.item_drop_pct, locale.gold_drop_pct, locale.tengold_drop_pct, locale.exp_pct, "Anuluj")
+			if t == 5 then
+				return
+			end
+			say_title("Dystrybucja premii dla Gildii:")
+			local title_list = {locale.item_drop_pct, locale.gold_drop_pct, locale.tengold_drop_pct, locale.exp_pct}
+			say(string.format("%s : %s", g_name, title_list[t]))
+			say("")
+			local g = {0,10,20,30,40,50,100}
+			say("Wybiesz Bonus:")
+			local p = select(g[1].."%",g[2].."%",g[3].."%",g[4].."%",g[5].."%",g[6].."%",g[7].."%", "Anuluj")
+			if p == 7 then
+				return
+			end
+			say_title("Dystrybucja premii dla Gildii:")
+			say(string.format("%s bonus : %s %d%%", g_name, title_list[t], g[p]))
+			say("")
+			say("Jak d³ugo potrwa bonusy? ")
+			local v = 0
+			local h = select("6 godzin", "12 godzin", "24 godziny", "Inne", "Anuluj")
+			if 5 == h then
+				return
+			elseif 4 == h then
+				say_title("Dystrybucja premii dla Gildii.")
+				say(string.format("%s : %s %d%%", g_name, title_list[t], g[p]))
+				say("")
+				say("Wpisz ¿¹dan¹ d³ugoœæ w godzinach. ")
+				v= input()
+				if v == "" then
+					v = 0
+				else
+					v = tonumber( v )
+				end
+			elseif 3 == h then
+				v=24
+			elseif 2 == h then
+				v=12
+			elseif 1 == h then
+				v=6
+			end
+			say_title("Dystrybucja premii dla Gildii.")
+			say(string.format("%s : %s %d%% (na %d godzin)", g_name, title_list[t], g[p], v))
+			say("")
+			say("Czy na pewno chcesz dodaæ bonus?")
+			local s = select("Tak", "Nie")
+			if 1 == s then
+				__give_guild_priv(g_id, t, g[p], v*60*60)
+				say("Gildia otrzyma³a bonus.")
+			else
+				say("Gildia nie otrzyma³a bonusu.")
+			end
+		end
+	end
+end

@@ -1,0 +1,18 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_change_name begin
+	state start begin
+		when 71110.use begin
+			say_title("Cukier dla Konia")
+			local name = input()
+			wait()
+			horse.set_name(name,2592000)
+			horse.set_name(name)
+			say("Skoñczone.")
+			return
+		end
+	end
+end

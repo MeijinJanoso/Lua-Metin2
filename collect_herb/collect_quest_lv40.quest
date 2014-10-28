@@ -1,0 +1,270 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest collect_quest_lv40 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup with pc.level >= 40 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Analiza Biologa")
+			end
+			send_letter("Analiza Biologa")
+		end
+		when button or info begin
+			say_title("Analiza Biologa")
+			say("")
+			say("Biolog Chaegirab, uczeñ Baek-Goa,")
+			say("w³aœnie Cie szuka³. Proszê idŸ ")
+			say("do niego i zaoferuj mu swoj¹ pomoc.")
+			say("")
+		end
+		when __TARGET__.target.click or 20084.chat."ZnajdŸ Biologa" begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("Niebiosa, proszê pomó¿ mi... ")
+			say("Badam wszystkie rodzaje roœlin w tym ")
+			say("imperium. Jest bardzo du¿o rzeczy, ")
+			say("które musz¹ zostaæ zbadane. Nie mam ")
+			say("czasu abym móg³ sam wybraæ siê na wyprawê. ")
+			say("Proszê,pomó¿ mi. ")
+			wait()
+			say("Biolog Chaegirab:")
+			say("Aktualnie badam Ksiêgi Kl¹tw.")
+			say("Muszê przeprowadziæ kilka eksperymentów,")
+			say("dlatego potrzebujê kilku egzemplarzy.")
+			say("Czy móg³byœ przynieœæ mi piêtnaœcie Ksiêg Kl¹tw?")
+			say("Proszê, pomó¿ mi! Zawsze przynoœ mi po jednej,")
+			say("abym mia³ czas na ich dokladne przebadanie!")
+			say("")
+			say_item("Ksiêga Kl¹tw", 30047, "")
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Zadanie specjalne!")
+		end
+		when button or info begin
+			say_title("ZnajdŸ Ksiêgi Kl¹tw")
+			say("")
+			say("Biolog Chaegirab, uczeñ Baek-Goa,")
+			say("szuka Ksiêgi Kl¹tw.")
+			say("Zawsze przynoœ mu po jednym, aby mia³ czas")
+			say("na ich dokladne przebadanie.")
+			say("Ksiêgi Kl¹tw szukaj u Ezotów ko³o Œwi¹tyni.")
+			say("")
+			say_item_vnum(30047)
+			say_reward("Do tej pory dostarczy³eœ: "..pc.getqf("collect_count").." Ksiêg Kl¹tw.")
+			say("")
+		end
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") and pc.getqf("drink_drug") < 1 then
+			say_reward("Eliskir Poszukiwacza:")
+			say("Ten magiczny przedmiot zmniejsza czas")
+			say("oddania nastêpnego przedmiotu u biologa,")
+			say("po jego u¿yciu mo¿esz natychmiast")
+			say("oddaæ przedmiot!")
+			say("Ponadto dajê wiêksz¹ szansê na przyjêcie przedmiotu!")
+			say_reward("Czy chcesz u¿yæ Eliksiru?")
+			say_reward("Zostanie on usuniêty po u¿yciu.")
+			local wy = select("U¿yj.", "Nie u¿ywaj.")
+			if wy == 2 then
+			return
+			elseif wy == 1 then
+			pc.setqf("duration", 0)
+			pc.setqf("drink_drug",1)
+			say("Mo¿esz ju¿ oddaæ przedmiot biologowi!")
+			say_reward("Eliksir Poszukiwacza zostajê usuniêty!")
+			pc.remove_item(71035, 1)
+			end
+			else
+			say_reward("Eliksir Poszukiwacza:")
+			say("Nie mo¿esz u¿yæ przedmiotu, poniewa¿ ")
+			say("biolog ju¿ mo¿e przyj¹æ przedmiot.")
+			return
+			end
+		end
+		when 20084.chat." Ksiêga Kl¹tw " with pc.count_item(30047) >0 begin
+			local roznica = pc.getqf("duration") - get_time()
+			local minuty = roznica/60
+			local minuty2 = math.floor(minuty)
+			if get_time() > pc.getqf("duration") then
+					say("Biolog Chaegirab:")
+					say("Oh!! Znalaz³eœ!")
+					say("Pozwól, ¿e rzuce okiem...")
+					say("Jeszcze chwilkê.")
+					say("")
+			pc.remove_item(30047, 1)
+			pc.setqf("duration",get_time()+60*60*1)
+			wait()
+			local pass_percent
+			if pc.getqf("drink_drug")==0 then
+				pass_percent=60
+			else
+				pass_percent=90
+			end
+			local s= number(1,100)
+			if s<= pass_percent then
+				if pc.getqf("collect_count")< 14 then
+					local index =pc.getqf("collect_count")+1
+					pc.setqf("collect_count",index)
+					say("Biolog Chaegirab:")
+					say_green("Oh!! Ta Ksiêga Kl¹tw jest doskona³ej jakoœci!")
+					say("Jesteœ wspania³y!")
+					say("Przynieœ mi jeszcze: "..15-pc.getqf("collect_count").. " Ksiêg Kl¹tw")
+					say("Proszê, spróbuj je znaleŸæ!")
+					say("")
+					pc.setqf("drink_drug",0)
+					return
+					end
+					say("Biolog Chaegirab:")
+					say("Znalaz³eœ ju¿ piêtnaœcie Ksiêg Kl¹tw!!")
+					say("Dziêkuje Ci, ¿e jesteœ taki pomocny.")
+					say("Musisz teraz zdobyc Œwi¹tynny Kamieñ Dusz")
+					say("S³ysza³em, ¿e owy kamien czêsto wypada z")
+					say("Paj¹ków znajduj¹cych siê na pustyni oraz lochach. ")
+					say("Zrobisz to dla mnie?")
+					say("")
+					say_item("Œwi¹tynny Kamieñ Duszy", 30221, "")
+					say_reward("Zabijaj Smiert. Truj¹cy Paj¹k")
+					say_reward("Czerwony Truj¹cy Paj¹k")
+					say_reward("Szpon. Truj¹cy Paj¹k")
+					say_reward("Paj¹k ¯o³nierz")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)
+					pc.setqf("duration",0)
+					set_state(key_item)
+					return
+				else
+					say("Biolog Chaegirab:")
+					say("Wybacz niestety...")
+					say_red("Twoja Ksiêga by³a zbyt porwana...")
+					say("Proszê, przynieœ mi inn¹!")
+					say("Nie zawiedŸ mnie!")
+					say("")
+					pc.setqf("drink_drug",0)
+					return
+				end
+			else
+				say("Biolog Chaegirab:")
+				say("Jeszcze nie skoñczy³em badaæ ostatniej Ksiêgi !")
+				say("PrzyjdŸ do mnie za : "..minuty2.." minut!")
+				say("")
+				return
+			end
+		end
+	end
+		state key_item begin
+		when letter begin
+			send_letter("Œwi¹tynny Kamieñ Duszy")
+			if pc.count_item(30221)>0 then
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Œwi¹tynny Kamieñ Duszy")
+			end
+			end
+		end
+		when button or info begin
+			if pc.count_item(30221) >0 then
+			say_title("Wróæ do Biologa!")
+			say("")
+			say("Zdoby³eœ Œwi¹tynny Kamieñ Duszy! ")
+			say("IdŸ szybko przynieœ go Biologowi.")
+			say("")
+			return
+			end
+			say_title("Œwi¹tynny Kamieñ Duszy")
+			say("")
+			say("Zebra³eœ juz odpowiednia iloœæ ")
+			say("Ksiêg Kl¹tw.")
+			say("Musisz teraz znalezæ Œwi¹tynny Kamieñ Duszy ")
+			say_item_vnum(30221)----------
+			say("Œwi¹tynny Kamieñ Duszy")
+			say("mozna zdobyc zabijaj¹c paj¹ki na pustyni b¹dz lochach")
+			say("Nie zawiedz biologa!")
+		end
+		when 2032.kill or 2033.kill or 2034.kill or 2035.kill begin
+			local s = number(1, 50)
+			if s == 1 and pc.count_item(30221)==0 then
+				pc.give_item2(30221, 1)
+				send_letter("Œwi¹tynny Kamieñ Duszy")
+			end
+		end
+		when __TARGET__.target.click or
+			20084.chat."Œwi¹tynny Kamieñ Duszy" with pc.count_item(30221) > 0 begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("Oh,Zdobyleœ go! ")
+			say("Odnalaz³eœ Œwi¹tynny Kamieñ Duszy")
+			say("Ciesze siê bardzo")
+			say("Dziêkujê Ci za pomoc")
+			say("W zamian otrzymasz nagrode!")
+			say("Idz do mojego mistrza Baek-Goa")
+			say("On za pomoc mi podaruje Ci cenna nagrodê.")
+			say("")
+			pc.remove_item(30221,1)
+			set_state(__reward)
+		end
+	end
+	state __reward begin
+		when letter begin
+			send_letter("Odbierz nagrodê!")
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Baek-Go!")
+			end
+		end
+		when button or info begin
+			say_title("Odbierz nagrodê!")
+			say("Biolog Chaegirab wysy³a Cie")
+			say("po nagrodê do Baek-Go!")
+			say("Udaj siê do niego")
+			say("by otrzymac nagrodê za")
+			say("Twój ciê¿ki trud...")
+			say("Baek-Go znajduje siê w pierwszej wiosce")
+			say("Masz go na mapie. Œpiesz siê!")
+			say("")
+		end
+		when __TARGET__.target.click or
+			20018.chat."Baek-Go" begin
+			target.delete("__TARGET__")
+			say("Baek-Go:")
+			say("Drogi przyjacielu")
+			say("Za Twój Ciê¿ki trud otrzymujesz")
+			say("sta³y bon szybkoœci ataku")
+			say("Zosta³ on podniesiony o 15 oraz")
+			say("pewien przedmiot do dalszych walk.")
+			say("")
+			say_reward("+5 szybkoœæ ataku na sta³e")
+			say_reward("Drog. Ebonit. Szkatu³ka")
+			say("")
+			affect.add_collect(apply.ATT_SPEED,5,60*60*24*365*60)
+			pc.give_item2(50110)
+			clear_letter()
+			set_quest_state("collect_quest_lv50", "run")
+			set_state(__complete)
+		end
+	end
+	state __giveup__ begin
+		when 20084.chat."Poddajesz sie?" begin
+			say("Biolog Chaegirab:")
+			say("Czy jesteœ pewien, ¿e chcesz siê poddaæ!?")
+			say("Nie bêdziesz mia³ szansy, aby zacz¹æ ponownie!")
+			say("Ta misja Ciê opuœci...")
+		end
+	end
+	state __complete begin
+	end
+end

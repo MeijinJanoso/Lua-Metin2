@@ -1,0 +1,188 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv7 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 7 begin
+			set_state( gotosmith )
+		end
+	end
+	state gotosmith begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Kolejna Misja")
+			end
+		end
+		when letter begin
+			send_letter("Kolejna Misja")
+		end
+		when button or info begin
+			say_title("Kolejna Misja")
+			say("")
+			say_reward("Udaj siê do Kowala.")
+			say_reward("On potrzebuje Ciê, do wype³nienia kolejnej misji.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kowal:")
+			say("")
+			say("Czo³em! Czy móg³byœ mi pomóc w kolejnej")
+			say("misji?")
+			say("Normalnie nie pytam ludzi czy mog¹ coœ dla mnie")
+			say("ale Ty wydajesz siê byæ godny zaufania.")
+			say("zrobiæ, To zaszczyt!")
+			say("")
+			wait()
+			say_title("Kowal:")
+			say("")
+			say("Wykona³em dla Rybaka wêdkê, ale niestety")
+			say("jestem w tej chwili bardzo zajêty.")
+			say("Nie mam czasu, aby donieœæ j¹ ")
+			say("do Rybala. Czy mo¿esz zrobiæ to za mnie?")
+			say_item("Elastyczna Wêdka", 27490, "")
+			say("")
+			wait()
+			  say_title("Kowal:")
+			say("")
+			say("Rybak powinien znajdowaæ siê w pobli¿u rzeki.")
+			say("Je¿eli dostarczysz wêdkê do Rybaka,")
+			say("ulepszê jedn¹ z Twoich zbroi za darmo.")
+			say("Uczciwe. Nie s¹dzisz?")
+			say("")
+			set_state( gotofisher )
+			q.done()
+		end
+	end
+	state gotofisher begin
+		when letter begin
+			send_letter("Odszukaj Rybaka.")
+		end
+		when button or info begin
+			say_title("Odszukaj Rybaka.")
+			say("")
+			say_reward("Kowal wykona³ dla Ciebie wêdkê.")
+		say_reward("Rybak.")
+			say_reward("OdnajdŸ Rybaka, który znajduje siê nad rzek¹ ")
+			say_reward("i daj mu nowo wykonan¹ wêdkê.")
+			say_item("Elastyczna Wêdka", 27490, "")
+			say("")
+		end
+		when 20016.chat."Dostarcz Wêdkê." begin
+			say_title("Kowal:")
+			say("")
+			say("Czy nie bêdzie problemu z dostarczeniem")
+			say("przedmiotu do Rybaka?")
+			say("Œpiesz siê!!")
+			say("Odnajedziesz Rybaka w pobli¿u rzeki.")
+			say("")
+		end
+		when 9009.chat."Dostarcz Wêdkê." begin
+			say_title("Rybak:")
+			say("")
+			say("Rybo³óstwo jest jednym z moich najwiêkszych")
+			say("radoœci ¿yciowych. Wreszcie Kowal zakoñczy³ ")
+			say("pracê nad moj¹ now¹ wêdk¹, która jest g³ównym")
+			say("przedmiotem pracy. Czy wiesz coœ na temat[ENTER]rybo³óstwa?")
+			say("")
+			wait()
+			say_title("Rybak:")
+			say("")
+			say("a nastêpnie na³o¿y³ przynêtê na hak.")
+			say("Potem rzucasz linkê wêdki,")
+			say("za pomoc¹ swoich umiejêtnoœci. Je¿eli zauwa¿ysz,")
+			say(" ¿e ryba tzw. bierze, musisz u¿yæ swoich")
+			say("umiejêtnoœci ponownie. Albo uda ci siê z³owiæ,")
+			say("albo musisz spróbowaæ ponownie.")
+			say("Istnieje wiele gatunków ryb, które mo¿esz z³apaæ.")
+			say("Ryby s¹ bardzo dobre dla zdrowia,")
+			say("mo¿na równie¿ zdobyæ wiele skarbów.")
+			say("Musisz poœwiêciæ na to trochê czasu. Polecam Ci[ENTER]spróbowaæ.")
+			say("")
+			wait()
+			say_title("Rybak:")
+			say("")
+			say("O tak, to moja d³ugo oczekiwana, nowa wêdka.")
+			say("Proszê, daj to dla Kowala.")
+			say_item("Zap³ata za wêdkê ", 30001, "")
+			say("")
+			set_state( gotosmith2 )
+		end
+	end
+	state gotosmith2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Wróæ do Kowala.")
+			end
+		end
+		when letter begin
+			send_letter("Wróæ do Kowala.")
+		end
+		when button or info begin
+			say_title("Wróæ do Kowala.")
+			say("")
+			say_reward("Wêdka zosta³a dostarczona do Kowala.")
+			say_reward("Wróæ do Kowala i odbierz swoj¹ ")
+			say_reward("nagrodê, któr¹ otrzymasz za zadanie.")
+			say_item("Zap³ata za wêdkê ", 30001, "")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			pc.setqf("refine_chance",0)
+			say_title("Kowal:")
+			say("")
+			say("Ah! Odnalaz³eœ Rybaka?")
+			say("Doskonale. Wype³ni³eœ misjê i dostarczy³eœ dla")
+			say("niego wêdkê.")
+			set_state(refine)
+			set_quest_state("main_quest_lv9", "run")
+		end
+	end
+	state refine begin
+		when login with pc.getf("main_quest_lv7","refine_chance") == 0 begin
+			clear_letter()
+			set_state( __COMPLETE__ )
+		end
+		when letter begin
+			send_letter("Oto twoje wynagrodzenie.")
+		end
+		when button or info begin
+			if pc.getqf("refine_chance") > 0 then
+				say_title("Informacja:")
+				say("")
+				say_reward("Oto twój kredyt, który otrzyma³eœ ")
+				say_reward("jako nagrodê za misjê.")
+				say_reward("U¿yj swojej zbroi na")
+				say_reward("Kowalu, kiedy to zrobisz")
+				say_reward("otworzy siê okno z informacjami.")
+				say_item("Oto kredyt za misjê ", 30001, "")
+				say("")
+				wait()
+				say_title("Informacja:")
+				say("")
+				say_reward("1) Oto twój kredyt za misjê, jednak")
+				say_reward("2) musisz wiedzieæ, ¿e ulepszenie mo¿e siê nie[ENTER]powieœæ w 100%.")
+				say_reward("3) Aby ulepszyæ broñ musisz ogarniczyæ siê w[ENTER]20 lvl.")
+				say("")
+			else
+				say_title("Kredyt zosta³ u¿yty.")
+				say("")
+				say_reward("W tym momencie u¿y³eœ swojego kredytu.")
+				say("")
+				clear_letter()
+				set_state(__COMPLETE__)
+				set_quest_state("main_quest_lv9", "run")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

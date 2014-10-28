@@ -1,0 +1,62 @@
+quest start_login begin
+	state start begin
+		when login with pc.getqf("pierwsze_logowanie") == 0 begin
+			say_title("Witamy na serwerze!")
+			say("¯yczymy mi³ej gry i wysokich leveli!")
+			say("Pamiêtaj ¿e ¿aden z GM nie bêdzie Cie ")
+			say("prosi³ o dane dostêpowe do konta! ")
+			say("Wykonuj misje u biologa, mo¿esz siê ")
+			say("dziêki nim dorobiæ fortuny! ")
+			say("U¿ywaj ksiêgi gracza, pomo¿e Ci ona ")
+			say("w drodze do maksymalnego lvl! ")
+			say("Rozmawiaj z NPC, udziel¹ Ci oni ")
+			say("wa¿nych wskazówek! ")
+			say_reward("Powodzenia! ")
+			pc.setqf("pierwsze_logowanie", 1)
+			pc.give_item2(27002, 200)
+			pc.give_item2(27005, 200)
+			local klasa = pc.get_job()
+			if klasa == 0 then
+				pc.give_item2(15, 1)
+				pc.give_item2(3005, 1)
+				pc.give_item2(11205, 1)
+				pc.give_item2(12205, 1)
+				pc.give_item2(14005, 1)
+				pc.give_item2(15005, 1)
+				pc.give_item2(16005, 1)
+				pc.give_item2(17005, 1)
+				pc.give_item2(13005, 1)
+			elseif klasa == 1 then
+				pc.give_item2(15, 1)
+				pc.give_item2(1005, 1)
+				pc.give_item2(2005, 1)
+				pc.give_item2(11405, 1)
+				pc.give_item2(12345, 1)
+				pc.give_item2(14005, 1)
+				pc.give_item2(15005, 1)
+				pc.give_item2(16005, 1)
+				pc.give_item2(17005, 1)
+				pc.give_item2(13005, 1)
+			elseif klasa == 2 then
+				pc.give_item2(15, 1)
+				pc.give_item2(11605, 1)
+				pc.give_item2(12485, 1)
+				pc.give_item2(14005, 1)
+				pc.give_item2(15005, 1)
+				pc.give_item2(16005, 1)
+				pc.give_item2(17005, 1)
+				pc.give_item2(13005, 1)
+			elseif klasa == 3 then
+				pc.give_item2(5005, 1)
+				pc.give_item2(7005, 1)
+				pc.give_item2(11805, 1)
+				pc.give_item2(12625, 1)
+				pc.give_item2(14005, 1)
+				pc.give_item2(15005, 1)
+				pc.give_item2(16005, 1)
+				pc.give_item2(17005, 1)
+				pc.give_item2(13005, 1)
+			end
+		end
+	end
+end

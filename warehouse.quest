@@ -1,0 +1,284 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest stash begin
+	state start begin
+		when warehouse_keeper.click begin
+			local l = game.get_safebox_level()
+			if l == 0 then
+				say(locale.stash.greet1)
+				if pc.gold < 500 then
+					say(locale.stash.not_enough_money)
+				else
+					local s = select(locale.stash.pay_ok, locale.stash.pay_no)
+					if s == 1 then
+					pc.changegold(-500)
+					game.set_safebox_level(1)
+					say(locale.stash.first_open)
+					else
+					say(locale.stash.dont_open)
+					end
+				end
+			elseif l == 1 then 
+				say(locale.stash.greet2)
+				if pc.getqf("open_count") < 3 then
+					say(locale.stash.beginner_info)
+					pc.setqf("open_count",pc.getqf("open_count")+1)
+				end
+				local s = select(locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				if s == 1 then
+					game.open_safebox()
+				elseif s == 2 then
+					say_title("Dozorca:")
+					say("wszystkie kopalnie s¹ wyeksplotowane.")
+					say("Ciê¿ko jest znale¿æ Z³oto lub Srebro.")
+					say("Dopóki nie zostanie odnaleziona nowa ¿y³a, ")
+					say("Sztabki Z³ota i Srebra nie bêd¹ dostêpne. ")
+					npc.open_shop()
+					q.done()
+				elseif s == 3 then
+					game.open_mall()
+				end
+			elseif l == 2 then
+				say(locale.stash.greet3)
+				local f = pc.getqf("recommendation")
+				local s = 0
+				if f <= 1 then
+					s = select(locale.stash.enlarge, locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				elseif f == 2 then
+					s = select(locale.stash.enlarge_2_no_mark, locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				elseif f == 3 then
+					s = select(locale.stash.enlarge_2_have_mark, locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				end
+				if s == 1 then
+					if f == 1 then
+						say(locale.stash.enlarge_2_again)
+						q.set_title(locale.stash.enlarge_2_title)
+						if pc.countitem(locale.stash.enlarge_2_item) < 1 then
+							pc.give_item2(locale.stash.enlarge_2_item)
+						end
+					elseif f == 2 then
+						say(locale.stash.enlarge_2_no_mark2)
+						pc.setqf("recommendation", 0)
+						q.done()
+					elseif f == 3 then
+						if pc.countitem(locale.stash.enlarge_2_mark_item) == 0 then
+							say(locale.stash.enlarge_2_have_mark2)
+							q.set_title(locale.stash.enlarge_2_title)
+							q.start()
+							pc.setqf("recommendation", 1)
+						else
+							say(locale.stash.enlarge_2_have_mark3)
+							game.set_safebox_level(3)
+							pc.removeitem(locale.stash.enlarge_2_mark_item)
+							q.done()
+						end
+					else
+						say(locale.stash.enlarge_2_msg1,pc.name,math.mod(pc.job,2)==0 and locale.man_postfix or locale.woman_postfix,locale.stash.enlarge_2_msg2)
+						if pc.countitem(locale.stash.enlarge_2_item)<1 then
+							pc.give_item2(locale.stash.enlarge_2_item)
+						end
+						pc.setqf("recommendation",1)
+						q.set_title(locale.stash.enlarge_2_title)
+						q.start()
+					end
+				elseif s == 2 then
+					game.open_safebox()
+				elseif s == 3 then
+					npc.open_shop()
+					say_title("Dozorca:")
+					say("wszystkie kopalnie s¹ wyeksplotowane.")
+					say("Ciê¿ko jest znale¿æ Z³oto lub Srebro. ")
+					say("Dopóki nie zostanie odnaleziona nowa ¿y³a, ")
+					say("Sztabki Z³ota i Srebra nie bêd¹ dostêpne. ")
+					q.done()
+				elseif s == 4 then
+					game.open_mall()
+				end
+			elseif l == 3 then
+				say(locale.stash.greet4)
+				local s = select(locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				if s == 1 then
+					game.open_safebox()
+				elseif s == 2 then
+					npc.open_shop()
+					say_title("Dozorca:")
+					say("wszystkie kopalnie s¹ wyeksplotowane.")
+					say("Ciê¿ko jest znale¿æ Z³oto lub Srebro. ")
+					say("Dopóki nie zostanie odnaleziona nowa ¿y³a, ")
+					say("Sztabki Z³ota i Srebra nie bêd¹ dostêpne. ")
+					q.done()
+				elseif s == 3 then
+					game.open_mall()
+				end
+			elseif l >= 3 then
+				say(locale.stash.greet2)
+				local s = select(locale.stash.open_stash, locale.stash.buy_silver_and_gold_bar, locale.stash.open_mall, locale.stash.nomatter)
+				if s == 1 then
+					game.open_safebox()
+				elseif s == 2 then
+					npc.open_shop()
+					say_title("Dozorca:")
+					say("wszystkie kopalnie s¹ wyeksplotowane.")
+					say("Ciê¿ko jest znale¿æ Z³oto lub Srebro. ")
+					say("Dopóki nie zostanie odnaleziona nowa ¿y³a, ")
+					say("Sztabki Z³ota i Srebra nie bêd¹ dostêpne. ")
+					q.done()
+				elseif s == 3 then
+					game.open_mall()
+				end
+			end
+		end
+		when oldwoman.chat.locale.stash.enlarge_2_recommendation with pc.getf("stash","recommendation") == 1 begin
+			say(locale.stash.enlarge_2_oldwoman_greet)
+			say(delay(400), ". . . [/DELAY]")
+			if pc.level < 25 then
+				say(locale.stash.enlarge_2_oldwoman_reject)
+				pc.setqf("recommendation", 2)
+				q.set_title(locale.stash.enlarge_2_oldwoman_title1)
+			else
+				say(locale.stash.enlarge_2_oldwoman_accept)
+				pc.setqf("recommendation", 3)
+				pc.give_item2(locale.stash.enlarge_2_mark_item)
+				q.set_title(locale.stash.enlarge_2_oldwoman_title2)
+			end
+			pc.removeitem(locale.stash.enlarge_2_item)
+		end 
+	end
+	state enlarge_stash1 begin
+		when info begin
+			setskin(SCROLL)
+			setbgimage("level_bg.tga")
+			addimage(20,12,special.levelup_quest[8][4])
+			setcolor(0,0,0)
+			say(locale.stash.enlarge_1_info1,item_name(pc.job<3 and locale.stash.enlarge_item1 or locale.stash.enlarge_item2),locale.stash.enlarge_1_info2)
+			if pc.get_map_index() > 0 and pc.get_map_index() <= table.getn(special.lvq_map) then
+				for j,i in {8,9,10,11,17} begin
+					table.foreachi(
+					special.lvq_map[pc.get_map_index()][i], 
+					function (n,p) addmapsignal(p[1]*100, p[2]*100) end)
+				end
+				setmapcenterposition(200, 0)
+			end
+			select(locale.confirm)
+			clearmapsignal()
+			setskin(NOWINDOW)
+		end
+		when warehouse_keeper.click begin
+			say(locale.stash.greet2)
+			local s = select(locale.stash.enlarge_1_take_bear,locale.stash.open_stash, locale.stash.open_mall, locale.stash.nomatter);
+			if s == 1 then
+				if pc.countitem(locale.stash.enlarge_1_item)>=30 then
+					say(locale.stash.enlarge_1_success)
+					pc.removeitem(locale.stash.enlarge_1_item,30)
+					game.set_safebox_level(2)
+					setstate(start)
+					q.done()
+					cleartimer("enlarge_1_kill_bear")
+				else
+					say(locale.stash.enlarge_1_notyet)
+				end
+			elseif s == 2 then
+				game.open_safebox()
+			elseif s == 3 then
+				game.open_mall()
+			end
+		end
+		when kill begin
+			if npc.race >= 112 and npc.race <= 116 and (pc.weapon == 50 or pc.weapon == 5030) then
+				if math.random(5) == 1 then
+					syschat(locale.stash.enlarge_1_getone)
+					pc.give_item2(locale.stash.enlarge_1_item)
+					if pc.countitem(locale.stash.enlarge_1_item) == 30 then
+						q.set_counter_value(0)
+						chat(pc.name,locale.stash.enlarge_1_complete)
+					elseif pc.countitem(locale.stash.enlarge_1_item) < 30 then
+						q.set_counter_value(30 - pc.countitem(locale.stash.enlarge_1_item))
+					end
+				end
+			end
+		end
+		when enlarge_1_kill_bear.timer begin
+			setstate(enlarge_1_fail)
+		end
+		when login begin
+			if game.get_safebox_level() == 1 then
+				setstate(enlarge_1_fail)
+			else
+				setstate(start)
+			end
+		end
+	end
+	state enlarge_1_fail begin
+		when info begin
+			say(locale.stash.enlarge_1_fail_info)
+		end
+		when warehouse_keeper.click begin
+			say(locale.stash.enlarge_1_fail_ms)
+			q.done()
+			setstate(start)
+		end
+	end
+	state enlarge_3 begin
+		when info begin
+		end
+		when warehouse_keeper.click begin
+			say(locale.stash.greet2)
+			local s = select(locale.stash.enlarge_3_complete, locale.stash.open_stash, locale.stash.open_mall, locale.stash.nomatter)
+			if s == 1 then
+				if pc.getqf("3_left_count")<=0 then
+					say(locale.stash.enlarge_3_success)
+					game.set_safebox_level(4)
+					setstate(start)
+					q.done()
+					cleartimer("enlarge_3_kill_esoteric")
+				else
+					say(locale.stash.enlarge_3_notyet)
+				end
+			elseif s == 2 then
+				game.open_safebox()
+			elseif s == 3 then
+				game.open_mall()
+			end
+		end
+		when kill begin
+			if npc.race >= 601 and npc.race <= 609 then-- ??????
+				local n = pc.getqf("3_left_count")-1
+				pc.setqf("3_left_count",n)
+				q.set_counter_name(locale.stash.enlarge_3_counter)
+				q.set_counter_value(n)
+			end
+		end
+		when enlarge_3_kill_esoteric.timer begin
+			local t = pc.getqf("3_left_time")
+			if t <= 0 then
+				setstate(enlarge_3_fail)
+				cleartimer("enlarge_3_kill_esoteric")
+			else
+				pc.setqf("3_left_time",t-3);
+			end
+		end
+		when login begin
+			local t = pc.getqf("3_left_time")
+			if t <= 0 then
+				setstate(enlarge_3_fail)
+			else
+				loop_timer("enlarge_3_kill_esoteric",3)
+				q.set_counter_name(locale.stash.enlarge_3_counter)
+				q.set_counter_value(pc.getqf("3_left_count"))
+				q.set_clock_name(locale.stash.enlarge_3_timer)
+				q.set_clock_value(t)
+				q.start()
+			end
+		end
+	end
+	state enlarge_3_fail begin
+		when warehouse_keeper.click begin
+			say(locale.stash.enlarge_1_fail_msg)
+			q.done()
+			setstate(start)
+		end
+	end
+end

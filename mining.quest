@@ -1,0 +1,59 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest mining begin
+	state start begin
+		when 20015.chat."Otwórz sklep" begin
+			setskin(NOWINDOW)
+			npc.open_shop()
+		end
+		when 20015.take with item.vnum >= 29101 and item.vnum < 29200 and item.get_socket(0) != item.get_value(2) begin
+			say_title("Deokbae:")
+			say("Ten kilof posiada zbyt ma³¹ iloœæ punktów.")
+			say("")
+		end
+		when 20015.take with item.vnum >= 29101 and item.vnum < 29200 and item.get_socket(0) == item.get_value(2) begin
+			say_title("Deokbae:")
+			say("Chcesz ulepszyæ swój Kilof? Zobaczmy...")
+			say("Teraz Kilof ma poziom ".. item.get_level())
+			say("")
+			if item.get_value(3) == 100 then
+				say_title("Deokbae:")
+				say("Czy chcesz go ulepszyæ?")
+				say("")
+			else
+				say_title("Deokbae:")
+				say("Jeœli sprobujê ulepszyæ Kilof, jego poziom mo¿e")
+				say("zostaæ zredukowany, szansa to" .. 100-item.get_value(3).. "%.")
+				say("Czy mam kontynuowaæ?")
+				say("")
+			end
+			local s = select("Tak", "Nie")
+			if s == 1 then
+				local f = __refine_pick(item.get_cell())
+				if f == 2 then
+					say_title("Deokbae:")
+					say("Niestety, ulepszanie nie powiod³o siê...")
+					say("")
+				elseif f == 1 then
+					say_title("Deokbae:")
+					say("Uda³o siê! Oto Twój kilof.")
+					say("")
+				else
+					say_title("Deokbae:")
+					say("Niestety, ulepszanie nie powiod³o siê.")
+					say("Poziom przedmiotu zosta³ obni¿ony.")
+					say("")
+				end
+			end
+		end
+		when 	20047.click or 20048.click or 20049.click or 20050.click or 20051.click or 20052.click or 20053.click or 20054.click or 20055.click or
+				20056.click or 20057.click or 20058.click or 20059.click or 30301.click or 30302.click or 30303.click or 30304.click or 30305.click begin
+			if pc.is_mount() != true then
+				pc.mining()
+			end
+		end
+	end
+end

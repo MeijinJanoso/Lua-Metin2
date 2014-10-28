@@ -1,0 +1,13 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest blacksmith begin
+	state start begin
+		when blacksmith.chat."Chcê coœ poprawiæ." begin
+			say(locale.blacksmith.refine_info)
+		end
+	end
+end
+

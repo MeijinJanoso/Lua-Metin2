@@ -1,0 +1,104 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest horse_menu begin
+    state start begin
+		function horse_menu()
+			if horse.is_mine() then
+				say_title("Podrêcznik Konia")
+				say("Co chcesz zrobiæ ze swoim Koniem?")
+				say("")
+				local s = 6
+				if horse.is_dead() then
+					s = select( "Przywo³aj", "Odeœlij", "Zamknij")
+					if s == 1 then s = 0
+					elseif s == 2 then s = 3
+					elseif s == 3 then return
+					end
+				else
+					s = select(
+					"Karmienie", "Dosi¹dŸ Konia", "Odeœlij", "Obserwuj stan", 
+					"Nadaj imiê ", "Nic (zamknij okno)")
+				end
+				if s == 0 then
+					horse.revive()
+				elseif s == 1 then
+					local food = horse.get_grade() + 50054 - 1
+					if pc.countitem(food) > 0 then
+						pc.removeitem(food, 1)
+						horse.feed()
+					else
+						say("Aby wykonaæ t¹ czynnoœæ, potrzebujesz tych")
+						say("przedmiotów: "..item_name(food).."")
+						say("")
+					end
+				elseif s == 2 then
+					horse.ride()
+				elseif s == 3 then
+					horse.unsummon()
+				elseif s == 4 then
+					say_title("Stan Konia:")
+					say("Aktualna si³a Konia: "..horse.get_health_pct().."%")
+					say("Aktualna wytrzyma³oœæ Konia: "..horse.get_stamina_pct().."%")
+					say("")
+				elseif s == 5 then
+					if pc.countitem("71110") <= 0 then
+						say("Aby wykonaæ t¹ czynnoœæ, potrzebujesz tych")
+						say("przedmiotów: "..item_name("71110").."")
+						say("")
+						return
+					end
+					local old_horse_name = horse.get_name() ;
+					say_title("Nazwa konna")
+					say("Tutaj mo¿esz podaæ swoj¹ nazwe konia!")
+					say("")
+					if string.len(old_horse_name) == 0 then
+						say_reward("Kon nie ma jeszcze nazwy.")
+					else
+						say_reward("Obecna nazwa konia: "..old_horse_name..".")
+					end
+					say("")
+					say("Wybiesz now¹ nazwe konia:")
+					say("")
+					local horse_name = input()
+					if string.len(horse_name) < 2 then
+						say_title("Nazwa konia")
+						say("Nazwa jest zbyt krótka.")
+						say("")
+						return
+					elseif string.len(horse_name) > 12 then
+						say_title("Nazwa konia")
+						say("Nazwa jest zbyt d³uga.")
+						say("")
+						return
+					end
+					local ret = horse.set_name(horse_name)
+					say_title("Nazwa konia")
+					if ret == 0 then
+						say_reward("Nie masz momentalnie konia!")
+						say("")
+					elseif ret == 1 then
+						say_reward("Nie mo¿esz u¿ywaæ tej nazwy!")
+						say("")
+					elseif ret == 2 then
+						pc.remove_item("71110")
+						say("Da³eœ swojemu koniowi nowe imiê! ")
+						say("")
+					end
+				end
+			end
+		end
+		when 20030.click begin horse_menu.horse_menu() end
+		when 20101.click begin horse_menu.horse_menu() end
+		when 20102.click begin horse_menu.horse_menu() end
+		when 20103.click begin horse_menu.horse_menu() end
+		when 20104.click begin horse_menu.horse_menu() end
+		when 20105.click begin horse_menu.horse_menu() end
+		when 20106.click begin horse_menu.horse_menu() end
+		when 20107.click begin horse_menu.horse_menu() end
+		when 20108.click begin horse_menu.horse_menu() end
+		when 20109.click begin horse_menu.horse_menu() end
+    end
+end

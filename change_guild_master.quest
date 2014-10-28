@@ -1,0 +1,64 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest change_guild_master begin
+	state start begin
+		function change_master( name , level_limit , time_resign_limit , time_be_other_leader , time_be_other_member , iscacheitem )
+			local ret = guild.change_master_with_limit( name , level_limit , time_resign_limit , time_be_other_leader , time_be_other_member, iscacheitem)
+			local result = false
+			if ret == 0 then
+				say("Wprowadzono nieprawid³owa nazwê.")
+			elseif ret == 1 then
+				say("Tylko liderzy gildii mog¹ korzystaæ z tej pozycji.")
+			elseif ret == 2 then
+				say("Nie mo¿esz znaleŸæ cz³onków gildii.")
+			elseif ret == 3 then
+				say("Pomyœlnie zmieniono lidera gildii.")
+				result = true
+			elseif ret == 4 then
+				say("Nie jesteœ w gildii.")
+			elseif ret == 5 then
+				say("Gracz nie jest online.")
+			elseif ret == 6 then
+				say("Poziom gracza jest zbyt niski.")
+			elseif ret == 7 then
+				say("Gracz jest za krótko, aby byæ liderem.")
+			end
+			return result
+		end
+		when 71099.use begin
+			say_title("Pierscien Sekcji")
+			if pc.is_guild_master() == false then
+				say("Tylko liderzy moga korzystac z pierscienia.")
+				say("")
+				return
+			end
+			say_reward("WprowadŸ nazwê swojego lidera!")
+			say("")
+			local s = input()
+			say_title("Pierscieñ Sekcji")
+			if s == pc.name then
+				say("Nie mo¿na wpisaæ nazwy.")
+				say("")
+				return
+			elseif s == "" then
+				say("Wpisz nazwê!")
+				say("")
+				return
+			end
+			if not pc.is_near_vid( find_pc_by_name( s ) , 10 ) then
+				say("Gracz musi byæ z Tob¹!")
+				say("")
+				return
+			end
+			if change_guild_master.change_master( s , 40 , 0 , 0 , 0 ,true) == true then
+				pc.remove_item(71099)
+			elseif ret == 5 then
+			elseif ret == 6 then
+				say("Poziom gracza jest zbyt niski!")
+			end
+		end
+	end
+end

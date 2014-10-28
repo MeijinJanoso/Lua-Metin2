@@ -1,0 +1,221 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest main_quest_lv6 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 6 begin
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "IdŸ do Stra¿nika Miejskiego")
+			end
+		end
+		when letter begin
+			send_letter("IdŸ do Stra¿nika Miejskiego")
+		end
+		when button or info begin
+			say_title("IdŸ do Stra¿nika Miejskiego")
+			say("")
+			say("Kowal ma dla Ciebie jakieœ zadanie.")
+			say("Pomó¿ mu, a otrzymasz nagrodê - Yang,")
+			say("Doœwiadczenie i Futro Wilka+.")
+			say_item_vnum(30070)
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Ej Ty! Nie obijaj siê, nie w³ucz siê bezczynnie i")
+			say("nie mów, ¿e nie masz nic do zrobienia!")
+			say("Potrzebujesz lepszego treningu! W tych czasach")
+			say("dobry trening to podstawa prze¿ycia!")
+			say("")
+			wait()
+			say_title("Stra¿nik Miejski:")
+			say("")
+			say("Udaj siê do Kowala, mówi³ Mi, ¿e potrzbuje twojej")
+			say("pomocy! Poœpiesz siê! Kowal jest bardzo")
+			say("niecierpliw¹ osob¹... Czemu ci¹gle tu stoisz?!")
+			say("IdŸ wreszcie do tego Kowala!")
+			say("")
+			wait()
+			say_title("Informacja:")
+			say("")
+			say_reward("Nagroda za pomoc Kowalowi:")
+			say_reward(string.format("Punkty Doœwiadczenia: %d", 1300))
+			say_reward(string.format("Yang: %d ", 2000))
+			say_reward(string.format("Przedmiot: %s", item_name(30070)))
+			say_item_vnum(30070)
+			say("")
+			set_state( gotosmith )
+		end
+	end
+	state gotosmith begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Kowala")
+			end
+		end
+		when letter begin
+			send_letter("OdnajdŸ Kowala")
+		end
+		when button or info begin
+			say_title("OdnajdŸ Kowala")
+			say("")
+			say("Stra¿nik Miejski, prosi³ Ciê abyœ uda³ siê do")
+			say("Kowala i wykona³ jego zadanie. On naprawdê ")
+			say("bardzo potrzebuje Twojej pomocy!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kowal:")
+			say("")
+			say("Wreszcie przyszed³ do mnie prawidziwy poszukiwacz")
+			say("przygód... Ju¿ zacz¹³em siê obawiaæ, ¿e nikt")
+			say("nie nadejdzie... Widzê, ¿e jesteœ doœæ dobrze")
+			say("zbudowany, ale to zadanie nie bêdzie tego")
+			say("wymagaæ, jest te¿ doœæ krótki wiêc uporasz siê ")
+			say("z tym doœæ szybko!")
+			say("")
+			wait()
+			say_title("Kowal:")
+			say("")
+			say("Dozorca mia³ dostarczyæ do mnie Nos Œwini, ale")
+			say("chyba znowu zapomnia³... Ach, stary sklerotyk...")
+			say("IdŸ do Niego, i powiedz, aby da³ tobie ten")
+			say("przedmiot. Dostarcz Mi go jak najszybciej bo")
+			say("bez tego nie mogê kontynowaæ dalej swojej pracy!")
+			say_item_vnum(30003)
+			say("")
+			set_state( gotowarehousekeeper )
+		end
+	end
+	state gotowarehousekeeper begin
+		when letter begin
+			local v=find_npc_by_vnum(9005)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Dozorcê ")
+			end
+		end
+		when letter begin
+			send_letter("OdnajdŸ Dozorcê ")
+		end
+		when button or info begin
+			say_title("OdnajdŸ Dozorcê.")
+			say("")
+			say("Udaj sie do Dozorcy, odbierz od Niego Nos Œwini")
+			say("a nastêpnie przeka¿ go Kowalowi.")
+			say_item_vnum(30003)
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Dozorca:")
+			say("")
+			say("Witam. Jestem Dozorci¹ i jednoczeœnie opiekunem")
+			say("magazynu w tej wiosce. Je¿eli nosisz ze sob¹ ")
+			say("zbyt wiele niepotrzebnych rzeczy, mogê tobie")
+			say("parê przechowaæ w magazynie. Jest to bardzo")
+			say("praktyczne i przydatne!")
+			say("")
+			wait()
+			say_title("Dozorca:")
+			say("")
+			say("Ach! Kowal przys³a³ Ciê po Nos Œwini!")
+			say_item_vnum(30003)
+			say("Przepraszam. Starzeje siê i ju¿ nieco zapominam.")
+			say("Proszê. Dostarcz przedmiot do Kowala i przeproœ ")
+			say("go w moim imieniu. Mam nadziejê, ¿e w przysz³oœci")
+			say("spotkamy siê jeszcze!")
+			say("")
+			set_state( gotosmith2 )
+		end
+	end
+	state gotosmith2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "OdnajdŸ Kowala.")
+			end
+		end
+		when letter begin
+			send_letter("Wróæ do Kowala")
+		end
+		when button or info begin
+			say_title("Wróæ do Kowala.")
+			say("")
+			say_reward("Dostarcz Nos Œwini do Kowala.")
+			say_item_vnum(30003)
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Kowal:")
+			say("")
+			say("Dobrze, bardzo dobrze siê spisa³eœ! Jesteœ szybszy")
+			say("ni¿ mi siê zdawa³o! Je¿eli nie jesteœ zbyt dobry")
+			say("w walce, powinieneœ dopilnowaæ swojego treningu!")
+			say("W najbli¿szym czasie, pewnie znowu bêdê ")
+			say("potrzebowa³ Twojej pomocy..")
+			say("")
+			wait()
+			say_title("Kowal:")
+			say("")
+			say("Czy wiesz cokolwiek na temat ulepszeñ przedmiotów?")
+			say("No oczywiœcie, ¿e nie! Jesteœ przecie¿ œwie¿o")
+			say("upieczonym poszukiwaczem przygód! Je¿li dasz Mi")
+			say("swój przedmiot, postaram siê go ulepszyæ!")
+			say("Wystarczy, ¿e bêdziesz mieæ trochê Yang.")
+			say("")
+			wait()
+			say_title("Kowal:")
+			say("")
+			say("Aby ulepszyæ przedmiot do +3, wystarczy zap³aciæ ")
+			say("trochê yang, ale je¿eli chcesz wzmocniæ go do +4")
+			say("i wy¿ej, bêdziesz potrzebowaæ dodatkowego")
+			say("przedmiotu. Przedmiot to tak zwany ulepszacz.")
+			say("Mo¿e byæ nim na przyk³ad Nos Œwini, który Mi")
+			say("dostarczy³eœ.")
+			wait()
+			say_title("Kowal:")
+			say("Musisz równie¿ wiedzieæ, ¿e ulepszanie przedmiotu")
+			say("mo¿e siê nie powieœæ! Mam bardzo dobre narzêdzia,")
+			say("posiadam te¿ du¿e umiejêtnoœci... Ale mimo tego")
+			say("zdarzaj¹ siê wypadki... Je¿eli bêdziesz mieæ ")
+			say("trochê wolnego czasu, to wróæ a Ja postaram")
+			say("siê ulepszyæ Tobie twoje przedmioty!")
+			say("")
+			wait()
+			say_title("Nagroda")
+			say("")
+			say_reward(string.format("Punkty Doœwiadczenia: %d", 1300))
+			say_reward(string.format("Yang: %d", 2000))
+			say_reward(string.format("Przedmiot: %s", item_name(30070)))
+			say_item_vnum(30070)
+			say("")
+			pc.give_exp2(5000)
+			pc.change_money(1500)
+			pc.give_item2(30070 , 1)
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv7", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

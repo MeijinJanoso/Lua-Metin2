@@ -1,0 +1,38 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+------------------------------------------
+-- Quest napisany przez Sunushi --
+-------- dla MPCForum.pl ------------
+------------------------------------------
+quest teleport_ring begin
+	state start begin
+		when 70058.use begin
+			local empire = pc.get_empire()
+			local index = pc.get_map_index()
+			if item.get_socket(0) == 0 and item.get_socket(1) == 0 then
+				if 	(empire == 1 and (index == 1 or index == 3)) or
+					(empire == 2 and (index == 21 or index == 23)) or
+					(empire == 3 and (index == 41 or index == 43)) then
+					item.set_socket(0, pc.get_x()*100)
+					item.set_socket(1, pc.get_y()*100)
+				else
+					chat("Niestety nie mo¿esz utworzyæ teleportu na t¹ mapê.")
+				end
+			else
+				if pc.can_warp() then
+					socket = item.get_socket(2)+1
+					item.set_socket(2, socket)
+					pc.warp(item.get_socket(0), item.get_socket(1))
+					if socket == 50 then
+						item.remove()
+					end
+				else
+					chat("W tym momencie nie mo¿esz siê przenieœæ.")
+				end
+			end
+		end
+	end
+end

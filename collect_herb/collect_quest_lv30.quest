@@ -1,0 +1,254 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest collect_quest_lv30 begin
+	state start begin
+		when login or levelup with pc.level >= 30 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+			target.vid("__TARGET__", v, "Analiza Biologa")
+			end
+			send_letter("Analiza Biologa")
+		end
+		when button or info begin
+			say_title("Analiza Biologa")
+			say("")
+			say("Biolog Chaegirab, uczeñ Uriela,")
+			say("w³aœnie Cie szuka³. Proszê idŸ ")
+			say("do niego i zaoferuj mu swoj¹ pomoc.")
+			say("")
+		end
+		when __TARGET__.target.click or 20084.chat."ZnajdŸ Biologa" begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("Niebiosa, proszê pomó¿ mi... ")
+			say("Badam wszystkie rodzaje roœlin w tym ")
+			say("imperium. Jest bardzo du¿o rzeczy, ")
+			say("które musz¹ zostaæ zbadane. Nie mam ")
+			say("czasu abym móg³ sam wybraæ siê na wyprawe. ")
+			say("Proszê,pomó¿ mi. ")
+			wait()
+			say("Biolog Chaegirab:")
+			say("Aktualnie badam Zêby Orka.")
+			say("Muszê przeprowadziæ kilka eksperymentów,")
+			say("dlatego potrzebujê kilku egzemplarzy.")
+			say("Czy móg³byœ przynieœæ mi dziesiêæ Zêbów Orka?")
+			say("Proszê, pomó¿ mi! Zawsze przynoœ mi po jednym,")
+			say("abym mia³ czas na ich dok³adne przebadanie!")
+			say("")
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Zadanie Specjalne")
+		end
+		when button or info begin
+			say_title("ZnajdŸ Zêby Orka")
+			say("")
+			say("Biolog Chaegirab, uczeñ Uriela,")
+			say("szuka Zêbów Orka.")
+			say("Zawsze przynoœ mu po jednym, aby mia³ czas")
+			say("na ich dok³adne przebadanie.")
+			say("Zêbów szukaj u Czarnych Orków.")
+			say("")
+			say_item_vnum(30006)
+			say_reward("Do tej pory dostarczy³eœ: "..pc.getqf("collect_count").." Zêbów Orka.")
+			say("")
+		end
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") and pc.getqf("drink_drug") < 1 then
+			say_reward("Eliskir Poszukiwacza:")
+			say("Ten magiczny przedmiot zmniejsza czas")
+			say("oddania nastêpnego przedmiotu u biologa,")
+			say("po jego u¿yciu mo¿esz natychmiast")
+			say("oddaæ przedmiot!")
+			say("Ponadto dajê wiêksz¹ szansê na przyjêcie przedmiotu!")
+			say_reward("Czy chcesz u¿yæ Eliksiru?")
+			say_reward("Zostanie on usuniêty po u¿yciu.")
+			local wy = select("U¿yj.", "Nie u¿ywaj.")
+			if wy == 2 then
+				return
+			elseif wy == 1 then
+				pc.setqf("duration", 0)
+				pc.setqf("drink_drug",1)
+				say("Mo¿esz ju¿ oddaæ przedmiot biologowi!")
+				say_reward("Eliksir Poszukiwacza zostajê usuniêty!")
+				pc.remove_item(71035, 1)
+			end
+			else
+			say_reward("Eliksir Poszukiwacza:")
+			say("Nie mo¿esz u¿yæ przedmiotu, poniewa¿ ")
+			say("biolog ju¿ mo¿e przyj¹æ przedmiot.")
+			return
+			end
+		end
+		when 20084.chat."Zêby Orka" with pc.count_item(30006) >0 begin
+			local roznica = pc.getqf("duration") - get_time()
+			local minuty = roznica/60
+			local minuty2 = math.floor(minuty)
+			if get_time() > pc.getqf("duration") then
+				say("Biolog Chaegirab:")
+				say("Oh!! Znalaz³eœ!")
+				say("Pozwól,ze rzuce okiem...")
+				say("Jeszcze chwilke.")
+				say("")
+				pc.remove_item("30006", 1)
+				pc.setqf("duration",get_time()+60*60*1)
+				wait()
+				local pass_percent
+				if pc.getqf("drink_drug")==0 then
+					pass_percent=60
+				else
+					pass_percent=90
+				end
+				local s= number(1,100)
+				if s<= pass_percent then
+					if pc.getqf("collect_count")< 9 then
+						local index =pc.getqf("collect_count")+1
+						pc.setqf("collect_count",index)
+						say("Biolog Chaegirab:")
+						say_green("Oh!! Ten Z¹b Orka jest doskona³ej jakoœci!")
+						say("Przynieœ mi jeszcze ".." "..10-pc.getqf("collect_count").. " Zêbów Orka.")
+						say("Proszê, spróbuj je znaleŸæ!")
+						say("")
+						pc.setqf("drink_drug",0)
+						return
+					end
+					say("Biolog Chaegirab:")
+					say("Oh,zebra³eœ ju¿ wszystkie!")
+					say("Dobra robota...")
+					say("Ale poczekaj!")
+					say("Aby zakonczyc swoj¹ pracê, potrzebuje")
+					say("abyœ przynius³ dla mnie jeszcze jeden przedmiot.")
+					say("Zrób to dla mnie...")
+					say("")
+					say_item("Kamieñ Duszy Jinunggyi", 30220, "")
+					say_reward("Zabijaj Elit. Ork Genera³ ")
+					say_reward("Czarny Ork")
+					say_reward("Czarny Ork Zwiadowca")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)
+					pc.setqf("duration",0)
+					set_state(key_item)
+					return
+				else
+					say("Biolog Chaegirab:")
+					say_red("Ten Z¹b Orka jest z³ej jakoœci!")
+					say("Spróbuj przynieœæ mi inny!")
+					say("Proszê, pomó¿ mi!")
+					pc.setqf("drink_drug",0)
+					return
+				end
+			else
+				say("Biolog Chaegirab:")
+				say("Jeszcze nie skoñczy³em badaæ ostatniego Zêba Orka !")
+				say("PrzyjdŸ do mnie za : "..minuty2.." minut!")
+				say("")
+				return
+			end
+		end
+	end
+	state key_item begin
+		when letter begin
+			send_letter("Zadanie Specjalne!")
+			if pc.count_item(30220)>0 then
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Analiza Biologa")
+			end
+			end
+		end
+		when button or info begin
+			if pc.count_item(30220) >0 then
+				say_title("Znalaz³eœ Kamieñ Duszy!")
+				say("")
+				say("Wróæ do Biologa, aby")
+				say("odnieœæ mu kamieñ!")
+				say("")
+				return
+			end
+			say_title("Kamieñ Duszy")
+			say("")
+			say("Zebra³eœ ju¿ wszystkie dziesiêæ Zêbów Orka!")
+			say("Teraz, Biolog potrzebuje ostatni")
+			say("przedmiot, aby zakonczyc swoje badania!")
+			say_item_vnum(30220)
+			say("Mo¿esz go znalezæ zabijaj¹æ potwory")
+			say("w Dolinie Seungryong!")
+			say("")
+		end
+		when 635.kill or 636.kill or 637.kill begin
+			local s = number(1, 50)
+			if s == 1 and pc.count_item(30220)==0 then
+				pc.give_item2(30220, 1)
+				send_letter("Wróæ do Biologa!")
+			end
+		end
+		when __TARGET__.target.click or
+			20084.chat."Znalaz³em Kamieñ Duszy" with pc.count_item(30220) > 0 begin
+			target.delete("__TARGET__")
+			say("Biolog Chaegirab:")
+			say("Oh, Znalaz³eœ!")
+			say("Bardzo Tobie dziêkuje!")
+			say("W zamian otrzymasz nagrode!")
+			say("Idz do mojego mistrza Uriela")
+			say("On za pomoc mi podaruje Ci cenna nagrode.")
+			say("")
+			say_reward("Mo¿esz teraz iœæ do Baek-Go po nagrodê!")
+			say("")
+			pc.remove_item(30220,1)
+			set_state(__reward)
+		end
+	end
+	state __reward begin
+		when letter begin
+			send_letter("Analiza Biologa - Nagroda")
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+			target.vid("__TARGET__", v, "Baek-Go")
+			end
+		end
+		when button or info begin
+			say_title("Odbierz nagrodê!")
+			say("Biolog Chaegirab wysy³a Ciê ")
+			say("po nagrodê do Baek-Go!")
+			say("")
+		end
+		when __TARGET__.target.click or 20018.chat."Nagroda" begin
+			target.delete("__TARGET__")
+			say("Baek-Go:")
+			say("Hmm, a wiêc Biolog")
+			say("wys³a³ Cie po nagrodê?")
+			say("Zobaczmy, co tam mam...")
+			say("")
+			say_reward("Czerw. Ebonit. Szkatu³a")
+			say_reward("+10 szybkoœci poruszania siê na sta³e")
+			affect.add_collect(apply.MOV_SPEED, 10, 60*60*24*365*60)
+			pc.give_item2(50109)
+			clear_letter()
+			set_quest_state("collect_quest_lv40", "run")
+			set_state(__complete)
+		end
+	end
+	state __giveup__ begin
+		when 20084.chat."Poddajesz sie?" begin
+			say("Biolog Chaegirab:")
+			say("Czy jestes pewien, ¿e chcesz sie poddaæ!?")
+			say("Nie bedziesz mia³ szansy, aby zacz¹æ ponownie!")
+			say("Ta misja Cie opuœci...")
+		end
+	end
+	state __complete begin
+	end
+end

@@ -1,0 +1,26 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest grotte begin
+	state start begin
+		when 20092.chat."Grota Wygnañców" begin
+			if pc.count_item(30190) > 0 then
+				say_title("Grota Wygnañców")
+				say("Grota Wygnañców jest bardzo niebezpiecznym miejscem.")
+				say("Czai siê tam wiele niebezpieczeñstw.")
+				say("Czy faktycznie chcesz tam wejœæ?")
+				local s = select("Tak!","Nie, boje siê!")
+				if s == 1 then
+					pc.remove_item(30190,1)
+					pc.warp(10050,1669260)
+				else
+					return
+				end
+			else 
+				say("Aby dostaæ sie do groty, nale¿y posiadaæ krwisty kamieñ.")
+			end
+		end
+    end
+end

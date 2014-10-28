@@ -1,0 +1,137 @@
+
+-- # --------------------------------------------- #
+-- #  Questfile from Metin2SF by Ethoard  #
+-- # --------------------------------------------- #
+
+quest oxevent_manager begin
+	state start begin
+		when 20011.chat."Konkurs OX" begin
+			if game.get_event_flag("oxevent_status") == 0 then
+				say_title("Uriel:")
+				say("Hey - ty! Tak, ty - wygl¹dasz na inteligentn¹ ")
+				say("osobê... Jest konkurs, który nazywa siê Konkurs. ")
+				say("OX. Mo¿esz wykazaæ siê w nim swoj¹ wiedz¹. ")
+				say("Jeœli wygrasz, otrzymasz niez³¹ nagrodê. ")
+				say("")
+				wait()
+				say_title("Uriel:")
+				say("Kiedy Konkurs siê zacznie, mogê Ciê wpuœciæ jako ")
+				say("uczestnika. Je¿eli chcesz, mo¿esz wejœæ tylko ")
+				say("popatrzeæ. ")
+				say("Czas rozpoczêcia nie jest jeszcze okreœlony.")
+				say("Kiedy ustalê termin, dam Ci znaæ! B¹dŸ gotowy! ")
+				say("")
+			elseif game.get_event_flag("oxevent_status") == 1 then
+				say_title("Uriel:")
+				say("Hey - ty! Tak, ty - wygl¹dasz na inteligentn¹ ")
+				say("osobê... Jest konkurs, który nazywa siê Konkurs")
+				say("OX. Mo¿esz wykazaæ siê w nim swoj¹ wiedz¹. ")
+				say("Je¿eli wygrasz, otrzymasz niez³¹ nagrodê. ")
+				say("")
+				wait()
+				say_title("Uriel:")
+				say("Czy chcesz wzi¹æ udzia³ w Konkursie?")
+				say("Jeœli chcesz, mo¿esz tylko poogl¹daæ. ")
+				local s = select("WeŸ udzia³ ", "Ogl¹daj", "Anuluj")
+				if s == 1 then
+					pc.warp(896500, 24600)
+				elseif s == 2 then
+					pc.warp(896300, 28900)
+				end
+			elseif game.get_event_flag("oxevent_status") == 2 then
+				say_title("Uriel:")
+				say("Hey - ty! Tak, ty - wygl¹dasz na inteligentn¹ ")
+				say("osobê... Jest konkurs, który nazywa siê Konkurs")
+				say("OX. Mo¿esz wykazaæ siê w nim swoj¹ wiedz¹. ")
+				say("Je¿eli wygrasz, otrzymasz niez³¹ nagrodê. ")
+				say("")
+				wait()
+				say_title("Uriel:")
+				say("Niestety, Konkurs ju¿ siê rozpocz¹³. ")
+				say("Tym razem nie bêdziesz móg³ wzi¹æ udzia³u. ")
+				say("Nastêpnym razem na pewno bêdziesz o nim")
+				say("wiedzia³. ")
+				say("Jeœli chcesz, wci¹¿ mo¿esz poogl¹daæ. ")
+				say("")
+				local s = select("OK", "Anuluj")
+				if s == 1 then
+					pc.warp(896300, 28900)
+				end
+			end
+		end
+		when 20358.chat."Konkurs OX" with pc.is_gm() begin
+			local stat = oxevent.get_status()
+			if stat == 0 then
+				say("Czy chcesz rozpocz¹æ konkurs OX?")
+				say("")
+				local s = select("Rozpocznij OX", "Anuluj")
+				if s == 1 then
+					local v = oxevent.open()
+					if v == 0 then
+					say("Event OX nie dzia³a...")
+					say("")
+					elseif v == 1 then
+						say("Konkurs OX rozpoczêty!")
+						notice_all("Konkurs OX rozpocz¹³ siê! ")
+						notice_all("Aby wzi¹æ udzia³, udaj siê do Uriela. ")
+					else
+						say("Wyst¹pi³ b³¹d... ")
+						say("")
+					end
+				end
+			elseif stat == 1 then
+				say("Iloœæ uczestników: "..oxevent.get_attender().."")
+				say("Zamkn¹æ dostêp do konkursu? ")
+				say("")
+				local s = select("Tak", "Nie")
+				if s == 1 then
+					oxevent.close()
+					say("Dostêp zamkniêty. ")
+					say("Mo¿esz rozpocz¹æ losowanie pytañ.")
+					say("")
+				end
+			elseif stat == 2 then
+				say("OX Event")
+				say("")
+				local s = select("Losuj Pytanie", "Zakoñcz Konkurs", "Anuluj")
+				if s == 1 then
+					local v = oxevent.quiz(1, 30)
+					if v == 0 then
+						say("Wyst¹pi³ b³¹d...")
+						say("")
+					elseif v == 1 then
+						say("Pytanie w drodze...")
+						say("")
+					else
+						say("Pytanie zosta³o ju¿ zadane.")
+						say("Proszê czekaæ. ")
+						say("")
+					end
+				elseif s == 2 then
+					oxevent.end_event()
+					notice_all("Konkurs OX zosta³ zakoñczony!")
+					notice_all("Uczestnicy zostan¹ przeniesieni do miast.")
+					say("Konkurs OX zosta³ zakoñczony!")
+					say("")
+				end
+			elseif stat == 3 then
+				say("Proszê czekaæ... ")
+				say("")
+			else
+				say("Wyst¹pi³ b³¹d")
+				say("")
+			end
+		end
+		when 20358.chat."Konkurs OX - Nagrody" with pc.is_gm() begin
+			say("Podaj ID przedmiotu")
+			say("")
+			local item_vnum = input()
+			say("Podaj iloœæ przedmiotów")
+			say("")
+			local item_count = input()
+			oxevent.give_item(item_vnum, item_count)
+			say(""..oxevent.get_attender().." graczy otrzyma³o nagrody.")
+			say("")
+		end
+	end
+end
